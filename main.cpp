@@ -88,15 +88,15 @@ void tablerocreado (int numeros[maxf][maxf], int nfilas, int ncol)
     cin>>abis;
        cout<<"En que posicion va a poner el alien? recuerde que la posicion ustde no la sabe lo unico que va a poner es el numero 2"<<endl;
     cin>>alien;
-    for(int i=0; i<nfilas; i++)
+    for(int i=0+rand()%nfilas; i<nfilas; i++)
     {
-        for (int j=1; j<ncol; j++)
+        for (int j=0+rand()%ncol; j<ncol; j++)
         {
 
                 numeros [0][0]=0;
 
 
-                numeros [i][0+rand()%(abis)]=1;
+                numeros [i][j]=alien;
 
 
             if  (numeros [i][j] == 0)
@@ -126,6 +126,40 @@ void tablerocreado (int numeros[maxf][maxf], int nfilas, int ncol)
         }
         cout<<endl;
     }
+}
+void tableroaleatorio (int numeros[maxf][maxf], int nfilas, int ncol)
+{
+     for(int i=0; i<nfilas; i++)
+    {
+        for (int j=1; j<ncol; j++)
+        {
+
+                numeros [0][0]=0;
+
+
+                numeros [i][0+rand()%(ncol)]=1;
+
+
+            if  (numeros [i][j] == 0)
+            {
+                if( numeros [i][j+1] == 0)
+                {
+                    if(numeros[i][j-1] == 0)
+                    {
+                        if (numeros [i+1][j] == 0)
+                        {
+                            if(numeros [i-1][j] == 0)
+                            {
+                                numeros[i][j]=3;
+
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
 }
 void jugador ( char player [maxf][maxc],int numeros[maxf][maxc], int nfilas, int ncol)
 {
