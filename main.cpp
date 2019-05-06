@@ -70,11 +70,13 @@ int main ()
                 jugador (player,numeros,nfilas,ncol);
 
             }
+break;
             case 2:
                 cout<<"Las instrucciones del juego son las siguientes:"<<endl;
                 cout<<" El jugador debe encontrar la galleta por un mapa que el jugador puede crear o elejir la creacion alatoria"<<endl;
                 cout<<" Los abismos, el alien y la galleta tienen su olor y sonido respectivo."<<endl;
                 cout<<"El abismo persibe una brisa la cual le va a indicar a el jugador que esta cerca a un abismo"<<endl;
+break;
         }
 
     }
