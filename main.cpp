@@ -11,6 +11,8 @@ using namespace std;
 void tablero (int numeros[maxf][maxf], int nfilas, int ncol);
 void jugador ( char player [maxf][maxc],int numeros[maxf][maxc], int nfilas, int ncol);
 void vistamundo ( char player [maxf][maxc], int numeros [maxf][maxc], int nfilas, int ncol);
+void sensacion (  char player [maxf][maxc], int numeros [maxf][maxc], int nfilas, int ncol);
+void disparar (  char player [maxf][maxc], int numeros [maxf][maxc], int nfilas, int ncol); 
 
 int main ()
 {
@@ -127,3 +129,4 @@ void jugador ( char player [maxf][maxc],int numeros[maxf][maxc], int nfilas, int
 {
     cout<<"funciona jugador";
 }
+void (  char player [maxf][maxc], int numeros [maxf][maxc], int nfilas, int ncol);
