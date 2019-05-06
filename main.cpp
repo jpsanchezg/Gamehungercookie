@@ -12,7 +12,7 @@ void tablero (int numeros[maxf][maxf], int nfilas, int ncol);
 void jugador ( char player [maxf][maxc],int numeros[maxf][maxc], int nfilas, int ncol);
 void vistamundo ( char player [maxf][maxc], int numeros [maxf][maxc], int nfilas, int ncol);
 void sensacion (  char player [maxf][maxc], int numeros [maxf][maxc], int nfilas, int ncol);
-void disparar (  char player [maxf][maxc], int numeros [maxf][maxc], int nfilas, int ncol); 
+void disparar (  char player [maxf][maxc], int numeros [maxf][maxc], int nfilas, int ncol);
 
 int main ()
 {
@@ -69,7 +69,7 @@ int main ()
                 jugador (player,numeros,nfilas,ncol);
 
             }
-            case 2: 
+            case 2:
                 cout<<"Las instrucciones del juego son las siguientes:"<<endl;
                 cout<<" El jugador debe encontrar la galleta por un mapa que el jugador puede crear o elejir la creacion alatoria"<<endl;
                 cout<<" Los abismos, el alien y la galleta tienen su olor y sonido respectivo."<<endl;
@@ -129,4 +129,10 @@ void jugador ( char player [maxf][maxc],int numeros[maxf][maxc], int nfilas, int
 {
     cout<<"funciona jugador";
 }
-void (  char player [maxf][maxc], int numeros [maxf][maxc], int nfilas, int ncol);
+void (  char player [maxf][maxc], int numeros [maxf][maxc], int nfilas, int ncol)
+{
+cout<<"hoola"<endl;
+
+
+
+}
