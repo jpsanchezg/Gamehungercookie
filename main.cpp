@@ -8,7 +8,8 @@ using namespace std;
 
 #define maxc 30
 #define maxf 30
-void tablero (int numeros[maxf][maxf], int nfilas, int ncol);
+void tablerocreado (int numeros[maxf][maxf], int nfilas, int ncol);
+void tableroaleatorio (int numeros[maxf][maxf], int nfilas, int ncol);
 void jugador ( char player [maxf][maxc],int numeros[maxf][maxc], int nfilas, int ncol);
 void vistamundo ( char player [maxf][maxc], int numeros [maxf][maxc], int nfilas, int ncol);
 void sensacion (  char player [maxf][maxc], int numeros [maxf][maxc], int nfilas, int ncol);
@@ -51,7 +52,7 @@ int main ()
                         numeros[i][j]=0;
                     }
                 }
-                tablero (numeros,nfilas,ncol);
+                tablerocreado (numeros,nfilas,ncol);
                 jugador (player,numeros,nfilas,ncol);
             }
             if (respu == 2)
@@ -65,7 +66,7 @@ int main ()
                         numeros[i][j]=0;
                     }
                 }
-                tablero (numeros,nfilas,ncol);
+                tableroaleatorio (numeros,nfilas,ncol);
                 jugador (player,numeros,nfilas,ncol);
 
             }
@@ -79,13 +80,14 @@ int main ()
     }
     while (opcion != 4);
 }
-void tablero (int numeros[maxf][maxf], int nfilas, int ncol)
+void tablerocreado (int numeros[maxf][maxf], int nfilas, int ncol)
 {
-    int abis=0,multi=0;
+    int abis=0,alien=0,multi=0;
     multi = nfilas* ncol;
     cout<<"cuantos abismos desea poner?"<<" reduerde que tiene "<<multi<<" posiciones en el mapa"<<endl;
     cin>>abis;
-
+       cout<<"En que posicion va a poner el alien? recuerde que la posicion ustde no la sabe lo unico que va a poner es el numero 2"<<endl;
+    cin>>alien;
     for(int i=0; i<nfilas; i++)
     {
         for (int j=1; j<ncol; j++)
@@ -131,7 +133,7 @@ void jugador ( char player [maxf][maxc],int numeros[maxf][maxc], int nfilas, int
 }
 void (  char player [maxf][maxc], int numeros [maxf][maxc], int nfilas, int ncol)
 {
-cout<<"hoola"<endl;
+
 
 
 
