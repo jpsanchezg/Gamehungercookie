@@ -169,11 +169,21 @@ for(int i =0;i<nfilas;i++)
 {
     for(int j=0;j<ncol;j++)
     {
-        
+        cin>>player[i][j]
         
         if (player [i][j]=='d')
         {
-            
+            player [i][j+1];
+        }
+        if(player[i][j]=='i'){
+            playr[i][j-1];
+        }
+        if (player[i][j]=='a'){
+            player[i-1][j];
+        }
+        if(player[i][j]=='b'){
+            player[i+1][j];
+        
         }
         
         
