@@ -165,7 +165,20 @@ void tableroaleatorio (int numeros[maxf][maxf], int nfilas, int ncol)
 }
 void jugador ( char player [maxf][maxc],int numeros[maxf][maxc], int nfilas, int ncol)
 {
-    cout<<"funciona jugador";
+for(int i =0;i<nfilas;i++)
+{
+    for(int j=0;j<ncol;j++)
+    {
+        
+        
+        if (player [i][j]=='d')
+        {
+            
+        }
+        
+        
+    }
+}
 }
 void (  char player [maxf][maxc], int numeros [maxf][maxc], int nfilas, int ncol)
 {
