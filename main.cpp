@@ -10,7 +10,7 @@ using namespace std;
 #define maxf 30
 void tablerocreado (char player [maxf][maxc],int numeros[maxf][maxf], int nfilas, int ncol);
 void tableroaleatorio (char player [maxf][maxc],int numeros[maxf][maxf], int nfilas, int ncol);
-void jugador ( char player [maxf][maxc],int numeros[maxf][maxc], int nfilas, int ncol);
+void jugador ( char player [maxf][maxc],int numeros[maxf][maxc], int nfilas, int ncol,int jugf,int jugc);
 void vistamundo ( char player [maxf][maxc], int numeros [maxf][maxc], int nfilas, int ncol);
 void sensacion (  char player [maxf][maxc], int numeros [maxf][maxc], int nfilas, int ncol);
 void disparar (  char player [maxf][maxc], int numeros [maxf][maxc], int nfilas, int ncol);
@@ -19,6 +19,7 @@ void imprimirjugador (char player [maxf][maxc],int numeros[maxf][maxc], int nfil
 int main ()
 {
     int numeros[maxf][maxf], nfilas =0, ncol=0, opcion=0, respu=0;
+    int jugf=0, jugc=0;
     srand(time(NULL));
     char player [maxf][maxc];
 
@@ -50,20 +51,18 @@ int main ()
                     for(int j = 0; j<ncol; j++)
                     {
                         numeros[i][j]= 0;
-
                     }
                 }
-                for(int i=0; i<nfilas; i++)
+                for(int i = 0; i<nfilas; i++)
                 {
-                    for (int j=0; j<ncol; j++)
+                    for(int j = 0; j<ncol; j++)
                     {
-                        cout<<setw(8)<<numeros [i][j];
+                        player[i][j]= '-';
                     }
-
                 }
 
                 tablerocreado (player, numeros,nfilas,ncol);
-                jugador (player,numeros,nfilas,ncol);
+                jugador (player,numeros,nfilas,ncol,jugf,jugc);
             }
             if (respu == 2)
             {
@@ -76,7 +75,15 @@ int main ()
                         numeros[i][j]=0;
                     }
                 }
+                for(int i = 0; i<nfilas; i++)
+                {
+                    for(int j = 0; j<ncol; j++)
+                    {
+                        player[i][j]= '-';
+                    }
+                }
                 tableroaleatorio (player,numeros,nfilas,ncol);
+                jugador (player,numeros,nfilas,ncol,jugf,jugc);
 
 
             }
@@ -97,6 +104,7 @@ void tablerocreado (char player [maxf][maxc],int numeros[maxf][maxf], int nfilas
     int abis=0,alienf=0,alienc=0,multi=0,ret=0,filas=0,col=0;
     int jugf=0, jugc=0;
     player[jugf][jugc]='L';
+    numeros[jugf][jugc]= 5;
     int galletf=0,galletc=0;
     bool poss=false;
     multi = nfilas* ncol;
@@ -137,12 +145,56 @@ void tablerocreado (char player [maxf][maxc],int numeros[maxf][maxf], int nfilas
         col = 0 + rand ()% (ncol);
         numeros[filas][col]=2;
     }
-    jugador (player,numeros,nfilas,ncol);
+    system("cls");
     vistamundo (player,numeros,nfilas,ncol);
+    jugador (player,numeros,nfilas,ncol,jugf,jugc);
+
 }
 void tableroaleatorio (char player [maxf][maxc],int numeros[maxf][maxf], int nfilas, int ncol)
 {
-    //  todavia no hay nbada jajajaj
+    int abis=0 + rand ()% (nfilas),alienf=0 + rand ()% (nfilas),alienc=0 + rand ()% (ncol);
+    int multi=0,ret=0,filas=0,col=0;
+    int jugf=0, jugc=0;
+    int perf=0,perc=0;
+    player[jugf][jugc]='L';
+    int galletf=0 + rand ()% (nfilas),galletc=0 + rand ()% (ncol);
+    bool poss=false;
+    multi = nfilas* ncol;
+    ret = multi/2;
+
+    numeros[galletf][galletc]=3;
+
+    while(poss== false)
+    {
+        if (alienf == galletf && alienc == galletc)
+        {
+            poss= false;
+        }
+
+        if (alienf != galletf && alienc != galletc)
+        {
+            poss= true;
+            numeros[alienf][alienc]=1;
+        }
+    }
+    perf= jugf +1;
+    perc = jugc +1;
+    for(int i=0; i<abis; i++)
+    {
+        filas = 0 + rand ()% (nfilas);
+        col = 0 + rand ()% (ncol);
+        if (filas != perf && col != perc)
+        {
+            if (filas != alienf && col != alienc)
+            {
+                numer
+                os[filas][col]=2;
+            }
+        }
+    }
+    system("cls");
+    vistamundo (player,numeros,nfilas,ncol);
+
 
 }
 void vistamundo (char player [maxf][maxc],int numeros[maxf][maxc], int nfilas, int ncol)
@@ -157,14 +209,13 @@ void vistamundo (char player [maxf][maxc],int numeros[maxf][maxc], int nfilas, i
     }
 
 }
-void jugador ( char player [maxf][maxc],int numeros[maxf][maxc], int nfilas, int ncol)
+void jugador ( char player [maxf][maxc],int numeros[maxf][maxc], int nfilas, int ncol, int jugf,int jugc)
 {
     char opcion;
     bool muerto = false;
     while(!muerto)
     {
 
-        vistamundo (player,numeros,nfilas,ncol);
         cout<<"Ingrese un movimiento o accion"<<endl;
         cout<<"ARRIBA = A"<<endl;
         cout<<"ABAJO = B"<<endl;
@@ -177,13 +228,43 @@ void jugador ( char player [maxf][maxc],int numeros[maxf][maxc], int nfilas, int
         {
         case 'a':
         case 'A':
-            break;
+            player[jugf][jugc]='-';
+            jugf= jugf-1;
+            if(jugf>nfilas)
+            {
+                jugf=jugf+1;
+                player[jugf][jugc]= 'L';
+                numeros[jugf][jugc]= 5;
+                cout<<" MOVIMIENTO INCORRECTO, VUELVA A INTERTARLO"<<endl;
+                system("pause");
+                system("cls");
+            }
+            else
+            {
+                switch(numeros[jugf][jugc])
+                {
+
+                case 0:
+                    jugf=jugf+1;
+                    player[jugf][jugc]='L';
+                    numeros[jugf][jugc] = 5;
+                    vistamundo (player,numeros,nfilas,ncol);
 
 
+                    break;
+
+                case 'b':
+                case 'B':
+
+
+                    break;
+
+
+                }
+            }
 
         }
     }
-
 }
 void sensacion (  char player [maxf][maxc], int numeros [maxf][maxc], int nfilas, int ncol)
 {
