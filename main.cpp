@@ -4,7 +4,7 @@
 #include "stdlib.h"
 #include <iomanip>
 
-using namesapec std;
+using namespace std;
 
 #define maxc 30
 #define maxf 30
@@ -14,13 +14,14 @@ void jugador ( char player [maxf][maxc],int numeros[maxf][maxc], int nfilas, int
 void vistamundo ( char player [maxf][maxc], int numeros [maxf][maxc], int nfilas, int ncol);
 void sensacion (  char player [maxf][maxc], int numeros [maxf][maxc], int nfilas, int ncol);
 void disparar (  char player [maxf][maxc], int numeros [maxf][maxc], int nfilas, int ncol);
+void imprimirjugador (char player [maxf][maxc],int numeros[maxf][maxc], int nfilas, int ncol);
 
 int main ()
 {
     int numeros[maxf][maxf], nfilas =0, ncol=0, opcion=0, respu=0;
     srand(time(NULL));
     char player [maxf][maxc];
-    string nombre;
+
     do
     {
         cout<<"Bienvenido a EN BUSCA DE LA GALLETA PERDIDA"<<endl;
@@ -33,8 +34,7 @@ int main ()
         switch (opcion)
         {
         case 1:
-            cout<<"Ingrese su nombre"<<endl;
-            cin>>nombre;
+
             cout<<"opciones de crar mapa"<<endl;
             cout<<"1. creacion propia del mapa"<<endl;
             cout<<"2. la maquina crea el mapa de juego"<<endl;
@@ -49,18 +49,19 @@ int main ()
                 {
                     for(int j = 0; j<ncol; j++)
                     {
-                        numeros[i][j]='0';
-                        
+                        numeros[i][j]= 0;
+
                     }
                 }
-                   for(int i=0; i<nfilas; i++)
-    {
-        for (int j=0; j<ncol; j++)
-        {
-            cout<<setw(8)<<numeros [i][j];
-        }
-        cout<<endl;
-    }
+                for(int i=0; i<nfilas; i++)
+                {
+                    for (int j=0; j<ncol; j++)
+                    {
+                        cout<<setw(8)<<numeros [i][j];
+                    }
+
+                }
+
                 tablerocreado (player, numeros,nfilas,ncol);
                 jugador (player,numeros,nfilas,ncol);
             }
@@ -75,17 +76,17 @@ int main ()
                         numeros[i][j]=0;
                     }
                 }
-                tableroaleatorio (numeros,nfilas,ncol);
-                jugador (player,numeros,nfilas,ncol);
+                tableroaleatorio (player,numeros,nfilas,ncol);
+
 
             }
-break;
-            case 2:
-                cout<<"Las instrucciones del juego son las siguientes:"<<endl;
-                cout<<" El jugador debe encontrar la galleta por un mapa que el jugador puede crear o elejir la creacion alatoria"<<endl;
-                cout<<" Los abismos, el alien y la galleta tienen su olor y sonido respectivo."<<endl;
-                cout<<"El abismo persibe una brisa la cual le va a indicar a el jugador que esta cerca a un abismo"<<endl;
-break;
+            break;
+        case 2:
+            cout<<"Las instrucciones del juego son las siguientes:"<<endl;
+            cout<<" El jugador debe encontrar la galleta por un mapa que el jugador puede crear o elejir la creacion alatoria"<<endl;
+            cout<<" Los abismos, el alien y la galleta tienen su olor y sonido respectivo."<<endl;
+            cout<<"El abismo persibe una brisa la cual le va a indicar a el jugador que esta cerca a un abismo"<<endl;
+            break;
         }
 
     }
@@ -93,8 +94,9 @@ break;
 }
 void tablerocreado (char player [maxf][maxc],int numeros[maxf][maxf], int nfilas, int ncol)
 {
-    int abis=0,alienf=0,alienc=0,multi=0,ret=0;
+    int abis=0,alienf=0,alienc=0,multi=0,ret=0,filas=0,col=0;
     int jugf=0, jugc=0;
+    player[jugf][jugc]='L';
     int galletf=0,galletc=0;
     bool poss=false;
     multi = nfilas* ncol;
@@ -104,55 +106,86 @@ void tablerocreado (char player [maxf][maxc],int numeros[maxf][maxf], int nfilas
     cin>>galletf;
     cout<<"en que columna vas a poner la galleta?"<<endl;
     cin>>galletc;
-    while(poss== false){
-       cout<<"en que fila quiere poner el alien "<<endl; 
-    cin>>alienf;
+    numeros[galletf][galletc]=3;
+
+    while(poss== false)
+    {
+        cout<<"en que fila quiere poner el alien "<<endl;
+        cin>>alienf;
         cout<<"en que columna va a ingresar el alien"<<endl;
-    cin>>alienc;
-    if (alienf == galletf && alienc == galletc){
-        cout<<"Valor ingresado incorrecto, es el mismo que el de la galleta"<<endl;
-        poss= false;}
-        
-    if (alienf != galletf && alienc != galletc){
-        poss= true;}
+        cin>>alienc;
+        if (alienf == galletf && alienc == galletc)
+        {
+            cout<<"Valor ingresado incorrecto, es el mismo que el de la galleta"<<endl;
+            poss= false;
+        }
+
+        if (alienf != galletf && alienc != galletc)
+        {
+            poss= true;
+            numeros[alienf][alienc]=1;
+        }
     }
-    
+
     cout<<"cuantos abismos va a poner recuerde que debe ser menos a "<<ret<<endl;
     cin>>abis;
-        player[jugf][jugc]='L';
-    numeros[galletf][galletc]=3;
-    numeros[alienf][alienc]=1;
-    for(int i=0;i<abis;i++){
-        nfilas = 0 + rand ()% (nfilas);
-        ncol = 0 + rand ()% (ncol);    
-        numeros[nfilas][ncol]=2;
+
+
+    for(int i=0; i<abis; i++)
+    {
+        filas = 0 + rand ()% (nfilas);
+        col = 0 + rand ()% (ncol);
+        numeros[filas][col]=2;
+    }
+    jugador (player,numeros,nfilas,ncol);
+    vistamundo (player,numeros,nfilas,ncol);
 }
 void tableroaleatorio (char player [maxf][maxc],int numeros[maxf][maxf], int nfilas, int ncol)
 {
-   todavia no hay nbada jajajaj
-    
+    //  todavia no hay nbada jajajaj
+
+}
+void vistamundo (char player [maxf][maxc],int numeros[maxf][maxc], int nfilas, int ncol)
+{
+    for(int i=0; i<nfilas; i++)
+    {
+        for (int j=0; j<ncol; j++)
+        {
+            cout<<setw(8)<<numeros[i][j];
+        }
+        cout<<endl;
+    }
+
 }
 void jugador ( char player [maxf][maxc],int numeros[maxf][maxc], int nfilas, int ncol)
 {
-char opcion;
-    do{
-    cout<<"Ingrese un movimiento o accion"<<endl;
-    cout<<"ARRIBA = A"<<endl;
-    cout<<"ABAJO = B"<<endl;
-    cout<<"IZQUIERDA = I"<<endl;
-    cout<<"DERECHA = D"<<endl;
-    cout<<"DISPARAR = F"<<endl;
-    cout<<"RECOGER GALLETA = R"<<endl;
+    char opcion;
+    bool muerto = false;
+    while(!muerto)
+    {
+
+        vistamundo (player,numeros,nfilas,ncol);
+        cout<<"Ingrese un movimiento o accion"<<endl;
+        cout<<"ARRIBA = A"<<endl;
+        cout<<"ABAJO = B"<<endl;
+        cout<<"IZQUIERDA = I"<<endl;
+        cout<<"DERECHA = D"<<endl;
+        cout<<"DISPARAR = F"<<endl;
+        cout<<"RECOGER GALLETA = R"<<endl;
         cin>>opcion;
-        switch (opcion){
-            case a:
-            case A:
-                
-                
-    
-    
+        switch (opcion)
+        {
+        case 'a':
+        case 'A':
+            break;
+
+
+
+        }
+    }
+
 }
-void (  char player [maxf][maxc], int numeros [maxf][maxc], int nfilas, int ncol)
+void sensacion (  char player [maxf][maxc], int numeros [maxf][maxc], int nfilas, int ncol)
 {
 
 
