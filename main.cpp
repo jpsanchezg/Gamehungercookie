@@ -3,7 +3,7 @@
 #include "time.h"
 #include "stdlib.h"
 #include <iomanip>
-
+//juan pablo sanchez gaitan
 using namespace std;
 
 #define maxc 30
@@ -27,67 +27,59 @@ int main ()
     {
         cout<<"Bienvenido a EN BUSCA DE LA GALLETA PERDIDA"<<endl;
         cout<<"menu de opciones"<<endl;
-        cout<<"1. JUGAR"<<endl;
+        cout<<"0. JUGAR CON MAPA CREADO"<<endl;
+        cout<<"1. JUGAR MODO ALEATORIO"<<endl;
         cout<<"2. INSTRUCCIONES"<<endl;
         cout<<"3. OPCIONES"<<endl;
-        cout<<"4. SALIR"<<endl;
         cin>>opcion;
         switch (opcion)
         {
-        case 1:
-
-            cout<<"opciones de crar mapa"<<endl;
-            cout<<"1. creacion propia del mapa"<<endl;
-            cout<<"2. la maquina crea el mapa de juego"<<endl;
-            cin>>respu;
-            if (respu == 1)
+        case 0:
+            cout<<"ingrese el numero de filas que desea para el mapa, recuerde que el numero maximo de filas es de "<<maxf<<endl;
+            cin>>nfilas;
+            cout<<"ingrese el numero de columnas que desea para el mapa, recuerde que el numero maximo de columnas es de "<<maxc<<endl;
+            cin>>ncol;
+            for(int i = 0; i<nfilas; i++)
             {
-                cout<<"ingrese el numero de filas que desea para el mapa, recuerde que el numero maximo de filas es de "<<maxf<<endl;
-                cin>>nfilas;
-                cout<<"ingrese el numero de columnas que desea para el mapa, recuerde que el numero maximo de columnas es de "<<maxc<<endl;
-                cin>>ncol;
-                for(int i = 0; i<nfilas; i++)
+                for(int j = 0; j<ncol; j++)
                 {
-                    for(int j = 0; j<ncol; j++)
-                    {
-                        numeros[i][j]= 0;
-                    }
+                    numeros[i][j]= 0;
                 }
-                for(int i = 0; i<nfilas; i++)
-                {
-                    for(int j = 0; j<ncol; j++)
-                    {
-                        player[i][j]= '-';
-                    }
-                }
-
-                tablerocreado (player, numeros,nfilas,ncol);
-                jugador (player,numeros,nfilas,ncol,jugf,jugc);
             }
-            if (respu == 2)
+            for(int i = 0; i<nfilas; i++)
             {
-                nfilas = 0 + rand ()% 30;
-                ncol = 0 + rand ()% 30;
-                for(int i = 0; i<nfilas; i++)
+                for(int j = 0; j<ncol; j++)
                 {
-                    for(int j = 0; j<ncol; j++)
-                    {
-                        numeros[i][j]=0;
-                    }
+                    player[i][j]= '-';
                 }
-                for(int i = 0; i<nfilas; i++)
-                {
-                    for(int j = 0; j<ncol; j++)
-                    {
-                        player[i][j]= '-';
-                    }
-                }
-                tableroaleatorio (player,numeros,nfilas,ncol);
-                jugador (player,numeros,nfilas,ncol,jugf,jugc);
-
-
             }
+
+            tablerocreado (player, numeros,nfilas,ncol);
+            jugador (player,numeros,nfilas,ncol,jugf,jugc);
+
+
             break;
+        case 1:
+            nfilas = 0 + rand ()% (maxf);
+            ncol=0 + rand ()% (maxc);
+            for(int i = 0; i<nfilas; i++)
+            {
+                for(int j = 0; j<ncol; j++)
+                {
+                    numeros[i][j]= 0;
+                }
+            }
+            for(int i = 0; i<nfilas; i++)
+            {
+                for(int j = 0; j<ncol; j++)
+                {
+                    player[i][j]= '-';
+                }
+            }
+            tableroaleatorio(player, numeros,nfilas,ncol);
+            jugador (player,numeros,nfilas,ncol,jugf,jugc);
+            break;
+
         case 2:
             cout<<"Las instrucciones del juego son las siguientes:"<<endl;
             cout<<" El jugador debe encontrar la galleta por un mapa que el jugador puede crear o elejir la creacion alatoria"<<endl;
@@ -110,41 +102,50 @@ void tablerocreado (char player [maxf][maxc],int numeros[maxf][maxf], int nfilas
     multi = nfilas* ncol;
     ret = multi/2;
     cout<<"tienes  "<<multi<<" posiciones en el mapa para poner los abismos, el monstruo y la galleta"<<endl;
+
+    cout<<"en que fila quiere poner el alien "<<endl;
+    cin>>alienf;
+    cout<<"en que columna va a ingresar el alien"<<endl;
+    cin>>alienc;
+    numeros[alienf][alienc]=1;
     cout<<"En que filas vas a poner la galleta?"<<endl;
     cin>>galletf;
     cout<<"en que columna vas a poner la galleta?"<<endl;
     cin>>galletc;
     numeros[galletf][galletc]=3;
 
-    while(poss== false)
-    {
-        cout<<"en que fila quiere poner el alien "<<endl;
-        cin>>alienf;
-        cout<<"en que columna va a ingresar el alien"<<endl;
-        cin>>alienc;
-        if (alienf == galletf && alienc == galletc)
-        {
-            cout<<"Valor ingresado incorrecto, es el mismo que el de la galleta"<<endl;
-            poss= false;
-        }
-
-        if (alienf != galletf && alienc != galletc)
-        {
-            poss= true;
-            numeros[alienf][alienc]=1;
-        }
-    }
-
     cout<<"cuantos abismos va a poner recuerde que debe ser menos a "<<ret<<endl;
     cin>>abis;
-
-
-    for(int i=0; i<abis; i++)
+    int k=0,abisf=0,abisc=0;
+    do
     {
-        filas = 0 + rand ()% (nfilas);
-        col = 0 + rand ()% (ncol);
-        numeros[filas][col]=2;
+        k++;
+
+        cout<<"Ingrese la fila del "<<k<<" abismo"<<endl;
+        cin>>abisf;
+        cout<<"ingrese la columna del "<<k<<" abismo"<<endl;
+        cin>>abisc;
+
+        while(poss== false)
+        {
+
+            if (alienf == abisf && alienc == abisc)
+            {
+                cout<<"Valor ingresado incorrecto, es el mismo que el del alienigena"<<endl;
+                poss= false;
+            }
+
+            if (alienf != abisf && alienc != abisc)
+            {
+
+                poss= true;
+                numeros[abisf][abisc]=2;
+
+            }
+        }
     }
+    while(k<abis);
+
     system("cls");
     vistamundo (player,numeros,nfilas,ncol);
     jugador (player,numeros,nfilas,ncol,jugf,jugc);
@@ -187,8 +188,7 @@ void tableroaleatorio (char player [maxf][maxc],int numeros[maxf][maxf], int nfi
         {
             if (filas != alienf && col != alienc)
             {
-                numer
-                os[filas][col]=2;
+                numeros[filas][col]=2;
             }
         }
     }
@@ -200,20 +200,21 @@ void tableroaleatorio (char player [maxf][maxc],int numeros[maxf][maxf], int nfi
 void vistamundo (char player [maxf][maxc],int numeros[maxf][maxc], int nfilas, int ncol)
 {
     for(int i=0; i<nfilas; i++)
+
     {
         for (int j=0; j<ncol; j++)
         {
-            cout<<setw(8)<<numeros[i][j];
+            cout<<setw(8)<<player[i][j];
         }
         cout<<endl;
     }
-
 }
 void jugador ( char player [maxf][maxc],int numeros[maxf][maxc], int nfilas, int ncol, int jugf,int jugc)
 {
     char opcion;
+    int pojf=0,pojc=0;
     bool muerto = false;
-    while(!muerto)
+    do
     {
 
         cout<<"Ingrese un movimiento o accion"<<endl;
@@ -228,11 +229,12 @@ void jugador ( char player [maxf][maxc],int numeros[maxf][maxc], int nfilas, int
         {
         case 'a':
         case 'A':
-            player[jugf][jugc]='-';
-            jugf= jugf-1;
-            if(jugf>nfilas)
+            cout << "----" <<endl;
+            pojf=jugf+1;
+            pojc =jugc;
+            if(pojf>nfilas)
             {
-                jugf=jugf+1;
+                pojf=jugf-1;
                 player[jugf][jugc]= 'L';
                 numeros[jugf][jugc]= 5;
                 cout<<" MOVIMIENTO INCORRECTO, VUELVA A INTERTARLO"<<endl;
@@ -241,30 +243,49 @@ void jugador ( char player [maxf][maxc],int numeros[maxf][maxc], int nfilas, int
             }
             else
             {
-                switch(numeros[jugf][jugc])
+                cout << "*****"<<endl;
+                cout << pojf<< " " <<pojc <<endl;
+                cout << numeros[pojf][pojc] <<endl;
+                pojf=jugf+1;
+                pojc =jugc;
+
+                switch(numeros[pojf][pojc])
                 {
-
                 case 0:
-                    jugf=jugf+1;
-                    player[jugf][jugc]='L';
-                    numeros[jugf][jugc] = 5;
-                    vistamundo (player,numeros,nfilas,ncol);
-
-
-                    break;
-
-                case 'b':
-                case 'B':
-
-
+                    pojf=jugf+1;
+                    pojc =jugc;
+                    player[pojf][pojc]='L';
+                    numeros[pojf][pojc] = 5;
+                    for(int i=0; i<nfilas; i++)
+                    {
+                        for (int j=0; j<ncol; j++)
+                        {
+                            cout<<setw(8)<<player[i][j];
+                        }
+                        cout<<endl;
+                    }
+                    muerto = false;
                     break;
 
 
                 }
             }
+            break;
+        case 'p':
 
+            for(int i=0; i<nfilas; i++)
+            {
+                for (int j=0; j<ncol; j++)
+                {
+                    cout<<setw(8)<<numeros[i][j];
+                }
+                cout<<endl;
+            }
+            break;
         }
+
     }
+    while(muerto==false);
 }
 void sensacion (  char player [maxf][maxc], int numeros [maxf][maxc], int nfilas, int ncol)
 {
@@ -273,3 +294,4 @@ void sensacion (  char player [maxf][maxc], int numeros [maxf][maxc], int nfilas
 
 
 }
+
