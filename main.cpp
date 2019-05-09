@@ -119,9 +119,13 @@ void tablerocreado (char player [maxf][maxc],int numeros[maxf][maxf], int nfilas
     
     cout<<"cuantos abismos va a poner recuerde que debe ser menos a "<<ret<<endl;
     cin>>abis;
-        |
-  
-   
+        player[jugf][jugc]='L';
+    numeros[galletf][galletc]=3;
+    numeros[alienf][alienc]=1;
+    for(int i=0;i<abis;i++){
+        nfilas = 0 + rand ()% (nfilas);
+        ncol = 0 + rand ()% (ncol);    
+        numeros[nfilas][ncol]=2;
 }
 void tableroaleatorio (char player [maxf][maxc],int numeros[maxf][maxf], int nfilas, int ncol)
 {
@@ -130,9 +134,21 @@ void tableroaleatorio (char player [maxf][maxc],int numeros[maxf][maxf], int nfi
 }
 void jugador ( char player [maxf][maxc],int numeros[maxf][maxc], int nfilas, int ncol)
 {
-char position;
+char opcion;
+    do{
     cout<<"Ingrese un movimiento o accion"<<endl;
-    cout<<"ARRIBA = a"<<endl;
+    cout<<"ARRIBA = A"<<endl;
+    cout<<"ABAJO = B"<<endl;
+    cout<<"IZQUIERDA = I"<<endl;
+    cout<<"DERECHA = D"<<endl;
+    cout<<"DISPARAR = F"<<endl;
+    cout<<"RECOGER GALLETA = R"<<endl;
+        cin>>opcion;
+        switch (opcion){
+            case a:
+            case A:
+                
+                
     
     
 }
