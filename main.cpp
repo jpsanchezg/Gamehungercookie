@@ -14,8 +14,7 @@ void jugador ( char player [maxf][maxc],int numeros[maxf][maxc], int nfilas, int
 void vistamundo ( char player [maxf][maxc], int numeros [maxf][maxc], int nfilas, int ncol);
 void sensacion (  char player [maxf][maxc], int numeros [maxf][maxc], int nfilas, int ncol);
 void disparar (  char player [maxf][maxc], int numeros [maxf][maxc], int nfilas, int ncol);
-void imprimirjugador (char player [maxf][maxc],int numeros[maxf][maxc], int nfilas, int ncol);
-
+void alien (char player [maxf][maxc],int numeros[maxf][maxc], int nfilas, int ncol,int jugf,int jugc);
 int main ()
 {
     int numeros[maxf][maxf], nfilas =0, ncol=0, opcion=0, respu=0;
@@ -31,6 +30,7 @@ int main ()
         cout<<"1. JUGAR MODO ALEATORIO"<<endl;
         cout<<"2. INSTRUCCIONES"<<endl;
         cout<<"3. OPCIONES"<<endl;
+        cout<<"4. SALIR"<<endl;
         cin>>opcion;
         switch (opcion)
         {
@@ -102,7 +102,6 @@ void tablerocreado (char player [maxf][maxc],int numeros[maxf][maxf], int nfilas
     multi = nfilas* ncol;
     ret = multi/2;
     cout<<"tienes  "<<multi<<" posiciones en el mapa para poner los abismos, el monstruo y la galleta"<<endl;
-
     cout<<"en que fila quiere poner el alien "<<endl;
     cin>>alienf;
     cout<<"en que columna va a ingresar el alien"<<endl;
@@ -195,7 +194,7 @@ void tableroaleatorio (char player [maxf][maxc],int numeros[maxf][maxf], int nfi
     system("cls");
     vistamundo (player,numeros,nfilas,ncol);
 
-
+	  	   			
 }
 void vistamundo (char player [maxf][maxc],int numeros[maxf][maxc], int nfilas, int ncol)
 {
@@ -214,79 +213,72 @@ void jugador ( char player [maxf][maxc],int numeros[maxf][maxc], int nfilas, int
     char opcion;
     int pojf=0,pojc=0;
     bool muerto = false;
-    do
+
+
+    cout<<"Ingrese un movimiento o accion"<<endl;
+    cout<<"ARRIBA = A"<<endl;
+    cout<<"ABAJO = B"<<endl;
+    cout<<"GIRAR IZQUIERDA = I"<<endl;
+    cout<<"GIRAR DERECHA = D"<<endl;
+    cout<<"DISPARAR = F"<<endl;
+    cout<<"RECOGER GALLETA = R"<<endl;
+    cin>>opcion;
+    switch (opcion)
     {
-
-        cout<<"Ingrese un movimiento o accion"<<endl;
-        cout<<"ARRIBA = A"<<endl;
-        cout<<"ABAJO = B"<<endl;
-        cout<<"IZQUIERDA = I"<<endl;
-        cout<<"DERECHA = D"<<endl;
-        cout<<"DISPARAR = F"<<endl;
-        cout<<"RECOGER GALLETA = R"<<endl;
-        cin>>opcion;
-        switch (opcion)
+    case 'a':
+    case 'A':
+        player[jugf][jugc]= '-';
+        jugf=jugf-1;
+        if(jugf<0))
         {
-        case 'a':
-        case 'A':
-            cout << "----" <<endl;
             pojf=jugf+1;
-            pojc =jugc;
-            if(pojf>nfilas)
+            player[jugf][jugc]= 'v';
+            numeros[jugf][jugc]= 5;
+            cout<<" MOVIMIENTO INCORRECTO, VUELVA A INTERTARLO"<<endl;
+            system("pause");
+            system("cls");
+            jugador(player,numeros,nfilas,ncol,jugf,jugc);
+        }
+        else
+        {
+
+            switch(numeros[pojf][pojc])
             {
-                pojf=jugf-1;
-                player[jugf][jugc]= 'L';
+            case 1:
+               alien(player,numeros,nfilas,ncol,jugf,jugc);
+                break;
+                case 2:
+                    
+            default:
+                player[jugf][jugc]= '^';
                 numeros[jugf][jugc]= 5;
-                cout<<" MOVIMIENTO INCORRECTO, VUELVA A INTERTARLO"<<endl;
-                system("pause");
-                system("cls");
+                break;
             }
-            else
-            {
-                cout << "*****"<<endl;
-                cout << pojf<< " " <<pojc <<endl;
-                cout << numeros[pojf][pojc] <<endl;
-                pojf=jugf+1;
-                pojc =jugc;
-
-                switch(numeros[pojf][pojc])
-                {
-                case 0:
-                    pojf=jugf+1;
-                    pojc =jugc;
-                    player[pojf][pojc]='L';
-                    numeros[pojf][pojc] = 5;
-                    for(int i=0; i<nfilas; i++)
-                    {
-                        for (int j=0; j<ncol; j++)
-                        {
-                            cout<<setw(8)<<player[i][j];
-                        }
-                        cout<<endl;
-                    }
-                    muerto = false;
-                    break;
-
-
-                }
-            }
-            break;
-        case 'p':
+        }
+        break;
+    case 'p':
 
             for(int i=0; i<nfilas; i++)
+    {
+        for (int j=0; j<ncol; j++)
             {
-                for (int j=0; j<ncol; j++)
-                {
-                    cout<<setw(8)<<numeros[i][j];
-                }
-                cout<<endl;
+                cout<<setw(8)<<numeros[i][j];
             }
-            break;
+            cout<<endl;
         }
-
+        break;
     }
-    while(muerto==false);
+
+
 }
+class bala{
+int x,y;
+public:
+    bala(int _x,int _y): x(_x),y(_y){}
+    void mover ();
+
+
+};
 void sensacion (  char player [maxf][maxc], int numeros [maxf][maxc], int nfilas, int ncol)
 {
 
@@ -294,4 +286,3 @@ void sensacion (  char player [maxf][maxc], int numeros [maxf][maxc], int nfilas
 
 
 }
-
