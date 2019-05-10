@@ -228,10 +228,11 @@ void jugador ( char player [maxf][maxc],int numeros[maxf][maxc], int nfilas, int
     case 'a':
     case 'A':
         player[jugf][jugc]= '-';
+	numeros [jugf][jugc]=0;
         jugf=jugf-1;
         if(jugf<0))
         {
-            pojf=jugf+1;
+            jugf=jugf+1;
             player[jugf][jugc]= 'v';
             numeros[jugf][jugc]= 5;
             cout<<" MOVIMIENTO INCORRECTO, VUELVA A INTERTARLO"<<endl;
@@ -242,13 +243,14 @@ void jugador ( char player [maxf][maxc],int numeros[maxf][maxc], int nfilas, int
         else
         {
 
-            switch(numeros[pojf][pojc])
+            switch(numeros [jugf][jugc])
             {
             case 1:
                alien(player,numeros,nfilas,ncol,jugf,jugc);
                 break;
                 case 2:
-                    
+                    jugf=jugf+1;
+			    break;
             default:
                 player[jugf][jugc]= '^';
                 numeros[jugf][jugc]= 5;
