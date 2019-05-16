@@ -5,16 +5,23 @@
 #include <iomanip>
 //juan pablo sanchez gaitan
 using namespace std;
+struct personaje{
+char movs;
+char player [maxf][maxc]
+};
 
 #define maxc 30
 #define maxf 30
-void tablerocreado (char player [maxf][maxc],int numeros[maxf][maxf], int nfilas, int ncol);
+void tablerocreado (struct personaje,int numeros[maxf][maxf], int nfilas, int ncol);
 void tableroaleatorio (char player [maxf][maxc],int numeros[maxf][maxf], int nfilas, int ncol);
 void jugador ( char player [maxf][maxc],int numeros[maxf][maxc], int nfilas, int ncol,int jugf,int jugc);
 void vistamundo ( char player [maxf][maxc], int numeros [maxf][maxc], int nfilas, int ncol);
 void sensacion (  char player [maxf][maxc], int numeros [maxf][maxc], int nfilas, int ncol);
 void disparar (  char player [maxf][maxc], int numeros [maxf][maxc], int nfilas, int ncol);
-void alien (char player [maxf][maxc],int numeros[maxf][maxc], int nfilas, int ncol,int jugf,int jugc);
+void imprimirjugador (char player [maxf][maxc],int numeros[maxf][maxc], int nfilas, int ncol);
+void alien ( char player [maxf][maxc],int numeros[maxf][maxc], int nfilas, int ncol);
+void gameover  ( char player [maxf][maxc],int numeros[maxf][maxc], int nfilas, int ncol);
+
 int main ()
 {
     int numeros[maxf][maxf], nfilas =0, ncol=0, opcion=0, respu=0;
@@ -119,7 +126,6 @@ void tablerocreado (char player [maxf][maxc],int numeros[maxf][maxf], int nfilas
     do
     {
         k++;
-
         cout<<"Ingrese la fila del "<<k<<" abismo"<<endl;
         cin>>abisf;
         cout<<"ingrese la columna del "<<k<<" abismo"<<endl;
@@ -194,7 +200,7 @@ void tableroaleatorio (char player [maxf][maxc],int numeros[maxf][maxf], int nfi
     system("cls");
     vistamundo (player,numeros,nfilas,ncol);
 
-	  	   			
+
 }
 void vistamundo (char player [maxf][maxc],int numeros[maxf][maxc], int nfilas, int ncol)
 {
@@ -213,54 +219,71 @@ void jugador ( char player [maxf][maxc],int numeros[maxf][maxc], int nfilas, int
     char opcion;
     int pojf=0,pojc=0;
     bool muerto = false;
-
-
     cout<<"Ingrese un movimiento o accion"<<endl;
-    cout<<"ARRIBA = A"<<endl;
-    cout<<"ABAJO = B"<<endl;
+    cout<<"GIRAR A LA DERECHA = D"<<endl;
     cout<<"GIRAR IZQUIERDA = I"<<endl;
-    cout<<"GIRAR DERECHA = D"<<endl;
+    cout<<"AVANZAR = A"<<endl;
     cout<<"DISPARAR = F"<<endl;
     cout<<"RECOGER GALLETA = R"<<endl;
     cin>>opcion;
+
     switch (opcion)
     {
     case 'a':
     case 'A':
-        player[jugf][jugc]= '-';
-	numeros [jugf][jugc]=0;
-        jugf=jugf-1;
-        if(jugf<0))
+        sensacion (   player, numeros,nfilas, ncol);
+        if(opcion == 'd'))
         {
-            jugf=jugf+1;
-            player[jugf][jugc]= 'v';
-            numeros[jugf][jugc]= 5;
-            cout<<" MOVIMIENTO INCORRECTO, VUELVA A INTERTARLO"<<endl;
-            system("pause");
-            system("cls");
-            jugador(player,numeros,nfilas,ncol,jugf,jugc);
-        }
-        else
-        {
-
-            switch(numeros [jugf][jugc])
+            switch(numeros[pojf][pojc])
             {
             case 1:
-               alien(player,numeros,nfilas,ncol,jugf,jugc);
+
+                alien(player,numeros,nfilas,ncol,jugf,jugc);
+
                 break;
-                case 2:
-                    jugf=jugf+1;
-			    break;
+            case 2:
+                gameover (player,numeros,nfilas,ncol,jugf,jugc);
+                break;
+            case 3:
+                galleta (player,numeros,nfilas,ncol,jugf,jugc);
+                break;
             default:
-                player[jugf][jugc]= '^';
+                player[jugf][jugc]= 'a';
+                numeros[jugf][jugc]= 5;
+                break;
+            }
+        }
+        if(opcion == 'i')
+    {
+
+        switch(numeros[pojf][pojc])
+            {
+            case 1:
+
+                alien(player,numeros,nfilas,ncol,jugf,jugc);
+
+                break;
+            case 2:
+                gameover (player,numeros,nfilas,ncol,jugf,jugc);
+                break;
+            case 3:
+                galleta (player,numeros,nfilas,ncol,jugf,jugc);
+                break;
+            default:
+                player[jugf][jugc]= 'a';
                 numeros[jugf][jugc]= 5;
                 break;
             }
         }
         break;
-    case 'p':
+    case 'D':
+    case 'd':
 
-            for(int i=0; i<nfilas; i++)
+
+
+            case 'p':
+
+                    for(int i=0; i<nfilas; i++)
     {
         for (int j=0; j<ncol; j++)
             {
@@ -273,10 +296,11 @@ void jugador ( char player [maxf][maxc],int numeros[maxf][maxc], int nfilas, int
 
 
 }
-class bala{
-int x,y;
+class bala
+{
+    int x,y;
 public:
-    bala(int _x,int _y): x(_x),y(_y){}
+    bala(int _x,int _y): x(_x),y(_y) {}
     void mover ();
 
 
@@ -288,3 +312,4 @@ void sensacion (  char player [maxf][maxc], int numeros [maxf][maxc], int nfilas
 
 
 }
+
