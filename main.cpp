@@ -7,7 +7,7 @@
 using namespace std;
 struct personaje{
 char movs;
-char player [maxf][maxc]
+    char galleta;
 };
 
 #define maxc 30
@@ -296,15 +296,6 @@ void jugador ( char player [maxf][maxc],int numeros[maxf][maxc], int nfilas, int
 
 
 }
-class bala
-{
-    int x,y;
-public:
-    bala(int _x,int _y): x(_x),y(_y) {}
-    void mover ();
-
-
-};
 void sensacion (  char player [maxf][maxc], int numeros [maxf][maxc], int nfilas, int ncol)
 {
 
