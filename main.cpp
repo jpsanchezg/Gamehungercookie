@@ -217,6 +217,7 @@ void vistamundo (char player [maxf][maxc],int numeros[maxf][maxc], int nfilas, i
 void jugador ( char player [maxf][maxc],int numeros[maxf][maxc], int nfilas, int ncol, int jugf,int jugc)
 {
     char opcion;
+    int contad =0,contai =0;
     int pojf=0,pojc=0;
     bool muerto = false;
     cout<<"Ingrese un movimiento o accion"<<endl;
@@ -226,63 +227,18 @@ void jugador ( char player [maxf][maxc],int numeros[maxf][maxc], int nfilas, int
     cout<<"DISPARAR = F"<<endl;
     cout<<"RECOGER GALLETA = R"<<endl;
     cin>>opcion;
-
-    switch (opcion)
-    {
-    case 'a':
-    case 'A':
-        sensacion (   player, numeros,nfilas, ncol);
-        if(opcion == 'd'))
-        {
-            switch(numeros[pojf][pojc])
-            {
-            case 1:
-
-                alien(player,numeros,nfilas,ncol,jugf,jugc);
-
-                break;
-            case 2:
-                gameover (player,numeros,nfilas,ncol,jugf,jugc);
-                break;
-            case 3:
-                galleta (player,numeros,nfilas,ncol,jugf,jugc);
-                break;
-            default:
-                player[jugf][jugc]= 'a';
-                numeros[jugf][jugc]= 5;
-                break;
-            }
-        }
-        if(opcion == 'i')
-    {
-
-        switch(numeros[pojf][pojc])
-            {
-            case 1:
-
-                alien(player,numeros,nfilas,ncol,jugf,jugc);
-
-                break;
-            case 2:
-                gameover (player,numeros,nfilas,ncol,jugf,jugc);
-                break;
-            case 3:
-                galleta (player,numeros,nfilas,ncol,jugf,jugc);
-                break;
-            default:
-                player[jugf][jugc]= 'a';
-                numeros[jugf][jugc]= 5;
-                break;
-            }
-        }
-        break;
-    case 'D':
-    case 'd':
-
-
-
-            case 'p':
-
+if (opcion == 'd'){
+    contad++;
+    }
+    if (opcion == 'i'){
+    contai++;
+    }
+    if (opcion == 'a'){
+        if (contad == 1){
+            pojc = pojc +1;}}
+            
+        
+if (opcion == 'p'){
                     for(int i=0; i<nfilas; i++)
     {
         for (int j=0; j<ncol; j++)
@@ -291,7 +247,7 @@ void jugador ( char player [maxf][maxc],int numeros[maxf][maxc], int nfilas, int
             }
             cout<<endl;
         }
-        break;
+      
     }
 
 
