@@ -15,16 +15,16 @@ struct personaje
 #define maxf 30
 void tablerocreado (char player [maxf][maxc],int numeros[maxf][maxf], int nfilas, int ncol);
 void tableroaleatorio (char player [maxf][maxc],int numeros[maxf][maxf], int nfilas, int ncol);
-void jugador ( char player [maxf][maxc],int numeros[maxf][maxc], int nfilas, int ncol,int jugf,int jugc);
+void jugador ( char player [maxf][maxc],int numeros[maxf][maxc], int nfilas, int ncol,int jugf,int jugc,int alienf,int alienc,int galletf,int galletc);
 void vistamundo ( char player [maxf][maxc], int numeros [maxf][maxc], int nfilas, int ncol);
 int sensacion (  int numeros [maxf][maxc], int nfilas, int ncol,int pojf,int pojc);
-void disparar (  char player [maxf][maxc], int numeros [maxf][maxc], int nfilas, int ncol);
+void disparar (  int numeros [maxf][maxc], int nfilas, int ncol,int balf,int balc,int contad,int contai,int alienf,int alienc);
 void gameover  ( int numeros[maxf][maxc], int nfilas, int ncol,int pojf,int pojc);
 
 int main ()
 {
     int numeros[maxf][maxf], nfilas =0, ncol=0, opcion=0, respu=0;
-    int jugf=0, jugc=0;
+    int jugf=0, jugc=0,alienf=0,alienc=0,galletc=0,galletf=0;
     srand(time(NULL));
     char player [maxf][maxc];
     personaje lucas;
@@ -62,7 +62,7 @@ int main ()
             }
 
             tablerocreado (player, numeros,nfilas,ncol);
-            jugador (player,numeros,nfilas,ncol,jugf,jugc);
+            jugador (player,numeros,nfilas,ncol,jugf,jugc,alienf,alienc,galletf,galletc);
 
 
             break;
@@ -84,7 +84,7 @@ int main ()
                 }
             }
             tableroaleatorio(player, numeros,nfilas,ncol);
-            jugador (player,numeros,nfilas,ncol,jugf,jugc);
+            jugador (player,numeros,nfilas,ncol,jugf,jugc,alienf,alienc,galletf,galletc);
             break;
 
         case 2:
@@ -141,7 +141,7 @@ void tablerocreado (char player [maxf][maxc],int numeros[maxf][maxf], int nfilas
 
     system("cls");
     vistamundo (player,numeros,nfilas,ncol);
-    jugador (player,numeros,nfilas,ncol,jugf,jugc);
+    jugador (player,numeros,nfilas,ncol,jugf,jugc,alienf,alienc,galletf,galletc);
 
 }
 void tableroaleatorio (char player [maxf][maxc],int numeros[maxf][maxf], int nfilas, int ncol)
@@ -194,7 +194,7 @@ void tableroaleatorio (char player [maxf][maxc],int numeros[maxf][maxf], int nfi
 
 
     vistamundo (player,numeros,nfilas,ncol);
-    jugador (player,numeros,nfilas,ncol,jugf,jugc);
+    jugador (player,numeros,nfilas,ncol,jugf,jugc,alienf,alienc,galletf,galletc);
 
 
 
@@ -211,21 +211,37 @@ void vistamundo (char player [maxf][maxc],int numeros[maxf][maxc], int nfilas, i
         cout<<endl;
     }
 }
-void jugador ( char player [maxf][maxc],int numeros[maxf][maxc], int nfilas, int ncol, int jugf,int jugc)
+void jugador ( char player [maxf][maxc],int numeros[maxf][maxc], int nfilas, int ncol, int jugf,int jugc,int alienf,int alienc,int galletf,int galletc)
 {
     char opcion;
     int olor =0;
+    int k=0;
     int contad =0,contai =0;
-    int pojf=0,pojc=0;
-    bool muerto = false;
+    int pojf=0,pojc=0,balf=0,balc=0;
+    bool laser = true;
+    bool galleta = false;
     do
     {
         cout<<"Ingrese un movimiento o accion"<<endl;
         cout<<"GIRAR A LA DERECHA = D"<<endl;
         cout<<"GIRAR IZQUIERDA = I"<<endl;
         cout<<"AVANZAR = A"<<endl;
-        cout<<"DISPARAR = F"<<endl;
-        cout<<"RECOGER GALLETA = R"<<endl;
+        if (laser == true)
+        {
+            cout<<"DISPARAR = F"<<endl;
+        }
+        if (galleta == false)
+        {
+            cout<<"RECOGER GALLETA = R"<<endl;
+        }
+        if(galleta == true)
+        {
+            if (numeros[pojf][pojc]==numeros[0][0] )
+            {
+                cout<<"COMER GALLETA = C"<<endl;
+            }
+
+        }
         cout<<"SALIR = S"<<endl;
         cin>>opcion;
         if (opcion == 'd')
@@ -340,6 +356,28 @@ void jugador ( char player [maxf][maxc],int numeros[maxf][maxc], int nfilas, int
         }
 
 
+        if (opcion =='f')
+        {
+            if (laser == true)
+            {
+
+                balf = pojf;
+                balc = pojc;
+                disparar(numeros,nfilas,ncol,balf,balc,contad,contai,alienf,alienc);
+                laser = false;
+
+            }
+
+        }
+
+
+
+if (opcion == 'r'){
+    if (numeros [pojf][pojc]== numeros[galletf][galletc])
+    {
+        galleta =true;
+    }
+}
         if (opcion == 'p')
         {
             for(int i=0; i<nfilas; i++)
@@ -440,7 +478,7 @@ int sensacion (  int numeros [maxf][maxc], int nfilas, int ncol,int pojf,int poj
         return olor;
     }
     //abismo
- if (numeros [pojf+1][pojc]==2)
+    if (numeros [pojf+1][pojc]==2)
     {
         if (numeros [pojf-1][pojc]==1)
         {
@@ -478,7 +516,7 @@ int sensacion (  int numeros [maxf][maxc], int nfilas, int ncol,int pojf,int poj
             olor= 2;
         return olor;
     }
-     if (numeros [pojf*1][pojc]==2)
+    if (numeros [pojf-1][pojc]==2)
     {
         if (numeros [pojf+1][pojc]==1)
         {
@@ -517,13 +555,160 @@ int sensacion (  int numeros [maxf][maxc], int nfilas, int ncol,int pojf,int poj
         return olor;
     }
     //galleta
+    if (numeros [pojf+1][pojc]==3)
+    {
+        if (numeros [pojf-1][pojc]==1)
+        {
+            olor = 5;
+            return olor;
+        }
+        if  (numeros [pojf][pojc+1]==1)
+        {
+             olor = 5;
+            return olor;
+        }
+         if  (numeros [pojf][pojc-1]==1)
+        {
+             olor = 5;
+            return olor;
+        }
+                 if  (numeros [pojf-1][pojc]==2)
+        {
+             olor = 6;
+            return olor;
+        }
+         if  (numeros [pojf][pojc+1]==2)
+        {
+             olor = 6;
+            return olor;
+        }
+         if  (numeros [pojf][pojc-1]==2)
+        {
+             olor = 6;
+            return olor;
+        }
+        else {
 
+            olor =4;
+            return olor;
+        }
 
-
-
-
+return olor;
 }
 void gameover  ( int numeros[maxf][maxc], int nfilas, int ncol,int pojf,int pojc)
 {
 
+}
+void disparar (  int numeros [maxf][maxc], int nfilas, int ncol,int balf,int balc,int contad,int contai,int alienf,int alienc)
+{
+    bool alienmuerto =false;
+    if (contad == 1)
+    {
+        balc = balc +alienc;
+
+        if ( numeros [balf][balc] == numeros [alienf][alienc])
+        {
+            alienmuerto = true;
+            numeros [balf][balc]=0;
+        }
+
+
+        contad=0;
+    }
+    if (contad == 2)
+    {
+        balf = balf +alienf;
+
+        if ( numeros [balf][balc] == numeros [alienf][alienc])
+        {
+            alienmuerto = true;
+            numeros [balf][balc]=0;
+        }
+
+
+        contad=0;
+
+    }
+    if (contad == 3)
+    {
+
+        balc = balc -alienc;
+
+        if ( numeros [balf][balc] == numeros [alienf][alienc])
+        {
+            alienmuerto = true;
+            numeros [balf][balc]=0;
+        }
+
+
+        contad=0;
+    }
+    if (contad == 4)
+    {
+        balf = balf -alienf;
+
+        if ( numeros [balf][balc] == numeros [alienf][alienc])
+        {
+            alienmuerto = true;
+            numeros [balf][balc]=0;
+        }
+
+
+        contad=0;
+    }
+    if (contai == 1)
+    {
+
+        balc = balc -alienc;
+
+        if ( numeros [balf][balc] == numeros [alienf][alienc])
+        {
+            alienmuerto = true;
+            numeros [balf][balc]=0;
+        }
+
+
+        contad=0;
+
+    }
+    if (contai == 2)
+    {
+        balf = balf -alienf;
+
+        if ( numeros [balf][balc] == numeros [alienf][alienc])
+        {
+            alienmuerto = true;
+            numeros [balf][balc]=0;
+        }
+
+
+        contad=0;
+
+    }
+    if (contai == 3)
+    {
+        balc = balc +alienc;
+
+        if ( numeros [balf][balc] == numeros [alienf][alienc])
+        {
+            alienmuerto = true;
+            numeros [balf][balc]=0;
+        }
+
+
+        contad=0;
+    }
+    if (contai == 4)
+    {
+        balf = balf +alienf;
+
+        if ( numeros [balf][balc] == numeros [alienf][alienc])
+        {
+            alienmuerto = true;
+            numeros [balf][balc]=0;
+        }
+
+
+        contad=0;
+    }
 }
