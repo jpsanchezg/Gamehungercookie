@@ -17,9 +17,9 @@ void tablerocreado (char player [maxf][maxc],int numeros[maxf][maxf], int nfilas
 void tableroaleatorio (char player [maxf][maxc],int numeros[maxf][maxf], int nfilas, int ncol);
 void jugador ( char player [maxf][maxc],int numeros[maxf][maxc], int nfilas, int ncol,int jugf,int jugc);
 void vistamundo ( char player [maxf][maxc], int numeros [maxf][maxc], int nfilas, int ncol);
-void sensacion (  char player [maxf][maxc], int numeros [maxf][maxc], int nfilas, int ncol,int pojf,int pojc);
+int sensacion (  int numeros [maxf][maxc], int nfilas, int ncol,int pojf,int pojc);
 void disparar (  char player [maxf][maxc], int numeros [maxf][maxc], int nfilas, int ncol);
-void gameover  ( char player [maxf][maxc],int numeros[maxf][maxc], int nfilas, int ncol,int pojf,int pojc);
+void gameover  ( int numeros[maxf][maxc], int nfilas, int ncol,int pojf,int pojc);
 
 int main ()
 {
@@ -130,23 +130,11 @@ void tablerocreado (char player [maxf][maxc],int numeros[maxf][maxf], int nfilas
         cin>>abisf;
         cout<<"ingrese la columna del "<<k<<" abismo"<<endl;
         cin>>abisc;
-
-        while(poss== false)
+        if (numeros[galletf][galletc] !=  numeros[abisf][abisc])
         {
 
-            if (numeros[galletf][galletc] == numeros[abisf][abisc] )
-            {
-                cout<<"Valor ingresado incorrecto, es el mismo que el del alienigena"<<endl;
-                poss= false;
-            }
+            numeros[abisf][abisc]=2;
 
-            if (numeros[galletf][galletc] !=  numeros[abisf][abisc])
-            {
-
-                poss= true;
-                numeros[abisf][abisc]=2;
-
-            }
         }
     }
     while(k<abis);
@@ -174,7 +162,7 @@ void tableroaleatorio (char player [maxf][maxc],int numeros[maxf][maxf], int nfi
     //posicion aleatoria de la galleta
     galletf=0 + rand ()% (nfilas);
     galletc =0 + rand ()% (ncol);
-        numeros[galletf][galletc]=3;
+    numeros[galletf][galletc]=3;
 
     abis =  0 + rand ()% (ret);
     int k=0,abisf=0,abisc=0;
@@ -226,6 +214,7 @@ void vistamundo (char player [maxf][maxc],int numeros[maxf][maxc], int nfilas, i
 void jugador ( char player [maxf][maxc],int numeros[maxf][maxc], int nfilas, int ncol, int jugf,int jugc)
 {
     char opcion;
+    int olor =0;
     int contad =0,contai =0;
     int pojf=0,pojc=0;
     bool muerto = false;
@@ -257,8 +246,9 @@ void jugador ( char player [maxf][maxc],int numeros[maxf][maxc], int nfilas, int
                 player [pojf][pojc]='D';
                 numeros [pojf][pojc]=5;
                 vistamundo (player,numeros,nfilas,ncol);
-                sensacion (  player,  numeros,  nfilas, ncol,pojf,pojc);
-                                gameover (player,numeros,nfilas,ncol);
+                olor =  sensacion (    numeros,  nfilas, ncol,pojf,pojc);
+                gameover (numeros,nfilas,ncol,pojf,pojc);
+                cout<<olor<<endl;
 
 
                 contad=0;
@@ -269,10 +259,11 @@ void jugador ( char player [maxf][maxc],int numeros[maxf][maxc], int nfilas, int
                 player [pojf][pojc]='B';
                 numeros [pojf][pojc]=5;
                 vistamundo (player,numeros,nfilas,ncol);
-                sensacion (  player,  numeros,  nfilas, ncol,pojf,pojc);
-
-                gameover (player,numeros,nfilas,ncol);
+                olor =  sensacion (    numeros,  nfilas, ncol,pojf,pojc);
+                gameover (numeros,nfilas,ncol,pojf,pojc);
                 contad=0;
+                cout<<olor<<endl;
+
             }
             if (contad == 3)
             {
@@ -280,10 +271,11 @@ void jugador ( char player [maxf][maxc],int numeros[maxf][maxc], int nfilas, int
                 player [pojf][pojc]='a';
                 numeros [pojf][pojc]=5;
                 vistamundo (player,numeros,nfilas,ncol);
-                sensacion (  player,  numeros,  nfilas, ncol,pojf,pojc);
-                gameover (player,numeros,nfilas,ncol);
-
+                olor =  sensacion (    numeros,  nfilas, ncol,pojf,pojc);
+                gameover (numeros,nfilas,ncol,pojf,pojc);
                 contad=0;
+                cout<<olor<<endl;
+
             }
             if (contad == 4)
             {
@@ -291,10 +283,11 @@ void jugador ( char player [maxf][maxc],int numeros[maxf][maxc], int nfilas, int
                 player [pojf][pojc]='a';
                 numeros [pojf][pojc]=5;
                 vistamundo (player,numeros,nfilas,ncol);
-                sensacion (  player,  numeros,  nfilas, ncol,pojf,pojc);
-                gameover (player,numeros,nfilas,ncol);
-
+                olor =  sensacion (    numeros,  nfilas, ncol,pojf,pojc);
+                gameover (numeros,nfilas,ncol,pojf,pojc);
                 contad=0;
+                cout<<olor<<endl;
+
             }
             if (contai == 1)
             {
@@ -302,9 +295,11 @@ void jugador ( char player [maxf][maxc],int numeros[maxf][maxc], int nfilas, int
                 player [pojf][pojc]='I';
                 numeros [pojf][pojc]=5;
                 vistamundo (player,numeros,nfilas,ncol);
-                sensacion (  player,  numeros,  nfilas, ncol,pojf,pojc);
-                gameover (player,numeros,nfilas,ncol);
+                olor =  sensacion (    numeros,  nfilas, ncol,pojf,pojc);
+                gameover (numeros,nfilas,ncol,pojf,pojc);
                 contai=0;
+                cout<<olor<<endl;
+
             }
             if (contai == 2)
             {
@@ -312,10 +307,11 @@ void jugador ( char player [maxf][maxc],int numeros[maxf][maxc], int nfilas, int
                 player [pojf][pojc]='B';
                 numeros [pojf][pojc]=5;
                 vistamundo (player,numeros,nfilas,ncol);
-                sensacion (  player,  numeros,  nfilas, ncol,pojf,pojc);
-                gameover (player,numeros,nfilas,ncol);
-
+                olor =  sensacion (    numeros,  nfilas, ncol,pojf,pojc);
+                gameover (numeros,nfilas,ncol,pojf,pojc);
                 contai=0;
+                cout<<olor<<endl;
+
             }
             if (contai == 3)
             {
@@ -323,10 +319,11 @@ void jugador ( char player [maxf][maxc],int numeros[maxf][maxc], int nfilas, int
                 player [pojf][pojc]='a';
                 numeros [pojf][pojc]=5;
                 vistamundo (player,numeros,nfilas,ncol);
-                sensacion (  player,  numeros,  nfilas, ncol,pojf,pojc);
-                                gameover (player,numeros,nfilas,ncol);
-
+                olor =  sensacion (    numeros,  nfilas, ncol,pojf,pojc);
+                gameover (numeros,nfilas,ncol,pojf,pojc);
                 contai=0;
+                cout<<olor<<endl;
+
             }
             if (contai == 4)
             {
@@ -334,9 +331,11 @@ void jugador ( char player [maxf][maxc],int numeros[maxf][maxc], int nfilas, int
                 player [pojf][pojc]='a';
                 numeros [pojf][pojc]=5;
                 vistamundo (player,numeros,nfilas,ncol);
-                sensacion (  player,  numeros,  nfilas, ncol,pojf,pojc);
-                gameover (player,numeros,nfilas,ncol);
+                olor =  sensacion (    numeros,  nfilas, ncol,pojf,pojc);
+                gameover (numeros,nfilas,ncol,pojf,pojc);
                 contai=0;
+                cout<<olor<<endl;
+
             }
         }
 
@@ -357,15 +356,174 @@ void jugador ( char player [maxf][maxc],int numeros[maxf][maxc], int nfilas, int
     }
     while (opcion !='s');
 }
-void sensacion ( char player [maxf][maxc], int numeros [maxf][maxc], int nfilas, int ncol,int pojf,int pojc)
+int sensacion (  int numeros [maxf][maxc], int nfilas, int ncol,int pojf,int pojc)
 {
-        if (numeros [pojf][pojc+1]==1)
+    int olor=0;
+    //alien
+    if (numeros [pojf-1][pojc]==1)
+    {
+        if (numeros [pojf+1][pojc]==2)
         {
-            cout<<"alien"<<endl;
+            if (numeros [pojf][pojc+1]==3 )
+            {
+                olor = 7;
+                return olor;
+
+            }
+            if (numeros [pojf][pojc-1]==3)
+            {
+                olor = 7;
+                return olor;
+            }
+
+            else
+                olor = 3;
+            return olor;
         }
+        if (numeros [pojf+1][pojc]==3)
+        {
+            olor = 5;
+            return olor;
+        }
+        if (numeros [pojf][pojc+1]==3)
+        {
+            olor = 5;
+            return olor;
+        }
+        if (numeros [pojf][pojc-1]==3)
+        {
+            olor = 5;
+            return olor;
+        }
+        else
+        {
+            olor= 1;
+            return olor;
+        }
+    }
+    if (numeros [pojf+1][pojc]==1)
+    {
+        if (numeros [pojf-1][pojc]==2)
+        {
+            if (numeros [pojf][pojc+1]==3 )
+            {
+                olor = 7;
+                return olor;
+            }
+            if ( numeros [pojf][pojc-1]==3 )
+            {
+                olor = 7;
+                return olor;
+            }
+
+            else
+                olor = 3;
+            return olor;
+        }
+        if (numeros [pojf-1][pojc]==3)
+        {
+            olor = 5;
+            return olor;
+        }
+        if (numeros [pojf][pojc+1]==3)
+        {
+            olor = 5;
+            return olor;
+        }
+        if (numeros [pojf][pojc-1]==3)
+        {
+            olor = 5;
+            return olor;
+        }
+        else
+            olor= 1;
+        return olor;
+    }
+    //abismo
+ if (numeros [pojf+1][pojc]==2)
+    {
+        if (numeros [pojf-1][pojc]==1)
+        {
+            if (numeros [pojf][pojc+1]==3 )
+            {
+                olor = 7;
+                return olor;
+            }
+            if ( numeros [pojf][pojc-1]==3 )
+            {
+                olor = 7;
+                return olor;
+            }
+
+            else
+                olor = 3;
+            return olor;
+        }
+        if (numeros [pojf-1][pojc]==3)
+        {
+            olor = 5;
+            return olor;
+        }
+        if (numeros [pojf][pojc+1]==3)
+        {
+            olor = 5;
+            return olor;
+        }
+        if (numeros [pojf][pojc-1]==3)
+        {
+            olor = 5;
+            return olor;
+        }
+        else
+            olor= 2;
+        return olor;
+    }
+     if (numeros [pojf*1][pojc]==2)
+    {
+        if (numeros [pojf+1][pojc]==1)
+        {
+            if (numeros [pojf][pojc+1]==3 )
+            {
+                olor = 7;
+                return olor;
+            }
+            if ( numeros [pojf][pojc-1]==3 )
+            {
+                olor = 7;
+                return olor;
+            }
+
+            else
+                olor = 3;
+            return olor;
+        }
+        if (numeros [pojf-1][pojc]==3)
+        {
+            olor = 5;
+            return olor;
+        }
+        if (numeros [pojf][pojc+1]==3)
+        {
+            olor = 5;
+            return olor;
+        }
+        if (numeros [pojf][pojc-1]==3)
+        {
+            olor = 5;
+            return olor;
+        }
+        else
+            olor= 2;
+        return olor;
+    }
+    //galleta
+
+
+
+
+
 }
-void gameover  ( char player [maxf][maxc],int numeros[maxf][maxc], int nfilas, int ncol,int pojf,int pojc)
+void gameover  ( int numeros[maxf][maxc], int nfilas, int ncol,int pojf,int pojc)
 {
 
 }
-
