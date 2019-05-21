@@ -32,7 +32,8 @@ int main ()
 
     do
     {
-        cout<<"Bienvenido a EN BUSCA DE LA GALLETA PERDIDA"<<endl;
+
+        cout<<"Bienvenido"<<endl;
         cout<<"menu de opciones"<<endl;
         cout<<"0. JUGAR CON MAPA CREADO"<<endl;
         cout<<"1. JUGAR MODO ALEATORIO"<<endl;
@@ -1034,3 +1035,5 @@ void disparar (  int numeros [maxf][maxc], int nfilas, int ncol,int balf,int bal
         contad=0;
     }
 }
+
+
