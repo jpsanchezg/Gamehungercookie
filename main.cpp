@@ -17,12 +17,12 @@ void tablerocreado (char player [maxf][maxc],int numeros[maxf][maxf], int nfilas
 void tableroaleatorio (char player [maxf][maxc],int numeros[maxf][maxf], int nfilas, int ncol);
 void tablerdiabolico (char player [maxf][maxc],int numeros[maxf][maxf], int nfilas, int ncol);
 
-void jugador ( char player [maxf][maxc],int numeros[maxf][maxc], int nfilas, int ncol,int jugf,int jugc,int alienf,int alienc,int galletf,int galletc,int abisf,int abisc,int contu);
+void jugador ( char player [maxf][maxc],int numeros[maxf][maxc], int nfilas, int ncol,int alienf,int alienc,int galletf,int galletc,int abisf,int abisc,int contu);
 void vistamundo ( char player [maxf][maxc], int numeros [maxf][maxc], int nfilas, int ncol);
 int sensacion (  int numeros [maxf][maxc], int nfilas, int ncol,int pojf,int pojc);
 void disparar (  int numeros [maxf][maxc], int nfilas, int ncol,int balf,int balc,int contad,int contai,int alienf,int alienc);
 
-int gameover ( int numeros[maxf][maxc], int nfilas, int ncol,int pojf,int pojc,int alienf,int alienc,int abisf, int abisc,bool galleta,int contu);
+int gameover ( char player [maxf][maxc],int numeros[maxf][maxc], int nfilas, int ncol,int x,int y,int alienf,int alienc,int abisf, int abisc,bool galleta,int contu,int galletf,int galletc);
 
 int main ()
 {
@@ -95,7 +95,7 @@ int main ()
             }
 
             tablerocreado (player, numeros,nfilas,ncol);
-            jugador (player,numeros,nfilas,ncol,jugf,jugc,alienf,alienc,galletf,galletc,abisf,abisc,contu);
+            jugador (player,numeros,nfilas,ncol,alienf,alienc,galletf,galletc,abisf,abisc,contu);
 
 
             break;
@@ -117,7 +117,7 @@ int main ()
                 }
             }
             tableroaleatorio(player, numeros,nfilas,ncol);
-            jugador (player,numeros,nfilas,ncol,jugf,jugc,alienf,alienc,galletf,galletc,abisf,abisc,contu);
+            jugador (player,numeros,nfilas,ncol,alienf,alienc,galletf,galletc,abisf,abisc,contu);
             break;
 
         case 2:
@@ -145,7 +145,7 @@ int main ()
                 }
             }
             tablerdiabolico (player, numeros,nfilas,ncol);
-            jugador (player,numeros,nfilas,ncol,jugf,jugc,alienf,alienc,galletf,galletc,abisf,abisc,contu);
+            jugador (player,numeros,nfilas,ncol,alienf,alienc,galletf,galletc,abisf,abisc,contu);
             break;
         }
 
@@ -198,7 +198,7 @@ void tablerocreado (char player [maxf][maxc],int numeros[maxf][maxf], int nfilas
 
     system("cls");
     vistamundo (player,numeros,nfilas,ncol);
-    jugador (player,numeros,nfilas,ncol,jugf,jugc,alienf,alienc,galletf,galletc,abisf,abisc,contu);
+    jugador (player,numeros,nfilas,ncol,alienf,alienc,galletf,galletc,abisf,abisc,contu);
 
 }
 void tablerdiabolico (char player [maxf][maxc],int numeros[maxf][maxf], int nfilas, int ncol)
@@ -256,7 +256,7 @@ void tablerdiabolico (char player [maxf][maxc],int numeros[maxf][maxf], int nfil
 
 
     vistamundo (player,numeros,nfilas,ncol);
-    jugador (player,numeros,nfilas,ncol,jugf,jugc,alienf,alienc,galletf,galletc,abisf,abisc,contu);
+    jugador (player,numeros,nfilas,ncol,alienf,alienc,galletf,galletc,abisf,abisc,contu);
 
 }
 
@@ -312,10 +312,9 @@ void tableroaleatorio (char player [maxf][maxc],int numeros[maxf][maxf], int nfi
 
     }
     while(k<abis);
-    cout<<abis;
 
     vistamundo (player,numeros,nfilas,ncol);
-    jugador (player,numeros,nfilas,ncol,jugf,jugc,alienf,alienc,galletf,galletc,abisf,abisc,contu);
+    jugador (player,numeros,nfilas,ncol,alienf,alienc,galletf,galletc,abisf,abisc,contu);
 
 
 
@@ -325,14 +324,16 @@ void vistamundo (char player [maxf][maxc],int numeros[maxf][maxc], int nfilas, i
     for(int i=0; i<nfilas; i++)
 
     {
+        // cout<<"|"<<setw(8);
         for (int j=0; j<ncol; j++)
         {
-            cout<<setw(8)<<player[i][j];
+
+            cout<<setw(4)<<player[i][j];
         }
         cout<<endl;
     }
 }
-void jugador ( char player [maxf][maxc],int numeros[maxf][maxc], int nfilas, int ncol, int jugf,int jugc,int alienf,int alienc,int galletf,int galletc,int abisf,int abisc,int contu)
+void jugador ( char player [maxf][maxc],int numeros[maxf][maxc], int nfilas, int ncol,int alienf,int alienc,int galletf,int galletc,int abisf,int abisc,int contu)
 {
     char opcion;
     int olor =0;
@@ -340,6 +341,7 @@ void jugador ( char player [maxf][maxc],int numeros[maxf][maxc], int nfilas, int
     int contad =0,contai =0;
     int pojf=0,pojc=0,balf=0,balc=0;
     bool laser = true;
+    int x=0,y=0;
     bool galleta = false;
     bool muerto = false;
     do
@@ -365,22 +367,87 @@ void jugador ( char player [maxf][maxc],int numeros[maxf][maxc], int nfilas, int
             }
 
         }
-        cout<<"SALIR = S"<<endl;
         cin>>opcion;
         if (opcion == 'd')
         {
             contad++;
+            if (contad == 1)
+            {
+                player [pojf][pojc]='D';
+                vistamundo (player,numeros,nfilas,ncol);
+                olor =  sensacion (    numeros,  nfilas, ncol,pojf,pojc);
+                cout<<olor<<endl;
+
+            }
+            if (contad == 2)
+            {
+                player [pojf][pojc]='B';
+                vistamundo (player,numeros,nfilas,ncol);
+                olor =  sensacion (    numeros,  nfilas, ncol,pojf,pojc);
+                cout<<olor<<endl;
+
+            }
+            if (contad == 3)
+            {
+                player [pojf][pojc]='I';
+                vistamundo (player,numeros,nfilas,ncol);
+                olor =  sensacion (    numeros,  nfilas, ncol,pojf,pojc);
+                cout<<olor<<endl;
+
+            }
+            if (contad == 4)
+            {
+                player [pojf][pojc]='A';
+                vistamundo (player,numeros,nfilas,ncol);
+                olor =  sensacion (    numeros,  nfilas, ncol,pojf,pojc);
+                cout<<olor<<endl;
+
+            }
+
         }
         if (opcion == 'i')
         {
             contai++;
+            if (contai == 1)
+            {
+                player [pojf][pojc]='I';
+                vistamundo (player,numeros,nfilas,ncol);
+                olor =  sensacion (    numeros,  nfilas, ncol,pojf,pojc);
+                cout<<olor<<endl;
+
+            }
+            if (contai == 2)
+            {
+                player [pojf][pojc]='B';
+                vistamundo (player,numeros,nfilas,ncol);
+                olor =  sensacion (    numeros,  nfilas, ncol,pojf,pojc);
+                cout<<olor<<endl;
+
+            }
+            if (contai == 3)
+            {
+                player [pojf][pojc]='D';
+                vistamundo (player,numeros,nfilas,ncol);
+                olor =  sensacion (    numeros,  nfilas, ncol,pojf,pojc);
+                cout<<olor<<endl;
+
+            }
+            if (contai == 4)
+            {
+                player [pojf][pojc]='A';
+                vistamundo (player,numeros,nfilas,ncol);
+                olor =  sensacion (    numeros,  nfilas, ncol,pojf,pojc);
+                cout<<olor<<endl;
+
+            }
         }
         if (opcion == 'a')
         {
-            player [pojf][pojc]='-';
-            numeros[pojf][pojc] = 0;
+
             if (contad == 1)
             {
+                player [pojf][pojc]='-';
+                numeros[pojf][pojc] = 0;
                 pojc = pojc +1;
                 player [pojf][pojc]='D';
                 numeros [pojf][pojc]=5;
@@ -388,10 +455,12 @@ void jugador ( char player [maxf][maxc],int numeros[maxf][maxc], int nfilas, int
                 olor =  sensacion (    numeros,  nfilas, ncol,pojf,pojc);
                 cout<<olor<<endl;
                 contad=0;
-                gameover (numeros,nfilas,ncol,pojf,pojc,alienf,alienc,abisf,abisc,galleta,contu);
+
             }
             if (contad == 2)
             {
+                player [pojf][pojc]='-';
+                numeros[pojf][pojc] = 0;
                 pojf = pojf +1;
                 player [pojf][pojc]='B';
                 numeros [pojf][pojc]=5;
@@ -399,11 +468,12 @@ void jugador ( char player [maxf][maxc],int numeros[maxf][maxc], int nfilas, int
                 olor =  sensacion (    numeros,  nfilas, ncol,pojf,pojc);
                 contad=0;
                 cout<<olor<<endl;
-                gameover (numeros,nfilas,ncol,pojf,pojc,alienf,alienc,abisf,abisc,galleta,contu);
 
             }
             if (contad == 3)
             {
+                player [pojf][pojc]='-';
+                numeros[pojf][pojc] = 0;
                 pojc = pojc -1;
                 player [pojf][pojc]='a';
                 numeros [pojf][pojc]=5;
@@ -411,11 +481,12 @@ void jugador ( char player [maxf][maxc],int numeros[maxf][maxc], int nfilas, int
                 olor =  sensacion (    numeros,  nfilas, ncol,pojf,pojc);
                 contad=0;
                 cout<<olor<<endl;
-                gameover (numeros,nfilas,ncol,pojf,pojc,alienf,alienc,abisf,abisc,galleta,contu);
 
             }
             if (contad == 4)
             {
+                player [pojf][pojc]='-';
+                numeros[pojf][pojc] = 0;
                 pojf = pojf -1;
                 player [pojf][pojc]='a';
                 numeros [pojf][pojc]=5;
@@ -423,11 +494,12 @@ void jugador ( char player [maxf][maxc],int numeros[maxf][maxc], int nfilas, int
                 olor =  sensacion (    numeros,  nfilas, ncol,pojf,pojc);
                 contad=0;
                 cout<<olor<<endl;
-                gameover (numeros,nfilas,ncol,pojf,pojc,alienf,alienc,abisf,abisc,galleta,contu);
 
             }
             if (contai == 1)
             {
+                player [pojf][pojc]='-';
+                numeros[pojf][pojc] = 0;
                 pojc = pojc -1;
                 player [pojf][pojc]='I';
                 numeros [pojf][pojc]=5;
@@ -435,11 +507,13 @@ void jugador ( char player [maxf][maxc],int numeros[maxf][maxc], int nfilas, int
                 olor =  sensacion (    numeros,  nfilas, ncol,pojf,pojc);
                 contai=0;
                 cout<<olor<<endl;
-                gameover (numeros,nfilas,ncol,pojf,pojc,alienf,alienc,abisf,abisc,galleta,contu);
+
 
             }
             if (contai == 2)
             {
+                player [pojf][pojc]='-';
+                numeros[pojf][pojc] = 0;
                 pojf = pojf +1;
                 player [pojf][pojc]='B';
                 numeros [pojf][pojc]=5;
@@ -448,12 +522,13 @@ void jugador ( char player [maxf][maxc],int numeros[maxf][maxc], int nfilas, int
 
                 contai=0;
                 cout<<olor<<endl;
-                gameover (numeros,nfilas,ncol,pojf,pojc,alienf,alienc,abisf,abisc,galleta,contu);
 
 
             }
             if (contai == 3)
             {
+                player [pojf][pojc]='-';
+                numeros[pojf][pojc] = 0;
                 pojc = pojc +1;
                 player [pojf][pojc]='a';
                 numeros [pojf][pojc]=5;
@@ -461,11 +536,12 @@ void jugador ( char player [maxf][maxc],int numeros[maxf][maxc], int nfilas, int
                 olor =  sensacion (    numeros,  nfilas, ncol,pojf,pojc);
                 contai=0;
                 cout<<olor<<endl;
-                gameover (numeros,nfilas,ncol,pojf,pojc,alienf,alienc,abisf,abisc,galleta,contu);
 
             }
             if (contai == 4)
             {
+                player [pojf][pojc]='-';
+                numeros[pojf][pojc] = 0;
                 pojf = pojf -1;
                 player [pojf][pojc]='a';
                 numeros [pojf][pojc]=5;
@@ -474,15 +550,16 @@ void jugador ( char player [maxf][maxc],int numeros[maxf][maxc], int nfilas, int
 
                 contai=0;
                 cout<<olor<<endl;
-                gameover (numeros,nfilas,ncol,pojf,pojc,alienf,alienc,abisf,abisc,galleta,contu);
 
 
             }
+
         }
-        if (opcion == 's')
+        if (numeros[pojf][pojc]==2)
         {
-            exit(0);
+            gameover (player,numeros,nfilas,ncol,x,y,alienf,alienc,abisf,abisc,galleta,contu,galletf,galletc);
         }
+
 
         if (opcion =='f')
         {
@@ -537,6 +614,7 @@ void jugador ( char player [maxf][maxc],int numeros[maxf][maxc], int nfilas, int
 
     }
     while (muerto == false);
+
 
 
 }
@@ -917,7 +995,13 @@ int sensacion (  int numeros [maxf][maxc], int nfilas, int ncol,int pojf,int poj
         {
             if (numeros [pojf][pojc-1]==2)
             {
-
+                olor = 5;
+                return olor;
+            }
+            if (numeros [pojf][pojc-1]==3)
+            {
+                olor = 7;
+                return olor;
             }
             else
             {
@@ -928,30 +1012,75 @@ int sensacion (  int numeros [maxf][maxc], int nfilas, int ncol,int pojf,int poj
         }
         if (numeros [pojf-1][pojc]==2)
         {
-            olor=3;
-            return olor;
+            if (numeros [pojf][pojc-1]==2)
+            {
+                olor = 5;
+                return olor;
+            }
+            if (numeros [pojf][pojc-1]==3)
+            {
+                olor = 7;
+                return olor;
+            }
+            else
+            {
+                olor=3;
+                return olor;
+
+            }
 
         }
         if (numeros [pojf][pojc-1]==3)
         {
-            olor =5;
-            return olor;
+            if (numeros [pojf-1][pojc]==2)
+            {
+                olor = 7;
+                return olor;
+            }
+            if (numeros [pojf+1][pojc]==2)
+            {
+                olor = 7;
+                return olor;
+            }
+            else
+            {
+                olor =5;
+                return olor;
+            }
         }
         if (numeros [pojf+1][pojc]==3)
         {
-            olor =5;
-            return olor;
+
+            if (numeros [pojf][pojc-1]==2)
+            {
+                olor = 7;
+                return olor;
+            }
+            else
+            {
+                olor =5;
+                return olor;
+            }
         }
         if (numeros [pojf-1][pojc]==3)
         {
-            olor =5;
+            if (numeros [pojf][pojc-1]==2)
+            {
+                olor = 7;
+                return olor;
+            }
+            else
+            {
+                olor =5;
+                return olor;
+            }
+        }
+        else
+        {
+            olor =1;
+
             return olor;
         }
-        olor =1;
-
-        return olor;
-
-
     }
     //abismo
     if (numeros [pojf+1][pojc]==2)
@@ -968,33 +1097,174 @@ int sensacion (  int numeros [maxf][maxc], int nfilas, int ncol,int pojf,int poj
                 olor = 7;
                 return olor;
             }
+            if (numeros [pojf][pojc+1]==2 )
+            {
+                olor = 5;
+                return olor;
+            }
+            if ( numeros [pojf][pojc-1]==2 )
+            {
+                olor = 5;
+                return olor;
+            }
 
             else
+            {
                 olor = 3;
-            return olor;
+                return olor;
+            }
         }
         if (numeros [pojf-1][pojc]==3)
         {
-            olor = 5;
-            return olor;
+            if (numeros [pojf][pojc+1]==2 )
+            {
+                olor = 8;
+                return olor;
+            }
+            if ( numeros [pojf][pojc-1]==2 )
+            {
+                olor = 8;
+                return olor;
+            }
+            if (numeros [pojf][pojc+1]==1 )
+            {
+                olor = 7;
+                return olor;
+            }
+            if ( numeros [pojf][pojc-1]==1 )
+            {
+                olor = 7;
+                return olor;
+            }
+            else
+            {
+                olor = 5;
+                return olor;
+            }
         }
         if (numeros [pojf][pojc+1]==3)
         {
-            olor = 5;
-            return olor;
+            if (numeros [pojf+1][pojc]==1 )
+            {
+                olor = 7;
+                return olor;
+            }
+            if ( numeros [pojf][pojc-1]==1 )
+            {
+                olor = 7;
+                return olor;
+            }
+            if (numeros [pojf+1][pojc]==2 )
+            {
+                olor = 8;
+                return olor;
+            }
+            if ( numeros [pojf][pojc-1]==2 )
+            {
+                olor = 8;
+                return olor;
+            }
+            else
+            {
+                olor = 5;
+                return olor;
+            }
         }
         if (numeros [pojf][pojc-1]==3)
         {
-            olor = 5;
-            return olor;
+            if (numeros [pojf+1][pojc]==1 )
+            {
+                olor = 7;
+                return olor;
+            }
+            if ( numeros [pojf][pojc+1]==1 )
+            {
+                olor = 7;
+                return olor;
+            }
+            if (numeros [pojf+1][pojc]==2 )
+            {
+                olor = 8;
+                return olor;
+            }
+            if ( numeros [pojf][pojc+1]==2 )
+            {
+                olor = 8;
+                return olor;
+            }
+            else
+            {
+                olor = 5;
+                return olor;
+            }
+        }
+
+        if (numeros [pojf][pojc-1]==2)
+        {
+            if (numeros [pojf+1][pojc]==1 )
+            {
+                olor = 5;
+                return olor;
+            }
+            if ( numeros [pojf][pojc+1]==1 )
+            {
+                olor = 5;
+                return olor;
+            }
+            if (numeros [pojf+1][pojc]==3 )
+            {
+                olor = 8;
+                return olor;
+            }
+            if ( numeros [pojf][pojc+1]==3 )
+            {
+                olor = 8;
+                return olor;
+            }
+            else
+            {
+                olor = 4;
+                return olor;
+            }
+        }
+        if (numeros [pojf][pojc+1]==2)
+        {
+            if (numeros [pojf+1][pojc]==1 )
+            {
+                olor = 5;
+                return olor;
+            }
+            if ( numeros [pojf][pojc-1]==1 )
+            {
+                olor = 5;
+                return olor;
+            }
+            if (numeros [pojf+1][pojc]==3 )
+            {
+                olor = 8;
+                return olor;
+            }
+            if ( numeros [pojf][pojc-1]==3 )
+            {
+                olor = 8;
+                return olor;
+            }
+            else
+            {
+                olor = 4;
+                return olor;
+            }
         }
         else
+        {
             olor= 2;
-        return olor;
+            return olor;
+        }
     }
+    // abismo arriba
     if (numeros [pojf-1][pojc]==2)
     {
-        if (numeros [pojf+1][pojc]==1)
+       if (numeros [pojf+1][pojc]==1)
         {
             if (numeros [pojf][pojc+1]==3 )
             {
@@ -1006,123 +1276,478 @@ int sensacion (  int numeros [maxf][maxc], int nfilas, int ncol,int pojf,int poj
                 olor = 7;
                 return olor;
             }
+            if (numeros [pojf][pojc+1]==2 )
+            {
+                olor = 5;
+                return olor;
+            }
+            if ( numeros [pojf][pojc-1]==2 )
+            {
+                olor = 5;
+                return olor;
+            }
 
             else
+            {
                 olor = 3;
-            return olor;
+                return olor;
+            }
         }
-        if (numeros [pojf-1][pojc]==3)
+        if (numeros [pojf+1][pojc]==3)
         {
-            olor = 5;
-            return olor;
+            if (numeros [pojf][pojc+1]==2 )
+            {
+                olor = 8;
+                return olor;
+            }
+            if ( numeros [pojf][pojc-1]==2 )
+            {
+                olor = 8;
+                return olor;
+            }
+            if (numeros [pojf][pojc+1]==1 )
+            {
+                olor = 7;
+                return olor;
+            }
+            if ( numeros [pojf][pojc-1]==1 )
+            {
+                olor = 7;
+                return olor;
+            }
+            else
+            {
+                olor = 5;
+                return olor;
+            }
         }
         if (numeros [pojf][pojc+1]==3)
         {
-            olor = 5;
-            return olor;
+            if (numeros [pojf+1][pojc]==1 )
+            {
+                olor = 7;
+                return olor;
+            }
+            if ( numeros [pojf][pojc-1]==1 )
+            {
+                olor = 7;
+                return olor;
+            }
+            if (numeros [pojf+1][pojc]==2 )
+            {
+                olor = 8;
+                return olor;
+            }
+            if ( numeros [pojf][pojc-1]==2 )
+            {
+                olor = 8;
+                return olor;
+            }
+            else
+            {
+                olor = 5;
+                return olor;
+            }
         }
         if (numeros [pojf][pojc-1]==3)
         {
-            olor = 5;
-            return olor;
-        }
-        else
-            olor= 2;
-        return olor;
-    }
-    //galleta
-    if (numeros [pojf+1][pojc]==3)
-    {
-        if (numeros [pojf-1][pojc]==1)
-        {
-            olor = 5;
-            return olor;
-        }
-        if  (numeros [pojf][pojc+1]==1)
-        {
-            olor = 5;
-            return olor;
-        }
-        if  (numeros [pojf][pojc-1]==1)
-        {
-            olor = 5;
-            return olor;
-        }
-        if  (numeros [pojf-1][pojc]==2)
-        {
-            olor = 6;
-            return olor;
-        }
-        if  (numeros [pojf][pojc+1]==2)
-        {
-            olor = 6;
-            return olor;
-        }
-        if  (numeros [pojf][pojc-1]==2)
-        {
-            olor = 6;
-            return olor;
-        }
-        else
-        {
-
-            olor =4;
-            return olor;
-        }
-
-        return olor;
-    }
-}
-int gameover ( int numeros[maxf][maxc], int nfilas, int ncol,int pojf,int pojc,int alienf,int alienc,int abisf, int abisc,bool galleta,int contu)
-{
-    int num =0;
-    for (int i =0; i<nfilas; i++)
-    {
-        for (int j =0; ncol; j++)
-        {
-
-
-            if (numeros[pojf][pojc] == numeros [abisf][abisc])
+            if (numeros [pojf+1][pojc]==1 )
             {
-                system("cls");
-                cout << "  _____      ___       ___  ___   _____"    << endl;
-                cout << " / ___ |    /   |     /   |/   | |  ___|"  << endl;
-                cout << "| |        / /| |    / /|   /| | | |__"    << endl;
-                cout << "| |  _    / ___ |   / / |__/ | | |  __|"   << endl;
-                cout << "| |_| |  / /  | |  / /       | | | |___"   << endl;
-                cout << "\\_____/ /_/   |_| /_/        |_| |_____|"  << endl;
-                cout << " _____   _     _   _____   _____"          << endl;
-                cout << "/  _  \\ | |   / / |  ___| |  _   \\ "        << endl;
-                cout << "| | | | | |  / /  | |__   | |_|  |"         << endl;
-                cout << "| | | | | | / /   |  __|  |  _   /"         << endl;
-                cout << "| |_| | | |/ /    | |___  | | \\  \\  "        << endl;
-                cout << "\\_____/ |___/     |_____| |_|  \\ _\\ "       << endl;
-                cout << endl << endl;
-                exit(0);
-
+                olor = 7;
+                return olor;
+            }
+            if ( numeros [pojf][pojc+1]==1 )
+            {
+                olor = 7;
+                return olor;
+            }
+            if (numeros [pojf+1][pojc]==2 )
+            {
+                olor = 8;
+                return olor;
+            }
+            if ( numeros [pojf][pojc+1]==2 )
+            {
+                olor = 8;
+                return olor;
+            }
+            else
+            {
+                olor = 5;
+                return olor;
             }
         }
+
+        if (numeros [pojf][pojc-1]==2)
+        {
+            if (numeros [pojf+1][pojc]==1 )
+            {
+                olor = 5;
+                return olor;
+            }
+            if ( numeros [pojf][pojc+1]==1 )
+            {
+                olor = 5;
+                return olor;
+            }
+            if (numeros [pojf+1][pojc]==2 )
+            {
+                olor = 6;
+                return olor;
+            }
+            if ( numeros [pojf][pojc+1]==2 )
+            {
+                olor = 6;
+                return olor;
+            }
+            if (numeros [pojf+1][pojc]==3 )
+            {
+                olor = 8;
+                return olor;
+            }
+            if ( numeros [pojf][pojc+1]==3 )
+            {
+                olor = 8;
+                return olor;
+            }
+            else
+            {
+                olor = 4;
+                return olor;
+            }
+        }
+        if (numeros [pojf][pojc+1]==2)
+        {
+            if (numeros [pojf+1][pojc]==1 )
+            {
+                olor = 5;
+                return olor;
+            }
+            if ( numeros [pojf][pojc-1]==1 )
+            {
+                olor = 5;
+                return olor;
+            }
+            if (numeros [pojf+1][pojc]==2 )
+            {
+                olor = 6;
+                return olor;
+            }
+            if ( numeros [pojf][pojc-1]==2 )
+            {
+                olor = 6;
+                return olor;
+            }
+            if (numeros [pojf+1][pojc]==3 )
+            {
+                olor = 8;
+                return olor;
+            }
+            if ( numeros [pojf][pojc-1]==3 )
+            {
+                olor = 8;
+                return olor;
+            }
+            else
+            {
+                olor = 4;
+                return olor;
+            }
+        }
+        else
+        {
+            olor= 2;
+            return olor;
+        }
+    }
+    //derecha
+    if (numeros [pojf][pojc+1]==2)
+    {
+       olor =2;
+       return olor;
+    }
+    //izquierda
+    if (numeros [pojf][pojc-1]==2)
+    {
+       olor =2;
+       return olor;
+    }
+    //galleta arriba
+    if (numeros [pojf-1][pojc]==3)
+    {
+       if (numeros [pojf+1][pojc]==1)
+        {
+            if (numeros [pojf][pojc+1]==2 )
+            {
+                olor = 7;
+                return olor;
+            }
+            if ( numeros [pojf][pojc-1]==2 )
+            {
+                olor = 7;
+                return olor;
+            }
+            else
+            {
+                olor = 5;
+                return olor;
+            }
+        }
+        if (numeros [pojf+1][pojc]==1)
+        {
+            if (numeros [pojf][pojc+1]==2 )
+            {
+                olor = 7;
+                return olor;
+            }
+            if ( numeros [pojf][pojc-1]==2 )
+            {
+                olor = 7;
+                return olor;
+            }
+
+            else
+            {
+                olor = 5;
+                return olor;
+            }
+        }
+        if (numeros [pojf][pojc+1]==1)
+        {
+            if (numeros [pojf+1][pojc]==2 )
+            {
+                olor = 7;
+                return olor;
+            }
+            if ( numeros [pojf][pojc-1]==2 )
+            {
+                olor = 7;
+                return olor;
+            }
+            else
+            {
+                olor = 5;
+                return olor;
+            }
+        }
+        if (numeros [pojf][pojc-1]==1)
+        {
+            if (numeros [pojf+1][pojc]==2 )
+            {
+                olor = 7;
+                return olor;
+            }
+            if ( numeros [pojf][pojc+1]==2 )
+            {
+                olor = 7;
+                return olor;
+            }
+            else
+            {
+                olor = 5;
+                return olor;
+            }
+        }
+
+        if (numeros [pojf][pojc-1]==2)
+        {
+            if (numeros [pojf+1][pojc]==2 )
+            {
+                olor = 8;
+                return olor;
+            }
+            if ( numeros [pojf][pojc+1]==2 )
+            {
+                olor = 8;
+                return olor;
+            }
+            else
+            {
+                olor = 6;
+                return olor;
+            }
+        }
+        if (numeros [pojf][pojc+1]==2)
+        {
+             if (numeros [pojf+1][pojc]==2 )
+            {
+                olor = 8;
+                return olor;
+            }
+            if ( numeros [pojf][pojc+1]==2 )
+            {
+                olor = 8;
+                return olor;
+            }
+            else
+            {
+                olor = 6;
+                return olor;
+            }
+        }
+        else
+        {
+            olor= 4;
+            return olor;
+        }
+    }
+    //abajo
+     if (numeros [pojf+1][pojc]==3)
+    {
+       if (numeros [pojf-1][pojc]==1)
+        {
+            if (numeros [pojf][pojc+1]==2 )
+            {
+                olor = 7;
+                return olor;
+            }
+            if ( numeros [pojf][pojc-1]==2 )
+            {
+                olor = 7;
+                return olor;
+            }
+            else
+            {
+                olor = 5;
+                return olor;
+            }
+        }
+        if (numeros [pojf-1][pojc]==1)
+        {
+            if (numeros [pojf][pojc+1]==2 )
+            {
+                olor = 7;
+                return olor;
+            }
+            if ( numeros [pojf][pojc-1]==2 )
+            {
+                olor = 7;
+                return olor;
+            }
+
+            else
+            {
+                olor = 5;
+                return olor;
+            }
+        }
+        if (numeros [pojf][pojc+1]==1)
+        {
+            if (numeros [pojf-1][pojc]==2 )
+            {
+                olor = 7;
+                return olor;
+            }
+            if ( numeros [pojf][pojc-1]==2 )
+            {
+                olor = 7;
+                return olor;
+            }
+            else
+            {
+                olor = 5;
+                return olor;
+            }
+        }
+        if (numeros [pojf][pojc-1]==1)
+        {
+            if (numeros [pojf-1][pojc]==2 )
+            {
+                olor = 7;
+                return olor;
+            }
+            if ( numeros [pojf][pojc+1]==2 )
+            {
+                olor = 7;
+                return olor;
+            }
+            else
+            {
+                olor = 5;
+                return olor;
+            }
+        }
+
+        if (numeros [pojf][pojc-1]==2)
+        {
+            if (numeros [pojf-1][pojc]==2 )
+            {
+                olor = 8;
+                return olor;
+            }
+            if ( numeros [pojf][pojc+1]==2 )
+            {
+                olor = 8;
+                return olor;
+            }
+            else
+            {
+                olor = 6;
+                return olor;
+            }
+        }
+        if (numeros [pojf][pojc+1]==2)
+        {
+             if (numeros [pojf-1][pojc]==2 )
+            {
+                olor = 8;
+                return olor;
+            }
+            if ( numeros [pojf][pojc+1]==2 )
+            {
+                olor = 8;
+                return olor;
+            }
+            else
+            {
+                olor = 6;
+                return olor;
+            }
+        }
+        else
+        {
+            olor= 4;
+            return olor;
+        }
+    }
+    //derecha
+    if (numeros [pojf][pojc+1]==3)
+    {
+        olor =4;
+        return olor;
+    }
+    //izquierda
+    if (numeros [pojf][pojc-1]==3)
+    {
+        olor =4;
+        return olor;
     }
 
-    if (numeros[pojf][pojc] == numeros [alienf][alienc])
-    {
-        system("cls");
-        cout << "  _____      ___       ___  ___   _____"    << endl;
-        cout << " / ___ |    /   |     /   |/   | |  ___|"  << endl;
-        cout << "| |        / /| |    / /|   /| | | |__"    << endl;
-        cout << "| |  _    / ___ |   / / |__/ | | |  __|"   << endl;
-        cout << "| |_| |  / /  | |  / /       | | | |___"   << endl;
-        cout << "\\_____/ /_/   |_| /_/        |_| |_____|"  << endl;
-        cout << " _____   _     _   _____   _____"          << endl;
-        cout << "/  _  \\ | |   / / |  ___| |  _   \\ "        << endl;
-        cout << "| | | | | |  / /  | |__   | |_|  |"         << endl;
-        cout << "| | | | | | / /   |  __|  |  _   /"         << endl;
-        cout << "| |_| | | |/ /    | |___  | | \\  \\  "        << endl;
-        cout << "\\_____/ |___/     |_____| |_|  \\ _\\ "       << endl;
-        cout << endl << endl;
-        cout << endl << endl;
-        exit(0);
-    }
+}
+int gameover ( char player [maxf][maxc],int numeros[maxf][maxc], int nfilas, int ncol,int x,int y,int alienf,int alienc,int abisf, int abisc,bool galleta,int contu,int galletf,int galletc)
+{
+
+
+
+    //system("cls");
+    cout << "  _____      ___       ___  ___   _____"    << endl;
+    cout << " / ___ |    /   |     /   |/   | |  ___|"  << endl;
+    cout << "| |        / /| |    / /|   /| | | |__"    << endl;
+    cout << "| |  _    / ___ |   / / |__/ | | |  __|"   << endl;
+    cout << "| |_| |  / /  | |  / /       | | | |___"   << endl;
+    cout << "\\_____/ /_/   |_| /_/        |_| |_____|"  << endl;
+    cout << " _____   _     _   _____   _____"          << endl;
+    cout << "/  _  \\ | |   / / |  ___| |  _   \\ "        << endl;
+    cout << "| | | | | |  / /  | |__   | |_|  |"         << endl;
+    cout << "| | | | | | / /   |  __|  |  _   /"         << endl;
+    cout << "| |_| | | |/ /    | |___  | | \\  \\  "        << endl;
+    cout << "\\_____/ |___/     |_____| |_|  \\ _\\ "       << endl;
+    cout << endl << endl;
+    cout << endl << endl;
+    exit(0);
+
+
+
 
 }
 void disparar (  int numeros [maxf][maxc], int nfilas, int ncol,int balf,int balc,int contad,int contai,int alienf,int alienc)
