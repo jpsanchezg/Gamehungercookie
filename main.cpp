@@ -22,7 +22,7 @@ void vistamundo ( char player [maxf][maxc], int numeros [maxf][maxc], int nfilas
 int sensacion (  int numeros [maxf][maxc], int nfilas, int ncol,int pojf,int pojc);
 void disparar (  int numeros [maxf][maxc], int nfilas, int ncol,int balf,int balc,int contad,int contai,int alienf,int alienc);
 
-int gameover ( char player [maxf][maxc],int numeros[maxf][maxc], int nfilas, int ncol,int x,int y,int alienf,int alienc,int abisf, int abisc,bool galleta,int contu,int galletf,int galletc);
+int gameover ( char player [maxf][maxc],int numeros[maxf][maxc], int nfilas, int ncol);
 
 int main ()
 {
@@ -219,7 +219,10 @@ void tablerdiabolico (char player [maxf][maxc],int numeros[maxf][maxf], int nfil
     //posicion aleatoria de la galleta
     galletf=0 + rand ()% (nfilas);
     galletc =0 + rand ()% (ncol);
-    numeros[galletf][galletc]=3;
+    if (numeros[galletf][galletc]!= numeros[jugf][jugc] )
+    {
+        numeros[galletf][galletc]=3;
+    }
 
     abis =  200;
     int k=0,abisf=0,abisc=0;
@@ -264,11 +267,12 @@ void tableroaleatorio (char player [maxf][maxc],int numeros[maxf][maxf], int nfi
 {
 
     int abis=0,alienf=0,alienc=0,multi=0,ret=0,filas=0,col=0;
-    int jugf=0, jugc=0;
+    int jugf=0, jugc=0,x=0,y=0;
     player[jugf][jugc]='L';
     numeros[jugf][jugc]= 5;
     int galletf=0,galletc=0;
     int contu = 0;
+    int olor =0;
     bool poss=false;
     multi = nfilas* ncol;
     ret = multi/2;
@@ -335,12 +339,11 @@ void vistamundo (char player [maxf][maxc],int numeros[maxf][maxc], int nfilas, i
 void jugador ( char player [maxf][maxc],int numeros[maxf][maxc], int nfilas, int ncol,int alienf,int alienc,int galletf,int galletc,int abisf,int abisc,int contu)
 {
     char opcion;
-    int olor =0;
     int k=0,muertos=0;
+    int olor =0;
     int contad =0,contai =0;
     int pojf=0,pojc=0,balf=0,balc=0;
     bool laser = true;
-    int x=0,y=0;
     bool galleta = false;
     bool muerto = false;
     do
@@ -367,6 +370,7 @@ void jugador ( char player [maxf][maxc],int numeros[maxf][maxc], int nfilas, int
             }
 
         }
+        olor =  sensacion (    numeros,  nfilas, ncol,pojf,pojc);
         cout<<"AROMA = "<<olor<<endl;
         cin>>opcion;
         if (opcion == 'd')
@@ -425,7 +429,7 @@ void jugador ( char player [maxf][maxc],int numeros[maxf][maxc], int nfilas, int
                 olor =  sensacion (    numeros,  nfilas, ncol,pojf,pojc);
 
             }
-                        system("cls");
+            system("cls");
 
         }
         if (opcion == 'a')
@@ -436,21 +440,42 @@ void jugador ( char player [maxf][maxc],int numeros[maxf][maxc], int nfilas, int
                 player [pojf][pojc]='-';
                 numeros[pojf][pojc] = 0;
                 pojc = pojc +1;
+                if ( numeros [pojf][pojc]== 2)
+        {
+            gameover ( player, numeros, nfilas, ncol);
+        }
+         if ( numeros [pojf][pojc]== 1)
+        {
+            gameover ( player, numeros, nfilas, ncol);
+        }
                 player [pojf][pojc]='D';
                 numeros [pojf][pojc]=5;
-                olor =  sensacion (    numeros,  nfilas, ncol,pojf,pojc);
+
+                olor =  sensacion (numeros,  nfilas, ncol,pojf,pojc);
                 contad=0;
 
             }
+
             if (contad == 2)
             {
                 player [pojf][pojc]='-';
                 numeros[pojf][pojc] = 0;
                 pojf = pojf +1;
+                    if ( numeros [pojf][pojc]== 2)
+        {
+            gameover ( player, numeros, nfilas, ncol);
+        }
+         if ( numeros [pojf][pojc]== 1)
+        {
+            gameover ( player, numeros, nfilas, ncol);
+        }
                 player [pojf][pojc]='B';
                 numeros [pojf][pojc]=5;
+
                 olor =  sensacion (    numeros,  nfilas, ncol,pojf,pojc);
                 contad=0;
+
+
 
             }
             if (contad == 3)
@@ -458,10 +483,21 @@ void jugador ( char player [maxf][maxc],int numeros[maxf][maxc], int nfilas, int
                 player [pojf][pojc]='-';
                 numeros[pojf][pojc] = 0;
                 pojc = pojc -1;
+    if ( numeros [pojf][pojc]== 2)
+        {
+            gameover ( player, numeros, nfilas, ncol);
+        }
+         if ( numeros [pojf][pojc]== 1)
+        {
+            gameover ( player, numeros, nfilas, ncol);
+        }
                 player [pojf][pojc]='a';
                 numeros [pojf][pojc]=5;
+                numeros [pojf][x]=5;
+
                 olor =  sensacion (    numeros,  nfilas, ncol,pojf,pojc);
                 contad=0;
+
 
             }
             if (contad == 4)
@@ -469,10 +505,19 @@ void jugador ( char player [maxf][maxc],int numeros[maxf][maxc], int nfilas, int
                 player [pojf][pojc]='-';
                 numeros[pojf][pojc] = 0;
                 pojf = pojf -1;
-                player [pojf][pojc]='a';
+    if ( numeros [pojf][pojc]== 2)
+        {
+            gameover ( player, numeros, nfilas, ncol);
+        }
+         if ( numeros [pojf][pojc]== 1)
+        {
+            gameover ( player, numeros, nfilas, ncol);
+        }                player [pojf][pojc]='a';
                 numeros [pojf][pojc]=5;
+
                 olor =  sensacion (    numeros,  nfilas, ncol,pojf,pojc);
                 contad=0;
+
 
             }
             if (contai == 1)
@@ -480,10 +525,20 @@ void jugador ( char player [maxf][maxc],int numeros[maxf][maxc], int nfilas, int
                 player [pojf][pojc]='-';
                 numeros[pojf][pojc] = 0;
                 pojc = pojc -1;
+    if ( numeros [pojf][pojc]== 2)
+        {
+            gameover ( player, numeros, nfilas, ncol);
+        }
+         if ( numeros [pojf][pojc]== 1)
+        {
+            gameover ( player, numeros, nfilas, ncol);
+        }
                 player [pojf][pojc]='I';
                 numeros [pojf][pojc]=5;
+
                 olor =  sensacion (    numeros,  nfilas, ncol,pojf,pojc);
                 contai=0;
+
 
 
             }
@@ -492,11 +547,21 @@ void jugador ( char player [maxf][maxc],int numeros[maxf][maxc], int nfilas, int
                 player [pojf][pojc]='-';
                 numeros[pojf][pojc] = 0;
                 pojf = pojf +1;
+    if ( numeros [pojf][pojc]== 2)
+        {
+            gameover ( player, numeros, nfilas, ncol);
+        }
+         if ( numeros [pojf][pojc]== 1)
+        {
+            gameover ( player, numeros, nfilas, ncol);
+        }
+
                 player [pojf][pojc]='B';
                 numeros [pojf][pojc]=5;
                 olor =  sensacion (    numeros,  nfilas, ncol,pojf,pojc);
 
                 contai=0;
+
 
 
             }
@@ -505,10 +570,19 @@ void jugador ( char player [maxf][maxc],int numeros[maxf][maxc], int nfilas, int
                 player [pojf][pojc]='-';
                 numeros[pojf][pojc] = 0;
                 pojc = pojc +1;
+    if ( numeros [pojf][pojc]== 2)
+        {
+            gameover ( player, numeros, nfilas, ncol);
+        }
+         if ( numeros [pojf][pojc]== 1)
+        {
+            gameover ( player, numeros, nfilas, ncol);
+        }
                 player [pojf][pojc]='a';
                 numeros [pojf][pojc]=5;
                 olor =  sensacion (    numeros,  nfilas, ncol,pojf,pojc);
                 contai=0;
+
 
             }
             if (contai == 4)
@@ -516,23 +590,24 @@ void jugador ( char player [maxf][maxc],int numeros[maxf][maxc], int nfilas, int
                 player [pojf][pojc]='-';
                 numeros[pojf][pojc] = 0;
                 pojf = pojf -1;
+                y = pojf -1;
+
                 player [pojf][pojc]='a';
                 numeros [pojf][pojc]=5;
 
                 olor =  sensacion (    numeros,  nfilas, ncol,pojf,pojc);
 
                 contai=0;
-                cout<<olor<<endl;
 
 
             }
+
+
             system("cls");
 
         }
-        if (numeros[pojf][pojc]==2)
-        {
-            gameover (player,numeros,nfilas,ncol,x,y,alienf,alienc,abisf,abisc,galleta,contu,galletf,galletc);
-        }
+
+
 
 
         if (opcion =='f')
@@ -596,1164 +671,1178 @@ int sensacion (  int numeros [maxf][maxc], int nfilas, int ncol,int pojf,int poj
 {
     int olor=0;
     //alien
-    if (pojf>0){
-    if (numeros [pojf-1][pojc]==1)
-    {
-        if (numeros [pojf+1][pojc]==2)
-        {
-            if (numeros [pojf][pojc+1]==3 )
-            {
-                olor = 7;
-                return olor;
-
-            }
-            if (numeros [pojf][pojc-1]==3)
-            {
-                olor = 7;
-                return olor;
-            }
-
-            else
-                olor = 3;
-            return olor;
-        }
-        if (numeros [pojf+1][pojc]==3)
-        {
-
-            if (numeros [pojf][pojc+1]==2 )
-            {
-                olor = 7;
-                return olor;
-
-            }
-            if (numeros [pojf][pojc-1]==2)
-            {
-                olor = 7;
-                return olor;
-            }
-            else
-            {
-                olor = 5;
-                return olor;
-            }
-        }
-        if (numeros [pojf][pojc+1]==3)
-        {
-            if (numeros [pojf][pojc-1]==2)
-            {
-                olor = 7;
-                return olor;
-            }
-            if (numeros [pojf+1][pojc]==2)
-            {
-                olor = 7;
-                return olor;
-            }
-            else
-            {
-                olor = 5;
-                return olor;
-            }
-        }
-        if (numeros [pojf][pojc-1]==3)
-        {
-            if (numeros [pojf][pojc+1]==2)
-            {
-                olor = 7;
-                return olor;
-            }
-            if (numeros [pojf+1][pojc]==2)
-            {
-                olor = 7;
-                return olor;
-            }
-            else
-            {
-                olor = 5;
-                return olor;
-            }
-        }
-        else
-        {
-            olor= 1;
-            return olor;
-        }
-    }
-    }
-    if (pojf<nfilas){
-    if (numeros [pojf+1][pojc]==1)
-    {
-        if (numeros [pojf-1][pojc]==2)
-        {
-            if (numeros [pojf][pojc+1]==3 )
-            {
-                olor = 7;
-                return olor;
-            }
-            if ( numeros [pojf][pojc-1]==3 )
-            {
-                olor = 7;
-                return olor;
-            }
-
-            else
-                olor = 3;
-            return olor;
-        }
-        if (numeros [pojf-1][pojc]==3)
-        {
-            if (numeros [pojf][pojc+1]==2 )
-            {
-                olor = 7;
-                return olor;
-            }
-            if ( numeros [pojf][pojc-1]==2 )
-            {
-                olor = 7;
-                return olor;
-            }
-
-            else
-            {
-                olor = 5;
-                return olor;
-            }
-        }
-        if (numeros [pojf][pojc+1]==3)
-        {
-            if (numeros [pojf-1][pojc]==2 )
-            {
-                olor = 7;
-                return olor;
-            }
-            if ( numeros [pojf][pojc-1]==2 )
-            {
-                olor = 7;
-                return olor;
-            }
-
-            else
-            {
-                olor = 5;
-                return olor;
-            }
-        }
-        if (numeros [pojf][pojc-1]==3)
-        {
-            if (numeros [pojf-1][pojc]==2 )
-            {
-                olor = 7;
-                return olor;
-            }
-            if ( numeros [pojf][pojc+1]==2 )
-            {
-                olor = 7;
-                return olor;
-            }
-
-            else
-            {
-                olor = 5;
-                return olor;
-            }
-        }
-        else
-            olor= 1;
-        return olor;
-    }
-    }
-    if (pojc>0){
-    if (numeros [pojf][pojc-1]==1)
-    {
-        if (numeros [pojf][pojc+1]==2)
-        {
-            if (numeros [pojf+1][pojc]==2)
-            {
-                olor =5;
-                return olor;
-
-            }
-            if (numeros [pojf-1][pojc]==2)
-            {
-                olor=5;
-                return olor;
-
-            }
-            if (numeros [pojf+1][pojc]==3)
-            {
-                olor =7;
-                return olor;
-
-            }
-            if (numeros [pojf-1][pojc]==3)
-            {
-                olor=7;
-                return olor;
-
-            }
-            else
-            {
-                olor =3;
-                return olor;
-            }
-        }
-        if (numeros [pojf+1][pojc]==2)
-        {
-            if (numeros [pojf-1][pojc]==2)
-            {
-                olor = 5;
-                return olor;
-            }
-            if (numeros [pojf][pojc+1]==2)
-            {
-                olor = 5;
-                return olor;
-
-            }
-
-            if (numeros [pojf][pojc+1]==3)
-            {
-                olor = 7;
-                return olor;
-
-            }
-            if (numeros [pojf-1][pojc]==3)
-            {
-                olor = 7;
-                return olor;
-
-            }
-            else
-            {
-                olor =3;
-                return olor;
-
-            }
-        }
-        if (numeros [pojf-1][pojc]==2)
-        {
-            if (numeros [pojf+1][pojc]==2)
-            {
-                olor = 5;
-                return olor;
-            }
-            if (numeros [pojf][pojc+1]==2)
-            {
-                olor = 5;
-                return olor;
-
-            }
-
-            if (numeros [pojf][pojc+1]==3)
-            {
-                olor = 7;
-                return olor;
-
-            }
-            if (numeros [pojf-1][pojc]==3)
-            {
-                olor = 7;
-                return olor;
-
-            }
-            else
-            {
-                olor =3;
-                return olor;
-
-            }
-        }
-        if (numeros [pojf][pojc+1]==3)
-        {
-            if (numeros [pojf-1][pojc]==2)
-            {
-                olor = 7;
-                return olor;
-
-            }
-            if (numeros [pojf+1][pojc]==2)
-            {
-                olor = 7;
-                return olor;
-
-            }
-            else
-            {
-                olor =5;
-                return olor;
-
-            }
-        }
-
-        if (numeros [pojf+1][pojc]==3)
-        {
-            if (numeros [pojf-1][pojc]==2)
-            {
-                olor = 7;
-                return olor;
-
-            }
-            if (numeros [pojf][pojc+1]==2)
-            {
-                olor = 7;
-                return olor;
-            }
-            else
-            {
-                olor =5;
-                return olor;
-
-            }
-
-        }
-        if (numeros [pojf-1][pojc]==3)
-        {
-            if (numeros [pojf+1][pojc]==2)
-            {
-                olor = 7;
-                return olor;
-
-            }
-            if (numeros [pojf][pojc+1]==2)
-            {
-                olor = 7;
-                return olor;
-            }
-            else
-            {
-                olor =5;
-                return olor;
-
-            }
-        }
-        else
-        {
-            olor = 1;
-            return olor;
-        }
-    }
-    }
-    if (pojc<ncol){
-    if (numeros [pojf][pojc+1]==1)
-    {
-        if (numeros [pojf][pojc-1]==2)
-        {
-            if (numeros [pojf+1][pojc]==2)
-            {
-
-                olor=5;
-                return olor;
-
-
-            }
-            if (numeros [pojf-1][pojc]==2)
-            {
-                olor=5;
-                return olor;
-
-            }
-            if (numeros [pojf+1][pojc]==3)
-            {
-                olor=7;
-                return olor;
-
-            }
-            if (numeros [pojf-1][pojc]==3)
-            {
-                olor=7;
-                return olor;
-
-            }
-
-            else
-            {
-                olor=3;
-                return olor;
-
-            }
-        }
-        if (numeros [pojf+1][pojc]==2)
-        {
-            if (numeros [pojf][pojc-1]==2)
-            {
-                olor = 5;
-                return olor;
-            }
-            if (numeros [pojf][pojc-1]==3)
-            {
-                olor = 7;
-                return olor;
-            }
-            else
-            {
-                olor=3;
-                return olor;
-
-            }
-        }
-        if (numeros [pojf-1][pojc]==2)
-        {
-            if (numeros [pojf][pojc-1]==2)
-            {
-                olor = 5;
-                return olor;
-            }
-            if (numeros [pojf][pojc-1]==3)
-            {
-                olor = 7;
-                return olor;
-            }
-            else
-            {
-                olor=3;
-                return olor;
-
-            }
-
-        }
-        if (numeros [pojf][pojc-1]==3)
-        {
-            if (numeros [pojf-1][pojc]==2)
-            {
-                olor = 7;
-                return olor;
-            }
-            if (numeros [pojf+1][pojc]==2)
-            {
-                olor = 7;
-                return olor;
-            }
-            else
-            {
-                olor =5;
-                return olor;
-            }
-        }
-        if (numeros [pojf+1][pojc]==3)
-        {
-
-            if (numeros [pojf][pojc-1]==2)
-            {
-                olor = 7;
-                return olor;
-            }
-            else
-            {
-                olor =5;
-                return olor;
-            }
-        }
-        if (numeros [pojf-1][pojc]==3)
-        {
-            if (numeros [pojf][pojc-1]==2)
-            {
-                olor = 7;
-                return olor;
-            }
-            else
-            {
-                olor =5;
-                return olor;
-            }
-        }
-        else
-        {
-            olor =1;
-
-            return olor;
-        }
-    }
-    }
-    //abismo
-    if (pojf<nfilas){
-    if (numeros [pojf+1][pojc]==2)
+    if (pojf>0)
     {
         if (numeros [pojf-1][pojc]==1)
         {
-            if (numeros [pojf][pojc+1]==3 )
+            if (numeros [pojf+1][pojc]==2)
             {
-                olor = 7;
-                return olor;
-            }
-            if ( numeros [pojf][pojc-1]==3 )
-            {
-                olor = 7;
-                return olor;
-            }
-            if (numeros [pojf][pojc+1]==2 )
-            {
-                olor = 5;
-                return olor;
-            }
-            if ( numeros [pojf][pojc-1]==2 )
-            {
-                olor = 5;
-                return olor;
-            }
+                if (numeros [pojf][pojc+1]==3 )
+                {
+                    olor = 7;
+                    return olor;
 
-            else
-            {
-                olor = 3;
-                return olor;
-            }
-        }
-        if (numeros [pojf-1][pojc]==3)
-        {
-            if (numeros [pojf][pojc+1]==2 )
-            {
-                olor = 8;
-                return olor;
-            }
-            if ( numeros [pojf][pojc-1]==2 )
-            {
-                olor = 8;
-                return olor;
-            }
-            if (numeros [pojf][pojc+1]==1 )
-            {
-                olor = 7;
-                return olor;
-            }
-            if ( numeros [pojf][pojc-1]==1 )
-            {
-                olor = 7;
-                return olor;
-            }
-            else
-            {
-                olor = 5;
-                return olor;
-            }
-        }
-        if (numeros [pojf][pojc+1]==3)
-        {
-            if (numeros [pojf+1][pojc]==1 )
-            {
-                olor = 7;
-                return olor;
-            }
-            if ( numeros [pojf][pojc-1]==1 )
-            {
-                olor = 7;
-                return olor;
-            }
-            if (numeros [pojf+1][pojc]==2 )
-            {
-                olor = 8;
-                return olor;
-            }
-            if ( numeros [pojf][pojc-1]==2 )
-            {
-                olor = 8;
-                return olor;
-            }
-            else
-            {
-                olor = 5;
-                return olor;
-            }
-        }
-        if (numeros [pojf][pojc-1]==3)
-        {
-            if (numeros [pojf+1][pojc]==1 )
-            {
-                olor = 7;
-                return olor;
-            }
-            if ( numeros [pojf][pojc+1]==1 )
-            {
-                olor = 7;
-                return olor;
-            }
-            if (numeros [pojf+1][pojc]==2 )
-            {
-                olor = 8;
-                return olor;
-            }
-            if ( numeros [pojf][pojc+1]==2 )
-            {
-                olor = 8;
-                return olor;
-            }
-            else
-            {
-                olor = 5;
-                return olor;
-            }
-        }
+                }
+                if (numeros [pojf][pojc-1]==3)
+                {
+                    olor = 7;
+                    return olor;
+                }
 
-        if (numeros [pojf][pojc-1]==2)
-        {
-            if (numeros [pojf+1][pojc]==1 )
-            {
-                olor = 5;
+                else
+                    olor = 3;
                 return olor;
             }
-            if ( numeros [pojf][pojc+1]==1 )
+            if (numeros [pojf+1][pojc]==3)
             {
-                olor = 5;
-                return olor;
-            }
-            if (numeros [pojf+1][pojc]==3 )
-            {
-                olor = 8;
-                return olor;
-            }
-            if ( numeros [pojf][pojc+1]==3 )
-            {
-                olor = 8;
-                return olor;
-            }
-            else
-            {
-                olor = 4;
-                return olor;
-            }
-        }
-        if (numeros [pojf][pojc+1]==2)
-        {
-            if (numeros [pojf+1][pojc]==1 )
-            {
-                olor = 5;
-                return olor;
-            }
-            if ( numeros [pojf][pojc-1]==1 )
-            {
-                olor = 5;
-                return olor;
-            }
-            if (numeros [pojf+1][pojc]==3 )
-            {
-                olor = 8;
-                return olor;
-            }
-            if ( numeros [pojf][pojc-1]==3 )
-            {
-                olor = 8;
-                return olor;
-            }
-            else
-            {
-                olor = 4;
-                return olor;
-            }
-        }
-        else
-        {
-            olor= 2;
-            return olor;
-        }
-    }
-    }
-    // abismo arriba
-    if (pojf >0){
-    if (numeros [pojf-1][pojc]==2)
-    {
-       if (numeros [pojf+1][pojc]==1)
-        {
-            if (numeros [pojf][pojc+1]==3 )
-            {
-                olor = 7;
-                return olor;
-            }
-            if ( numeros [pojf][pojc-1]==3 )
-            {
-                olor = 7;
-                return olor;
-            }
-            if (numeros [pojf][pojc+1]==2 )
-            {
-                olor = 5;
-                return olor;
-            }
-            if ( numeros [pojf][pojc-1]==2 )
-            {
-                olor = 5;
-                return olor;
-            }
 
-            else
-            {
-                olor = 3;
-                return olor;
-            }
-        }
-        if (numeros [pojf+1][pojc]==3)
-        {
-            if (numeros [pojf][pojc+1]==2 )
-            {
-                olor = 8;
-                return olor;
-            }
-            if ( numeros [pojf][pojc-1]==2 )
-            {
-                olor = 8;
-                return olor;
-            }
-            if (numeros [pojf][pojc+1]==1 )
-            {
-                olor = 7;
-                return olor;
-            }
-            if ( numeros [pojf][pojc-1]==1 )
-            {
-                olor = 7;
-                return olor;
-            }
-            else
-            {
-                olor = 5;
-                return olor;
-            }
-        }
-        if (numeros [pojf][pojc+1]==3)
-        {
-            if (numeros [pojf+1][pojc]==1 )
-            {
-                olor = 7;
-                return olor;
-            }
-            if ( numeros [pojf][pojc-1]==1 )
-            {
-                olor = 7;
-                return olor;
-            }
-            if (numeros [pojf+1][pojc]==2 )
-            {
-                olor = 8;
-                return olor;
-            }
-            if ( numeros [pojf][pojc-1]==2 )
-            {
-                olor = 8;
-                return olor;
-            }
-            else
-            {
-                olor = 5;
-                return olor;
-            }
-        }
-        if (numeros [pojf][pojc-1]==3)
-        {
-            if (numeros [pojf+1][pojc]==1 )
-            {
-                olor = 7;
-                return olor;
-            }
-            if ( numeros [pojf][pojc+1]==1 )
-            {
-                olor = 7;
-                return olor;
-            }
-            if (numeros [pojf+1][pojc]==2 )
-            {
-                olor = 8;
-                return olor;
-            }
-            if ( numeros [pojf][pojc+1]==2 )
-            {
-                olor = 8;
-                return olor;
-            }
-            else
-            {
-                olor = 5;
-                return olor;
-            }
-        }
+                if (numeros [pojf][pojc+1]==2 )
+                {
+                    olor = 7;
+                    return olor;
 
-        if (numeros [pojf][pojc-1]==2)
-        {
-            if (numeros [pojf+1][pojc]==1 )
-            {
-                olor = 5;
-                return olor;
+                }
+                if (numeros [pojf][pojc-1]==2)
+                {
+                    olor = 7;
+                    return olor;
+                }
+                else
+                {
+                    olor = 5;
+                    return olor;
+                }
             }
-            if ( numeros [pojf][pojc+1]==1 )
+            if (numeros [pojf][pojc+1]==3)
             {
-                olor = 5;
-                return olor;
+                if (numeros [pojf][pojc-1]==2)
+                {
+                    olor = 7;
+                    return olor;
+                }
+                if (numeros [pojf+1][pojc]==2)
+                {
+                    olor = 7;
+                    return olor;
+                }
+                else
+                {
+                    olor = 5;
+                    return olor;
+                }
             }
-            if (numeros [pojf+1][pojc]==2 )
+            if (numeros [pojf][pojc-1]==3)
             {
-                olor = 6;
-                return olor;
-            }
-            if ( numeros [pojf][pojc+1]==2 )
-            {
-                olor = 6;
-                return olor;
-            }
-            if (numeros [pojf+1][pojc]==3 )
-            {
-                olor = 8;
-                return olor;
-            }
-            if ( numeros [pojf][pojc+1]==3 )
-            {
-                olor = 8;
-                return olor;
-            }
-            else
-            {
-                olor = 4;
-                return olor;
-            }
-        }
-        if (numeros [pojf][pojc+1]==2)
-        {
-            if (numeros [pojf+1][pojc]==1 )
-            {
-                olor = 5;
-                return olor;
-            }
-            if ( numeros [pojf][pojc-1]==1 )
-            {
-                olor = 5;
-                return olor;
-            }
-            if (numeros [pojf+1][pojc]==2 )
-            {
-                olor = 6;
-                return olor;
-            }
-            if ( numeros [pojf][pojc-1]==2 )
-            {
-                olor = 6;
-                return olor;
-            }
-            if (numeros [pojf+1][pojc]==3 )
-            {
-                olor = 8;
-                return olor;
-            }
-            if ( numeros [pojf][pojc-1]==3 )
-            {
-                olor = 8;
-                return olor;
+                if (numeros [pojf][pojc+1]==2)
+                {
+                    olor = 7;
+                    return olor;
+                }
+                if (numeros [pojf+1][pojc]==2)
+                {
+                    olor = 7;
+                    return olor;
+                }
+                else
+                {
+                    olor = 5;
+                    return olor;
+                }
             }
             else
             {
-                olor = 4;
+                olor= 1;
                 return olor;
             }
         }
-        else
-        {
-            olor= 2;
-            return olor;
-        }
     }
-    }
-    //derecha
-    if (pojc<ncol){
-    if (numeros [pojf][pojc+1]==2)
+    if (pojf<nfilas)
     {
-       olor =2;
-       return olor;
-    }
-    }
-    //izquierda
-    if(pojc>0){
-    if (numeros [pojf][pojc-1]==2)
-    {
-       olor =2;
-       return olor;
-    }
-    }
-    //galleta arriba
-    if (pojf >0){
-    if (numeros [pojf-1][pojc]==3)
-    {
-       if (numeros [pojf+1][pojc]==1)
-        {
-            if (numeros [pojf][pojc+1]==2 )
-            {
-                olor = 7;
-                return olor;
-            }
-            if ( numeros [pojf][pojc-1]==2 )
-            {
-                olor = 7;
-                return olor;
-            }
-            else
-            {
-                olor = 5;
-                return olor;
-            }
-        }
         if (numeros [pojf+1][pojc]==1)
         {
-            if (numeros [pojf][pojc+1]==2 )
+            if (numeros [pojf-1][pojc]==2)
             {
-                olor = 7;
-                return olor;
-            }
-            if ( numeros [pojf][pojc-1]==2 )
-            {
-                olor = 7;
-                return olor;
-            }
+                if (numeros [pojf][pojc+1]==3 )
+                {
+                    olor = 7;
+                    return olor;
+                }
+                if ( numeros [pojf][pojc-1]==3 )
+                {
+                    olor = 7;
+                    return olor;
+                }
 
-            else
-            {
-                olor = 5;
+                else
+                    olor = 3;
                 return olor;
             }
-        }
-        if (numeros [pojf][pojc+1]==1)
-        {
-            if (numeros [pojf+1][pojc]==2 )
+            if (numeros [pojf-1][pojc]==3)
             {
-                olor = 7;
-                return olor;
-            }
-            if ( numeros [pojf][pojc-1]==2 )
-            {
-                olor = 7;
-                return olor;
-            }
-            else
-            {
-                olor = 5;
-                return olor;
-            }
-        }
-        if (numeros [pojf][pojc-1]==1)
-        {
-            if (numeros [pojf+1][pojc]==2 )
-            {
-                olor = 7;
-                return olor;
-            }
-            if ( numeros [pojf][pojc+1]==2 )
-            {
-                olor = 7;
-                return olor;
-            }
-            else
-            {
-                olor = 5;
-                return olor;
-            }
-        }
+                if (numeros [pojf][pojc+1]==2 )
+                {
+                    olor = 7;
+                    return olor;
+                }
+                if ( numeros [pojf][pojc-1]==2 )
+                {
+                    olor = 7;
+                    return olor;
+                }
 
-        if (numeros [pojf][pojc-1]==2)
-        {
-            if (numeros [pojf+1][pojc]==2 )
-            {
-                olor = 8;
-                return olor;
+                else
+                {
+                    olor = 5;
+                    return olor;
+                }
             }
-            if ( numeros [pojf][pojc+1]==2 )
+            if (numeros [pojf][pojc+1]==3)
             {
-                olor = 8;
-                return olor;
+                if (numeros [pojf-1][pojc]==2 )
+                {
+                    olor = 7;
+                    return olor;
+                }
+                if ( numeros [pojf][pojc-1]==2 )
+                {
+                    olor = 7;
+                    return olor;
+                }
+
+                else
+                {
+                    olor = 5;
+                    return olor;
+                }
+            }
+            if (numeros [pojf][pojc-1]==3)
+            {
+                if (numeros [pojf-1][pojc]==2 )
+                {
+                    olor = 7;
+                    return olor;
+                }
+                if ( numeros [pojf][pojc+1]==2 )
+                {
+                    olor = 7;
+                    return olor;
+                }
+
+                else
+                {
+                    olor = 5;
+                    return olor;
+                }
             }
             else
-            {
-                olor = 6;
-                return olor;
-            }
-        }
-        if (numeros [pojf][pojc+1]==2)
-        {
-             if (numeros [pojf+1][pojc]==2 )
-            {
-                olor = 8;
-                return olor;
-            }
-            if ( numeros [pojf][pojc+1]==2 )
-            {
-                olor = 8;
-                return olor;
-            }
-            else
-            {
-                olor = 6;
-                return olor;
-            }
-        }
-        else
-        {
-            olor= 4;
+                olor= 1;
             return olor;
         }
     }
-    }
-    //abajo
-    if (pojf <nfilas){
-     if (numeros [pojf+1][pojc]==3)
+    if (pojc>0)
     {
-       if (numeros [pojf-1][pojc]==1)
-        {
-            if (numeros [pojf][pojc+1]==2 )
-            {
-                olor = 7;
-                return olor;
-            }
-            if ( numeros [pojf][pojc-1]==2 )
-            {
-                olor = 7;
-                return olor;
-            }
-            else
-            {
-                olor = 5;
-                return olor;
-            }
-        }
-        if (numeros [pojf-1][pojc]==1)
-        {
-            if (numeros [pojf][pojc+1]==2 )
-            {
-                olor = 7;
-                return olor;
-            }
-            if ( numeros [pojf][pojc-1]==2 )
-            {
-                olor = 7;
-                return olor;
-            }
-
-            else
-            {
-                olor = 5;
-                return olor;
-            }
-        }
-        if (numeros [pojf][pojc+1]==1)
-        {
-            if (numeros [pojf-1][pojc]==2 )
-            {
-                olor = 7;
-                return olor;
-            }
-            if ( numeros [pojf][pojc-1]==2 )
-            {
-                olor = 7;
-                return olor;
-            }
-            else
-            {
-                olor = 5;
-                return olor;
-            }
-        }
         if (numeros [pojf][pojc-1]==1)
         {
-            if (numeros [pojf-1][pojc]==2 )
+            if (numeros [pojf][pojc+1]==2)
             {
-                olor = 7;
-                return olor;
-            }
-            if ( numeros [pojf][pojc+1]==2 )
-            {
-                olor = 7;
-                return olor;
-            }
-            else
-            {
-                olor = 5;
-                return olor;
-            }
-        }
+                if (numeros [pojf+1][pojc]==2)
+                {
+                    olor =5;
+                    return olor;
 
-        if (numeros [pojf][pojc-1]==2)
-        {
-            if (numeros [pojf-1][pojc]==2 )
-            {
-                olor = 8;
-                return olor;
+                }
+                if (numeros [pojf-1][pojc]==2)
+                {
+                    olor=5;
+                    return olor;
+
+                }
+                if (numeros [pojf+1][pojc]==3)
+                {
+                    olor =7;
+                    return olor;
+
+                }
+                if (numeros [pojf-1][pojc]==3)
+                {
+                    olor=7;
+                    return olor;
+
+                }
+                else
+                {
+                    olor =3;
+                    return olor;
+                }
             }
-            if ( numeros [pojf][pojc+1]==2 )
+            if (numeros [pojf+1][pojc]==2)
             {
-                olor = 8;
-                return olor;
+                if (numeros [pojf-1][pojc]==2)
+                {
+                    olor = 5;
+                    return olor;
+                }
+                if (numeros [pojf][pojc+1]==2)
+                {
+                    olor = 5;
+                    return olor;
+
+                }
+
+                if (numeros [pojf][pojc+1]==3)
+                {
+                    olor = 7;
+                    return olor;
+
+                }
+                if (numeros [pojf-1][pojc]==3)
+                {
+                    olor = 7;
+                    return olor;
+
+                }
+                else
+                {
+                    olor =3;
+                    return olor;
+
+                }
+            }
+            if (numeros [pojf-1][pojc]==2)
+            {
+                if (numeros [pojf+1][pojc]==2)
+                {
+                    olor = 5;
+                    return olor;
+                }
+                if (numeros [pojf][pojc+1]==2)
+                {
+                    olor = 5;
+                    return olor;
+
+                }
+
+                if (numeros [pojf][pojc+1]==3)
+                {
+                    olor = 7;
+                    return olor;
+
+                }
+                if (numeros [pojf-1][pojc]==3)
+                {
+                    olor = 7;
+                    return olor;
+
+                }
+                else
+                {
+                    olor =3;
+                    return olor;
+
+                }
+            }
+            if (numeros [pojf][pojc+1]==3)
+            {
+                if (numeros [pojf-1][pojc]==2)
+                {
+                    olor = 7;
+                    return olor;
+
+                }
+                if (numeros [pojf+1][pojc]==2)
+                {
+                    olor = 7;
+                    return olor;
+
+                }
+                else
+                {
+                    olor =5;
+                    return olor;
+
+                }
+            }
+
+            if (numeros [pojf+1][pojc]==3)
+            {
+                if (numeros [pojf-1][pojc]==2)
+                {
+                    olor = 7;
+                    return olor;
+
+                }
+                if (numeros [pojf][pojc+1]==2)
+                {
+                    olor = 7;
+                    return olor;
+                }
+                else
+                {
+                    olor =5;
+                    return olor;
+
+                }
+
+            }
+            if (numeros [pojf-1][pojc]==3)
+            {
+                if (numeros [pojf+1][pojc]==2)
+                {
+                    olor = 7;
+                    return olor;
+
+                }
+                if (numeros [pojf][pojc+1]==2)
+                {
+                    olor = 7;
+                    return olor;
+                }
+                else
+                {
+                    olor =5;
+                    return olor;
+
+                }
             }
             else
             {
-                olor = 6;
+                olor = 1;
                 return olor;
             }
-        }
-        if (numeros [pojf][pojc+1]==2)
-        {
-             if (numeros [pojf-1][pojc]==2 )
-            {
-                olor = 8;
-                return olor;
-            }
-            if ( numeros [pojf][pojc+1]==2 )
-            {
-                olor = 8;
-                return olor;
-            }
-            else
-            {
-                olor = 6;
-                return olor;
-            }
-        }
-        else
-        {
-            olor= 4;
-            return olor;
         }
     }
+    if (pojc<ncol)
+    {
+        if (numeros [pojf][pojc+1]==1)
+        {
+            if (numeros [pojf][pojc-1]==2)
+            {
+                if (numeros [pojf+1][pojc]==2)
+                {
+
+                    olor=5;
+                    return olor;
+
+
+                }
+                if (numeros [pojf-1][pojc]==2)
+                {
+                    olor=5;
+                    return olor;
+
+                }
+                if (numeros [pojf+1][pojc]==3)
+                {
+                    olor=7;
+                    return olor;
+
+                }
+                if (numeros [pojf-1][pojc]==3)
+                {
+                    olor=7;
+                    return olor;
+
+                }
+
+                else
+                {
+                    olor=3;
+                    return olor;
+
+                }
+            }
+            if (numeros [pojf+1][pojc]==2)
+            {
+                if (numeros [pojf][pojc-1]==2)
+                {
+                    olor = 5;
+                    return olor;
+                }
+                if (numeros [pojf][pojc-1]==3)
+                {
+                    olor = 7;
+                    return olor;
+                }
+                else
+                {
+                    olor=3;
+                    return olor;
+
+                }
+            }
+            if (numeros [pojf-1][pojc]==2)
+            {
+                if (numeros [pojf][pojc-1]==2)
+                {
+                    olor = 5;
+                    return olor;
+                }
+                if (numeros [pojf][pojc-1]==3)
+                {
+                    olor = 7;
+                    return olor;
+                }
+                else
+                {
+                    olor=3;
+                    return olor;
+
+                }
+
+            }
+            if (numeros [pojf][pojc-1]==3)
+            {
+                if (numeros [pojf-1][pojc]==2)
+                {
+                    olor = 7;
+                    return olor;
+                }
+                if (numeros [pojf+1][pojc]==2)
+                {
+                    olor = 7;
+                    return olor;
+                }
+                else
+                {
+                    olor =5;
+                    return olor;
+                }
+            }
+            if (numeros [pojf+1][pojc]==3)
+            {
+
+                if (numeros [pojf][pojc-1]==2)
+                {
+                    olor = 7;
+                    return olor;
+                }
+                else
+                {
+                    olor =5;
+                    return olor;
+                }
+            }
+            if (numeros [pojf-1][pojc]==3)
+            {
+                if (numeros [pojf][pojc-1]==2)
+                {
+                    olor = 7;
+                    return olor;
+                }
+                else
+                {
+                    olor =5;
+                    return olor;
+                }
+            }
+            else
+            {
+                olor =1;
+
+                return olor;
+            }
+        }
+    }
+    //abismo
+    if (pojf<nfilas)
+    {
+        if (numeros [pojf+1][pojc]==2)
+        {
+            if (numeros [pojf-1][pojc]==1)
+            {
+                if (numeros [pojf][pojc+1]==3 )
+                {
+                    olor = 7;
+                    return olor;
+                }
+                if ( numeros [pojf][pojc-1]==3 )
+                {
+                    olor = 7;
+                    return olor;
+                }
+                if (numeros [pojf][pojc+1]==2 )
+                {
+                    olor = 5;
+                    return olor;
+                }
+                if ( numeros [pojf][pojc-1]==2 )
+                {
+                    olor = 5;
+                    return olor;
+                }
+
+                else
+                {
+                    olor = 3;
+                    return olor;
+                }
+            }
+            if (numeros [pojf-1][pojc]==3)
+            {
+                if (numeros [pojf][pojc+1]==2 )
+                {
+                    olor = 8;
+                    return olor;
+                }
+                if ( numeros [pojf][pojc-1]==2 )
+                {
+                    olor = 8;
+                    return olor;
+                }
+                if (numeros [pojf][pojc+1]==1 )
+                {
+                    olor = 7;
+                    return olor;
+                }
+                if ( numeros [pojf][pojc-1]==1 )
+                {
+                    olor = 7;
+                    return olor;
+                }
+                else
+                {
+                    olor = 5;
+                    return olor;
+                }
+            }
+            if (numeros [pojf][pojc+1]==3)
+            {
+                if (numeros [pojf+1][pojc]==1 )
+                {
+                    olor = 7;
+                    return olor;
+                }
+                if ( numeros [pojf][pojc-1]==1 )
+                {
+                    olor = 7;
+                    return olor;
+                }
+                if (numeros [pojf+1][pojc]==2 )
+                {
+                    olor = 8;
+                    return olor;
+                }
+                if ( numeros [pojf][pojc-1]==2 )
+                {
+                    olor = 8;
+                    return olor;
+                }
+                else
+                {
+                    olor = 5;
+                    return olor;
+                }
+            }
+            if (numeros [pojf][pojc-1]==3)
+            {
+                if (numeros [pojf+1][pojc]==1 )
+                {
+                    olor = 7;
+                    return olor;
+                }
+                if ( numeros [pojf][pojc+1]==1 )
+                {
+                    olor = 7;
+                    return olor;
+                }
+                if (numeros [pojf+1][pojc]==2 )
+                {
+                    olor = 8;
+                    return olor;
+                }
+                if ( numeros [pojf][pojc+1]==2 )
+                {
+                    olor = 8;
+                    return olor;
+                }
+                else
+                {
+                    olor = 5;
+                    return olor;
+                }
+            }
+
+            if (numeros [pojf][pojc-1]==2)
+            {
+                if (numeros [pojf+1][pojc]==1 )
+                {
+                    olor = 5;
+                    return olor;
+                }
+                if ( numeros [pojf][pojc+1]==1 )
+                {
+                    olor = 5;
+                    return olor;
+                }
+                if (numeros [pojf+1][pojc]==3 )
+                {
+                    olor = 8;
+                    return olor;
+                }
+                if ( numeros [pojf][pojc+1]==3 )
+                {
+                    olor = 8;
+                    return olor;
+                }
+                else
+                {
+                    olor = 4;
+                    return olor;
+                }
+            }
+            if (numeros [pojf][pojc+1]==2)
+            {
+                if (numeros [pojf+1][pojc]==1 )
+                {
+                    olor = 5;
+                    return olor;
+                }
+                if ( numeros [pojf][pojc-1]==1 )
+                {
+                    olor = 5;
+                    return olor;
+                }
+                if (numeros [pojf+1][pojc]==3 )
+                {
+                    olor = 8;
+                    return olor;
+                }
+                if ( numeros [pojf][pojc-1]==3 )
+                {
+                    olor = 8;
+                    return olor;
+                }
+                else
+                {
+                    olor = 4;
+                    return olor;
+                }
+            }
+            else
+            {
+                olor= 2;
+                return olor;
+            }
+        }
+    }
+    // abismo arriba
+    if (pojf >0)
+    {
+        if (numeros [pojf-1][pojc]==2)
+        {
+            if (numeros [pojf+1][pojc]==1)
+            {
+                if (numeros [pojf][pojc+1]==3 )
+                {
+                    olor = 7;
+                    return olor;
+                }
+                if ( numeros [pojf][pojc-1]==3 )
+                {
+                    olor = 7;
+                    return olor;
+                }
+                if (numeros [pojf][pojc+1]==2 )
+                {
+                    olor = 5;
+                    return olor;
+                }
+                if ( numeros [pojf][pojc-1]==2 )
+                {
+                    olor = 5;
+                    return olor;
+                }
+
+                else
+                {
+                    olor = 3;
+                    return olor;
+                }
+            }
+            if (numeros [pojf+1][pojc]==3)
+            {
+                if (numeros [pojf][pojc+1]==2 )
+                {
+                    olor = 8;
+                    return olor;
+                }
+                if ( numeros [pojf][pojc-1]==2 )
+                {
+                    olor = 8;
+                    return olor;
+                }
+                if (numeros [pojf][pojc+1]==1 )
+                {
+                    olor = 7;
+                    return olor;
+                }
+                if ( numeros [pojf][pojc-1]==1 )
+                {
+                    olor = 7;
+                    return olor;
+                }
+                else
+                {
+                    olor = 5;
+                    return olor;
+                }
+            }
+            if (numeros [pojf][pojc+1]==3)
+            {
+                if (numeros [pojf+1][pojc]==1 )
+                {
+                    olor = 7;
+                    return olor;
+                }
+                if ( numeros [pojf][pojc-1]==1 )
+                {
+                    olor = 7;
+                    return olor;
+                }
+                if (numeros [pojf+1][pojc]==2 )
+                {
+                    olor = 8;
+                    return olor;
+                }
+                if ( numeros [pojf][pojc-1]==2 )
+                {
+                    olor = 8;
+                    return olor;
+                }
+                else
+                {
+                    olor = 5;
+                    return olor;
+                }
+            }
+            if (numeros [pojf][pojc-1]==3)
+            {
+                if (numeros [pojf+1][pojc]==1 )
+                {
+                    olor = 7;
+                    return olor;
+                }
+                if ( numeros [pojf][pojc+1]==1 )
+                {
+                    olor = 7;
+                    return olor;
+                }
+                if (numeros [pojf+1][pojc]==2 )
+                {
+                    olor = 8;
+                    return olor;
+                }
+                if ( numeros [pojf][pojc+1]==2 )
+                {
+                    olor = 8;
+                    return olor;
+                }
+                else
+                {
+                    olor = 5;
+                    return olor;
+                }
+            }
+
+            if (numeros [pojf][pojc-1]==2)
+            {
+                if (numeros [pojf+1][pojc]==1 )
+                {
+                    olor = 5;
+                    return olor;
+                }
+                if ( numeros [pojf][pojc+1]==1 )
+                {
+                    olor = 5;
+                    return olor;
+                }
+                if (numeros [pojf+1][pojc]==2 )
+                {
+                    olor = 6;
+                    return olor;
+                }
+                if ( numeros [pojf][pojc+1]==2 )
+                {
+                    olor = 6;
+                    return olor;
+                }
+                if (numeros [pojf+1][pojc]==3 )
+                {
+                    olor = 8;
+                    return olor;
+                }
+                if ( numeros [pojf][pojc+1]==3 )
+                {
+                    olor = 8;
+                    return olor;
+                }
+                else
+                {
+                    olor = 4;
+                    return olor;
+                }
+            }
+            if (numeros [pojf][pojc+1]==2)
+            {
+                if (numeros [pojf+1][pojc]==1 )
+                {
+                    olor = 5;
+                    return olor;
+                }
+                if ( numeros [pojf][pojc-1]==1 )
+                {
+                    olor = 5;
+                    return olor;
+                }
+                if (numeros [pojf+1][pojc]==2 )
+                {
+                    olor = 6;
+                    return olor;
+                }
+                if ( numeros [pojf][pojc-1]==2 )
+                {
+                    olor = 6;
+                    return olor;
+                }
+                if (numeros [pojf+1][pojc]==3 )
+                {
+                    olor = 8;
+                    return olor;
+                }
+                if ( numeros [pojf][pojc-1]==3 )
+                {
+                    olor = 8;
+                    return olor;
+                }
+                else
+                {
+                    olor = 4;
+                    return olor;
+                }
+            }
+            else
+            {
+                olor= 2;
+                return olor;
+            }
+        }
     }
     //derecha
-    if (pojc< ncol){
-    if (numeros [pojf][pojc+1]==3)
+    if (pojc<ncol)
     {
-      if (numeros [pojf][pojc-1]==2)
-      {
-          olor =6;
-        return olor;
-      }
-      if (numeros [pojf][pojc-1]==1)
-      {
-          olor =5;
-        return olor;
-      }
-        else {
-        olor =4;
-        return olor;
+        if (numeros [pojf][pojc+1]==2)
+        {
+            olor =2;
+            return olor;
+        }
     }
+    //izquierda
+    if(pojc>0)
+    {
+        if (numeros [pojf][pojc-1]==2)
+        {
+            olor =2;
+            return olor;
+        }
     }
+    //galleta arriba
+    if (pojf >0)
+    {
+        if (numeros [pojf-1][pojc]==3)
+        {
+            if (numeros [pojf+1][pojc]==1)
+            {
+                if (numeros [pojf][pojc+1]==2 )
+                {
+                    olor = 7;
+                    return olor;
+                }
+                if ( numeros [pojf][pojc-1]==2 )
+                {
+                    olor = 7;
+                    return olor;
+                }
+                else
+                {
+                    olor = 5;
+                    return olor;
+                }
+            }
+            if (numeros [pojf+1][pojc]==1)
+            {
+                if (numeros [pojf][pojc+1]==2 )
+                {
+                    olor = 7;
+                    return olor;
+                }
+                if ( numeros [pojf][pojc-1]==2 )
+                {
+                    olor = 7;
+                    return olor;
+                }
+
+                else
+                {
+                    olor = 5;
+                    return olor;
+                }
+            }
+            if (numeros [pojf][pojc+1]==1)
+            {
+                if (numeros [pojf+1][pojc]==2 )
+                {
+                    olor = 7;
+                    return olor;
+                }
+                if ( numeros [pojf][pojc-1]==2 )
+                {
+                    olor = 7;
+                    return olor;
+                }
+                else
+                {
+                    olor = 5;
+                    return olor;
+                }
+            }
+            if (numeros [pojf][pojc-1]==1)
+            {
+                if (numeros [pojf+1][pojc]==2 )
+                {
+                    olor = 7;
+                    return olor;
+                }
+                if ( numeros [pojf][pojc+1]==2 )
+                {
+                    olor = 7;
+                    return olor;
+                }
+                else
+                {
+                    olor = 5;
+                    return olor;
+                }
+            }
+
+            if (numeros [pojf][pojc-1]==2)
+            {
+                if (numeros [pojf+1][pojc]==2 )
+                {
+                    olor = 8;
+                    return olor;
+                }
+                if ( numeros [pojf][pojc+1]==2 )
+                {
+                    olor = 8;
+                    return olor;
+                }
+                else
+                {
+                    olor = 6;
+                    return olor;
+                }
+            }
+            if (numeros [pojf][pojc+1]==2)
+            {
+                if (numeros [pojf+1][pojc]==2 )
+                {
+                    olor = 8;
+                    return olor;
+                }
+                if ( numeros [pojf][pojc+1]==2 )
+                {
+                    olor = 8;
+                    return olor;
+                }
+                else
+                {
+                    olor = 6;
+                    return olor;
+                }
+            }
+            else
+            {
+                olor= 4;
+                return olor;
+            }
+        }
+    }
+    //abajo
+    if (pojf <nfilas)
+    {
+        if (numeros [pojf+1][pojc]==3)
+        {
+            if (numeros [pojf-1][pojc]==1)
+            {
+                if (numeros [pojf][pojc+1]==2 )
+                {
+                    olor = 7;
+                    return olor;
+                }
+                if ( numeros [pojf][pojc-1]==2 )
+                {
+                    olor = 7;
+                    return olor;
+                }
+                else
+                {
+                    olor = 5;
+                    return olor;
+                }
+            }
+            if (numeros [pojf-1][pojc]==1)
+            {
+                if (numeros [pojf][pojc+1]==2 )
+                {
+                    olor = 7;
+                    return olor;
+                }
+                if ( numeros [pojf][pojc-1]==2 )
+                {
+                    olor = 7;
+                    return olor;
+                }
+
+                else
+                {
+                    olor = 5;
+                    return olor;
+                }
+            }
+            if (numeros [pojf][pojc+1]==1)
+            {
+                if (numeros [pojf-1][pojc]==2 )
+                {
+                    olor = 7;
+                    return olor;
+                }
+                if ( numeros [pojf][pojc-1]==2 )
+                {
+                    olor = 7;
+                    return olor;
+                }
+                else
+                {
+                    olor = 5;
+                    return olor;
+                }
+            }
+            if (numeros [pojf][pojc-1]==1)
+            {
+                if (numeros [pojf-1][pojc]==2 )
+                {
+                    olor = 7;
+                    return olor;
+                }
+                if ( numeros [pojf][pojc+1]==2 )
+                {
+                    olor = 7;
+                    return olor;
+                }
+                else
+                {
+                    olor = 5;
+                    return olor;
+                }
+            }
+
+            if (numeros [pojf][pojc-1]==2)
+            {
+                if (numeros [pojf-1][pojc]==2 )
+                {
+                    olor = 8;
+                    return olor;
+                }
+                if ( numeros [pojf][pojc+1]==2 )
+                {
+                    olor = 8;
+                    return olor;
+                }
+                else
+                {
+                    olor = 6;
+                    return olor;
+                }
+            }
+            if (numeros [pojf][pojc+1]==2)
+            {
+                if (numeros [pojf-1][pojc]==2 )
+                {
+                    olor = 8;
+                    return olor;
+                }
+                if ( numeros [pojf][pojc+1]==2 )
+                {
+                    olor = 8;
+                    return olor;
+                }
+                else
+                {
+                    olor = 6;
+                    return olor;
+                }
+            }
+            else
+            {
+                olor= 4;
+                return olor;
+            }
+        }
+    }
+    //derecha
+    if (pojc< ncol)
+    {
+        if (numeros [pojf][pojc+1]==3)
+        {
+            if (numeros [pojf][pojc-1]==2)
+            {
+                olor =6;
+                return olor;
+            }
+            if (numeros [pojf][pojc-1]==1)
+            {
+                olor =5;
+                return olor;
+            }
+            else
+            {
+                olor =4;
+                return olor;
+            }
+        }
     }
     //izquierda
 
-    if (pojc>0){
-
-    if (numeros [pojf][pojc-1]==3)
+    if (pojc>0)
     {
-         if (numeros [pojf][pojc+1]==2)
-      {
-          olor =6;
-        return olor;
-      }
-      if (numeros [pojf][pojc+1]==1)
-      {
-          olor =5;
-        return olor;
-      }
-        else {
-        olor =4;
-        return olor;
-    }
-    }
+
+        if (numeros [pojf][pojc-1]==3)
+        {
+            if (numeros [pojf][pojc+1]==2)
+            {
+                olor =6;
+                return olor;
+            }
+            if (numeros [pojf][pojc+1]==1)
+            {
+                olor =5;
+                return olor;
+            }
+            else
+            {
+                olor =4;
+                return olor;
+            }
+        }
     }
 
 }
-int gameover ( char player [maxf][maxc],int numeros[maxf][maxc], int nfilas, int ncol,int x,int y,int alienf,int alienc,int abisf, int abisc,bool galleta,int contu,int galletf,int galletc)
+int gameover ( char player [maxf][maxc],int numeros[maxf][maxc], int nfilas, int ncol)
+
 {
 
 
-
-    //system("cls");
+    system("cls");
     cout << "  _____      ___       ___  ___   _____"    << endl;
     cout << " / ___ |    /   |     /   |/   | |  ___|"  << endl;
     cout << "| |        / /| |    / /|   /| | | |__"    << endl;
@@ -1885,5 +1974,4 @@ void disparar (  int numeros [maxf][maxc], int nfilas, int ncol,int balf,int bal
         contad=0;
     }
 }
-
 
