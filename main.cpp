@@ -847,13 +847,13 @@ int sensacion (  int numeros [maxf][maxc], int nfilas, int ncol,int pojf,int poj
             {
                 if (numeros [pojf+1][pojc]==2)
                 {
-                    olor =5;
+                    olor =3;
                     return olor;
 
                 }
                 if (numeros [pojf-1][pojc]==2)
                 {
-                    olor=5;
+                    olor=3;
                     return olor;
 
                 }
@@ -879,12 +879,12 @@ int sensacion (  int numeros [maxf][maxc], int nfilas, int ncol,int pojf,int poj
             {
                 if (numeros [pojf-1][pojc]==2)
                 {
-                    olor = 5;
+                    olor = 3;
                     return olor;
                 }
                 if (numeros [pojf][pojc+1]==2)
                 {
-                    olor = 5;
+                    olor = 3;
                     return olor;
 
                 }
@@ -912,12 +912,12 @@ int sensacion (  int numeros [maxf][maxc], int nfilas, int ncol,int pojf,int poj
             {
                 if (numeros [pojf+1][pojc]==2)
                 {
-                    olor = 5;
+                    olor = 3;
                     return olor;
                 }
                 if (numeros [pojf][pojc+1]==2)
                 {
-                    olor = 5;
+                    olor = 3;
                     return olor;
 
                 }
@@ -1020,14 +1020,14 @@ int sensacion (  int numeros [maxf][maxc], int nfilas, int ncol,int pojf,int poj
                 if (numeros [pojf+1][pojc]==2)
                 {
 
-                    olor=5;
+                    olor=3;
                     return olor;
 
 
                 }
                 if (numeros [pojf-1][pojc]==2)
                 {
-                    olor=5;
+                    olor=3;
                     return olor;
 
                 }
@@ -1055,7 +1055,7 @@ int sensacion (  int numeros [maxf][maxc], int nfilas, int ncol,int pojf,int poj
             {
                 if (numeros [pojf][pojc-1]==2)
                 {
-                    olor = 5;
+                    olor = 3;
                     return olor;
                 }
                 if (numeros [pojf][pojc-1]==3)
@@ -1074,7 +1074,7 @@ int sensacion (  int numeros [maxf][maxc], int nfilas, int ncol,int pojf,int poj
             {
                 if (numeros [pojf][pojc-1]==2)
                 {
-                    olor = 5;
+                    olor = 3;
                     return olor;
                 }
                 if (numeros [pojf][pojc-1]==3)
@@ -1162,12 +1162,12 @@ int sensacion (  int numeros [maxf][maxc], int nfilas, int ncol,int pojf,int poj
                 }
                 if (numeros [pojf][pojc+1]==2 )
                 {
-                    olor = 5;
+                    olor = 3;
                     return olor;
                 }
                 if ( numeros [pojf][pojc-1]==2 )
                 {
-                    olor = 5;
+                    olor = 3;
                     return olor;
                 }
 
@@ -1181,12 +1181,12 @@ int sensacion (  int numeros [maxf][maxc], int nfilas, int ncol,int pojf,int poj
             {
                 if (numeros [pojf][pojc+1]==2 )
                 {
-                    olor = 8;
+                    olor = 6;
                     return olor;
                 }
                 if ( numeros [pojf][pojc-1]==2 )
                 {
-                    olor = 8;
+                    olor = 6;
                     return olor;
                 }
                 if (numeros [pojf][pojc+1]==1 )
@@ -1201,7 +1201,7 @@ int sensacion (  int numeros [maxf][maxc], int nfilas, int ncol,int pojf,int poj
                 }
                 else
                 {
-                    olor = 5;
+                    olor = 6;
                     return olor;
                 }
             }
@@ -1219,17 +1219,17 @@ int sensacion (  int numeros [maxf][maxc], int nfilas, int ncol,int pojf,int poj
                 }
                 if (numeros [pojf+1][pojc]==2 )
                 {
-                    olor = 8;
+                    olor = 6;
                     return olor;
                 }
                 if ( numeros [pojf][pojc-1]==2 )
                 {
-                    olor = 8;
+                    olor = 6;
                     return olor;
                 }
                 else
                 {
-                    olor = 5;
+                    olor = 6;
                     return olor;
                 }
             }
@@ -1247,17 +1247,17 @@ int sensacion (  int numeros [maxf][maxc], int nfilas, int ncol,int pojf,int poj
                 }
                 if (numeros [pojf+1][pojc]==2 )
                 {
-                    olor = 8;
+                    olor = 6;
                     return olor;
                 }
                 if ( numeros [pojf][pojc+1]==2 )
                 {
-                    olor = 8;
+                    olor = 6;
                     return olor;
                 }
                 else
                 {
-                    olor = 5;
+                    olor = 6;
                     return olor;
                 }
             }
@@ -1266,27 +1266,27 @@ int sensacion (  int numeros [maxf][maxc], int nfilas, int ncol,int pojf,int poj
             {
                 if (numeros [pojf+1][pojc]==1 )
                 {
-                    olor = 5;
+                    olor = 3;
                     return olor;
                 }
                 if ( numeros [pojf][pojc+1]==1 )
                 {
-                    olor = 5;
+                    olor = 3;
                     return olor;
                 }
                 if (numeros [pojf+1][pojc]==3 )
                 {
-                    olor = 8;
+                    olor = 6;
                     return olor;
                 }
                 if ( numeros [pojf][pojc+1]==3 )
                 {
-                    olor = 8;
+                    olor = 6;
                     return olor;
                 }
                 else
                 {
-                    olor = 4;
+                    olor = 2;
                     return olor;
                 }
             }
@@ -1294,27 +1294,27 @@ int sensacion (  int numeros [maxf][maxc], int nfilas, int ncol,int pojf,int poj
             {
                 if (numeros [pojf+1][pojc]==1 )
                 {
-                    olor = 5;
+                    olor = 3;
                     return olor;
                 }
                 if ( numeros [pojf][pojc-1]==1 )
                 {
-                    olor = 5;
+                    olor = 3;
                     return olor;
                 }
                 if (numeros [pojf+1][pojc]==3 )
                 {
-                    olor = 8;
+                    olor = 6;
                     return olor;
                 }
                 if ( numeros [pojf][pojc-1]==3 )
                 {
-                    olor = 8;
+                    olor = 6;
                     return olor;
                 }
                 else
                 {
-                    olor = 4;
+                    olor = 2;
                     return olor;
                 }
             }
@@ -1344,12 +1344,12 @@ int sensacion (  int numeros [maxf][maxc], int nfilas, int ncol,int pojf,int poj
                 }
                 if (numeros [pojf][pojc+1]==2 )
                 {
-                    olor = 5;
+                    olor = 3;
                     return olor;
                 }
                 if ( numeros [pojf][pojc-1]==2 )
                 {
-                    olor = 5;
+                    olor = 3;
                     return olor;
                 }
 
@@ -1363,12 +1363,12 @@ int sensacion (  int numeros [maxf][maxc], int nfilas, int ncol,int pojf,int poj
             {
                 if (numeros [pojf][pojc+1]==2 )
                 {
-                    olor = 8;
+                    olor = 6;
                     return olor;
                 }
                 if ( numeros [pojf][pojc-1]==2 )
                 {
-                    olor = 8;
+                    olor = 6;
                     return olor;
                 }
                 if (numeros [pojf][pojc+1]==1 )
@@ -1401,12 +1401,12 @@ int sensacion (  int numeros [maxf][maxc], int nfilas, int ncol,int pojf,int poj
                 }
                 if (numeros [pojf+1][pojc]==2 )
                 {
-                    olor = 8;
+                    olor = 6;
                     return olor;
                 }
                 if ( numeros [pojf][pojc-1]==2 )
                 {
-                    olor = 8;
+                    olor = 6;
                     return olor;
                 }
                 else
@@ -1429,12 +1429,12 @@ int sensacion (  int numeros [maxf][maxc], int nfilas, int ncol,int pojf,int poj
                 }
                 if (numeros [pojf+1][pojc]==2 )
                 {
-                    olor = 8;
+                    olor = 6;
                     return olor;
                 }
                 if ( numeros [pojf][pojc+1]==2 )
                 {
-                    olor = 8;
+                    olor = 6;
                     return olor;
                 }
                 else
@@ -1448,37 +1448,37 @@ int sensacion (  int numeros [maxf][maxc], int nfilas, int ncol,int pojf,int poj
             {
                 if (numeros [pojf+1][pojc]==1 )
                 {
-                    olor = 5;
+                    olor = 3;
                     return olor;
                 }
                 if ( numeros [pojf][pojc+1]==1 )
                 {
-                    olor = 5;
+                    olor = 3;
                     return olor;
                 }
                 if (numeros [pojf+1][pojc]==2 )
                 {
-                    olor = 6;
+                    olor = 2;
                     return olor;
                 }
                 if ( numeros [pojf][pojc+1]==2 )
                 {
-                    olor = 6;
+                    olor = 2;
                     return olor;
                 }
                 if (numeros [pojf+1][pojc]==3 )
                 {
-                    olor = 8;
+                    olor = 6;
                     return olor;
                 }
                 if ( numeros [pojf][pojc+1]==3 )
                 {
-                    olor = 8;
+                    olor = 6;
                     return olor;
                 }
                 else
                 {
-                    olor = 4;
+                    olor = 2;
                     return olor;
                 }
             }
@@ -1486,37 +1486,37 @@ int sensacion (  int numeros [maxf][maxc], int nfilas, int ncol,int pojf,int poj
             {
                 if (numeros [pojf+1][pojc]==1 )
                 {
-                    olor = 5;
+                    olor = 3;
                     return olor;
                 }
                 if ( numeros [pojf][pojc-1]==1 )
                 {
-                    olor = 5;
+                    olor = 3;
                     return olor;
                 }
                 if (numeros [pojf+1][pojc]==2 )
                 {
-                    olor = 6;
+                    olor = 2;
                     return olor;
                 }
                 if ( numeros [pojf][pojc-1]==2 )
                 {
-                    olor = 6;
+                    olor = 2;
                     return olor;
                 }
                 if (numeros [pojf+1][pojc]==3 )
                 {
-                    olor = 8;
+                    olor = 6;
                     return olor;
                 }
                 if ( numeros [pojf][pojc-1]==3 )
                 {
-                    olor = 8;
+                    olor = 6;
                     return olor;
                 }
                 else
                 {
-                    olor = 4;
+                    olor = 2;
                     return olor;
                 }
             }
@@ -1628,12 +1628,12 @@ int sensacion (  int numeros [maxf][maxc], int nfilas, int ncol,int pojf,int poj
             {
                 if (numeros [pojf+1][pojc]==2 )
                 {
-                    olor = 8;
+                    olor = 6;
                     return olor;
                 }
                 if ( numeros [pojf][pojc+1]==2 )
                 {
-                    olor = 8;
+                    olor = 6;
                     return olor;
                 }
                 else
@@ -1646,12 +1646,12 @@ int sensacion (  int numeros [maxf][maxc], int nfilas, int ncol,int pojf,int poj
             {
                 if (numeros [pojf+1][pojc]==2 )
                 {
-                    olor = 8;
+                    olor = 6;
                     return olor;
                 }
                 if ( numeros [pojf][pojc+1]==2 )
                 {
-                    olor = 8;
+                    olor = 6;
                     return olor;
                 }
                 else
@@ -1750,12 +1750,12 @@ int sensacion (  int numeros [maxf][maxc], int nfilas, int ncol,int pojf,int poj
             {
                 if (numeros [pojf-1][pojc]==2 )
                 {
-                    olor = 8;
+                    olor = 6;
                     return olor;
                 }
                 if ( numeros [pojf][pojc+1]==2 )
                 {
-                    olor = 8;
+                    olor = 6;
                     return olor;
                 }
                 else
@@ -1768,12 +1768,12 @@ int sensacion (  int numeros [maxf][maxc], int nfilas, int ncol,int pojf,int poj
             {
                 if (numeros [pojf-1][pojc]==2 )
                 {
-                    olor = 8;
+                    olor = 6;
                     return olor;
                 }
                 if ( numeros [pojf][pojc+1]==2 )
                 {
-                    olor = 8;
+                    olor = 6;
                     return olor;
                 }
                 else
