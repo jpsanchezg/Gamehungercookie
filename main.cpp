@@ -6,33 +6,29 @@
 #include "windows.h"
 //juan pablo sanchez gaitan
 using namespace std;
-struct personaje
-{
-    char movs;
-    char galleta;
-};
 
+//se definen todas las funciones que se van a utilizar para el juego
 #define maxc 30
 #define maxf 30
+
 void tablerocreado (char player [maxf][maxc],int numeros[maxf][maxf], int nfilas, int ncol);
 void tableroaleatorio (char player [maxf][maxc],int numeros[maxf][maxf], int nfilas, int ncol);
 void tablerdiabolico (char player [maxf][maxc],int numeros[maxf][maxf], int nfilas, int ncol);
-
 void jugador ( char player [maxf][maxc],int numeros[maxf][maxc], int nfilas, int ncol,int alienf,int alienc,int galletf,int galletc,int abisf,int abisc,int contu);
 void vistamundo ( char player [maxf][maxc], int numeros [maxf][maxc], int nfilas, int ncol);
 int sensacion (  int numeros [maxf][maxc], int nfilas, int ncol,int pojf,int pojc);
 int disparar (  int numeros [maxf][maxc], int nfilas, int ncol,int balf,int balc,int contad,int contai,int alienf,int alienc);
-
 int gameover ( char player [maxf][maxc],int numeros[maxf][maxc], int nfilas, int ncol);
 
 int main ()
 {
+    //se definen todas las variables de esta funcion
     int contu =0;
     int numeros[maxf][maxf], nfilas =0, ncol=0, opcion=0, respu=0;
     int jugf=0, jugc=0,alienf=0,alienc=0,galletc=0,galletf=0,abisf=0,abisc=0;
     srand(time(NULL));
     char player [maxf][maxc];
-    personaje lucas;
+    // esta es la pantalla de inicio del juego el cual va a mostra en arte ascii una galleta.
     cout<<"\t \t \t \t    MMMMMMMMMMMMWKxl:,','''',,,'. ;KMMMMMMMMMMMMMMMMMM"<<endl;
     cout<<"\t \t \t \t    MMMMMMMMMNOl;'....'lxxxxxxx:.,kNMMMMMMMMMMMMMMMMMM"<<endl;
     cout<<"\t \t \t \t    MMMMMMWKd;',col,'.,lxxxxxxxc.'xNMMMMMMMMMMMMMMMMMM"<<endl;
@@ -139,22 +135,30 @@ int main ()
 
     do
     {
-
-        cout<<"Bienvenido a EN BUSCA DE LA GALLETA PERDIDA"<<endl;
-        cout<<"menu de opciones"<<endl;
-        cout<<"0. JUGAR CON MAPA CREADO"<<endl;
-        cout<<"1. JUGAR MODO ALEATORIO"<<endl;
-        cout<<"2. INSTRUCCIONES"<<endl;
-        cout<<"3. OPCIONES"<<endl;
-        cout<<"4. SALIR"<<endl;
+// este es el menu de inicio del juego
+        cout<<"\t \t \t \t\t\t Bienvenido a EN BUSCA DE LA GALLETA PERDIDA"<<endl;
+        cout<<endl;
+        cout<<"\t \t \t \t\t\t\t MENU"<<endl;
+        cout<<endl;
+        cout<<"\t \t \t \t\t 0. JUGAR CON MAPA CREADO"<<endl;
+        cout<<"\t \t \t \t\t 1. JUGAR MODO ALEATORIO"<<endl;
+        cout<<"\t \t \t \t\t 2. INSTRUCCIONES"<<endl;
+        cout<<"\t \t \t \t\t 3. CONTROLES"<<endl;
+        cout<<"\t \t \t \t\t 4. ANUNCIOS"<<endl;
+        cout<<"\t \t \t \t\t 5. SALIR"<<endl;
         cin>>opcion;
         switch (opcion)
         {
         case 0:
+            system("cls");
+            cout<<"CREADOR DE MAPA"<<endl;
+            cout<<endl;
             cout<<"ingrese el numero de filas que desea para el mapa, recuerde que el numero maximo de filas es de "<<maxf<<endl;
             cin>>nfilas;
+            cout<<endl;
             cout<<"ingrese el numero de columnas que desea para el mapa, recuerde que el numero maximo de columnas es de "<<maxc<<endl;
             cin>>ncol;
+            cout<<endl;
             for(int i = 0; i<nfilas; i++)
             {
                 for(int j = 0; j<ncol; j++)
@@ -171,31 +175,32 @@ int main ()
             }
 
             tablerocreado (player, numeros,nfilas,ncol);
-            jugador (player,numeros,nfilas,ncol,alienf,alienc,galletf,galletc,abisf,abisc,contu);
 
 
             break;
         case 1:
             nfilas = 1 + rand ()% (maxf);
             ncol=1 + rand ()% (maxc);
-            for(int i = 0; i<nfilas; i++)
+            if (nfilas >4 && ncol >4)
             {
-                for(int j = 0; j<ncol; j++)
+                for(int i = 0; i<nfilas; i++)
                 {
-                    numeros[i][j]= 0;
+                    for(int j = 0; j<ncol; j++)
+                    {
+                        numeros[i][j]= 0;
+                    }
                 }
-            }
-            for(int i = 0; i<nfilas; i++)
-            {
-                for(int j = 0; j<ncol; j++)
+                for(int i = 0; i<nfilas; i++)
                 {
-                    player[i][j]= '-';
+                    for(int j = 0; j<ncol; j++)
+                    {
+                        player[i][j]= '-';
+                    }
                 }
             }
             system("cls");
 
             tableroaleatorio(player, numeros,nfilas,ncol);
-            jugador (player,numeros,nfilas,ncol,alienf,alienc,galletf,galletc,abisf,abisc,contu);
             break;
 
         case 2:
@@ -203,6 +208,23 @@ int main ()
             cout<<" El jugador debe encontrar la galleta por un mapa que el jugador puede crear o elejir la creacion alatoria"<<endl;
             cout<<" Los abismos, el alien y la galleta tienen su olor y sonido respectivo."<<endl;
             cout<<"El abismo persibe una brisa la cual le va a indicar a el jugador que esta cerca a un abismo"<<endl;
+            cout<<"Cuando estas cerca al alien vas a percibir una sensacion de frio polar la cual te inidica que estas cerca de el."<<endl;
+            cout<<"cuando estas cerca a la galleta vas a percibir un aroma de la galleta la cual te indica que estas cerca a esta misma"<<endl;
+            break;
+        case 3:
+            cout<<"CONTROLES DEL JUEGO"<<endl;
+            cout<<"Los controles del juego son:"<<endl;
+            cout<<"D = Derecha(puedes girar en 4 sentidos)"<<endl;
+            cout<<"I = Izquierda(puedes girar en 4 sentidos)"<<endl;
+            cout<<"F = Disparo(solo tienes un disparo asi que cuidalo mucho)"<<endl;
+            cout<<"R = Recoger galleta ( esta solo se encuentra cuando estas en la misma pocision del la galleta)."<<endl;
+            cout<<"C = Comer galleta(esta opcion solo la puedes dar cuando estes en el punto de origen y tengas la galleta puesta"<<endl;
+            cout<<"AROMAS = Cada paso que das esta lleno de muchos aromas ten cuidado con lo que te indican los aromas te pueden ayudar:"<<endl;
+            break;
+        case 4:
+            cout<<"PROXIMAMENTE SE INCLUIRA UN DLC LLENO DE COSAS LAS CUALES TIENES QUE COMPRAR PARA PODER PASAR DE NIVEL"<<endl;
+            cout<<"PATROCINADOR OFICIAL EA (ELECTRONIC ARTS)"<<endl;
+            cout<<"PARA QUITAR LOS ANUNCIOS EN EL JUEGO PAGA $9.99 AL MES ES UN GRAN OFERTON"<<endl;
             break;
         case 66:
             nfilas = 30;
@@ -223,7 +245,6 @@ int main ()
             }
             system("cls");
             tablerdiabolico (player, numeros,nfilas,ncol);
-            jugador (player,numeros,nfilas,ncol,alienf,alienc,galletf,galletc,abisf,abisc,contu);
             break;
         }
 
@@ -275,6 +296,7 @@ void tablerocreado (char player [maxf][maxc],int numeros[maxf][maxf], int nfilas
     while(k<abis);
 
     system("cls");
+    // aca se muestran las instrucciones del juego como pantalla de carga para que el jugador este informado de las cosas que puede hacer.
     cout<<"\t \t \t \t    Recuerda que para moverte tienes que oprimir la letra d o i, "<<endl;
     cout<<"\t \t \t \t    para  a para poder avanzar pulsa a "<<endl;
     cout<<"\t \t \t \t    aca te camos los movimientos de cada letra: "<<endl;
@@ -307,24 +329,14 @@ void tablerocreado (char player [maxf][maxc],int numeros[maxf][maxf], int nfilas
     cout<<"Todo cargo a la perfeccion es hora de jugar"<<endl;
     Sleep (1500);
     system("cls");
-
-
-
-
-
-
-
-
-
-
-
     jugador (player,numeros,nfilas,ncol,alienf,alienc,galletf,galletc,abisf,abisc,contu);
 
 }
 void tablerdiabolico (char player [maxf][maxc],int numeros[maxf][maxf], int nfilas, int ncol)
 {
+    //se declaran todas las variables que se van a utilizar en la creacion del mapa soy la muerte encarnada
     int abis=0,alienf=0,alienc=0,multi=0,ret=0,filas=0,col=0;
-    int jugf=0, jugc=0;
+    int jugf=0, jugc=0;// el jugador empieza en la posicion 0,0
     player[jugf][jugc]='L';
     numeros[jugf][jugc]= 5;
     int galletf=0,galletc=0,contu =0;
@@ -334,7 +346,11 @@ void tablerdiabolico (char player [maxf][maxc],int numeros[maxf][maxf], int nfil
     // poricion aleatoria del alien
     alienf =  0 + rand ()% (nfilas);
     alienc =  0 + rand ()% (ncol);
-    numeros[alienf][alienc]=1;
+    // aca comprueba que la posicion que se puso en aleatorio sea diferente a la posicion del jugador en su inisio.
+    if (    numeros[alienf][alienc]!= numeros[jugf][jugc] )
+    {
+        numeros[alienf][alienc]=1;
+    }
     //posicion aleatoria de la galleta
     galletf=0 + rand ()% (nfilas);
     galletc =0 + rand ()% (ncol);
@@ -368,6 +384,7 @@ void tablerdiabolico (char player [maxf][maxc],int numeros[maxf][maxf], int nfil
     }
     while(k<abis);
 
+    // aca se muestran las instrucciones del juego como pantalla de carga para que el jugador este informado de las cosas que puede hacer.
 
     cout<<"\t \t \t \t    Recuerda que para moverte tienes que oprimir la letra d o i, "<<endl;
     cout<<"\t \t \t \t    para  a para poder avanzar pulsa a "<<endl;
@@ -424,13 +441,18 @@ void tableroaleatorio (char player [maxf][maxc],int numeros[maxf][maxf], int nfi
     // poricion aleatoria del alien
     alienf =  0 + rand ()% (nfilas);
     alienc =  0 + rand ()% (ncol);
-    numeros[alienf][alienc]=1;
+    if (    numeros[alienf][alienc]!= numeros[jugf][jugc] )
+    {
+        numeros[alienf][alienc]=1;
+    }
     //posicion aleatoria de la galleta
     galletf=0 + rand ()% (nfilas);
     galletc =0 + rand ()% (ncol);
-    numeros[galletf][galletc]=3;
-
-    abis =  1 + rand ()% (ret);
+    if (numeros[galletf][galletc]!= numeros[jugf][jugc] )
+    {
+        numeros[galletf][galletc]=3;
+    }
+    abis =  0 + rand ()% (ret);
     int k =0,abisf=0,abisc=0;
     do
     {
@@ -453,6 +475,8 @@ void tableroaleatorio (char player [maxf][maxc],int numeros[maxf][maxf], int nfi
 
     }
     while(k<abis);
+    // aca se muestran las instrucciones del juego como pantalla de carga para que el jugador este informado de las cosas que puede hacer.
+
     cout<<"\t \t \t \t    Recuerda que para moverte tienes que oprimir la letra d o i, "<<endl;
     cout<<"\t \t \t \t    para  a para poder avanzar pulsa a "<<endl;
     cout<<"\t \t \t \t    aca te camos los movimientos de cada letra: "<<endl;
@@ -485,7 +509,7 @@ void tableroaleatorio (char player [maxf][maxc],int numeros[maxf][maxf], int nfi
     cout<<"Todo cargo a la perfeccion es hora de jugar"<<endl;
     Sleep (1500);
     system("cls");
-
+// aca se llama a la funcion de jugar
     jugador (player,numeros,nfilas,ncol,alienf,alienc,galletf,galletc,abisf,abisc,contu);
 
 
@@ -493,6 +517,7 @@ void tableroaleatorio (char player [maxf][maxc],int numeros[maxf][maxf], int nfi
 }
 void vistamundo (char player [maxf][maxc],int numeros[maxf][maxc], int nfilas, int ncol)
 {
+    // esta funcion imprime el mundo del jugador pero sin los abismos, alien y la galleta solo muestra la posicion del jugador.
     for(int i=0; i<nfilas; i++)
 
     {
@@ -507,6 +532,7 @@ void vistamundo (char player [maxf][maxc],int numeros[maxf][maxc], int nfilas, i
 }
 void jugador ( char player [maxf][maxc],int numeros[maxf][maxc], int nfilas, int ncol,int alienf,int alienc,int galletf,int galletc,int abisf,int abisc,int contu)
 {
+    // aca se encuentran todas las variables que se utilizaron para jugar
     char opcion;
     int k=0,muertos=0;
     int alienm=0;
@@ -514,53 +540,67 @@ void jugador ( char player [maxf][maxc],int numeros[maxf][maxc], int nfilas, int
     int olor =0;
     string aroma;
     string muro;
+    string galletano;
     int contad =0,contai =0;
     int pojf=0,pojc=0,balf=0,balc=0;
     bool laser = true;
+    bool galletacu = false;
     bool pared = false;
     bool galleta = false;
     bool muerto = false;
     do
     {
         vistamundo (player,numeros,nfilas,ncol);
-
+// menu de juego
+cout<<endl;
         cout<<"Ingrese un movimiento o accion"<<endl;
         cout<<"GIRAR A LA DERECHA = D"<<endl;
         cout<<"GIRAR IZQUIERDA = I"<<endl;
         cout<<"AVANZAR = A"<<endl;
+        // si tiene el laser aparece disparar si no lo tiene desaparece esta opcion y se pone en falso.
         if (laser == true)
         {
             cout<<"DISPARAR = F"<<endl;
         }
+        // aca se muesnta que se utilizo el laser.
         if (laser == false)
         {
+            // si el valor de alienm es igual a 1 es que mato al alien lo cual aparece este texto y un sonido.
             if (alienm == 1)
             {
-                cout<<"######  ####### ####### #     # ### ### ###"<<endl;
-                cout<<"#     # #     # #     # ##   ## ### ### ### "<<endl;
-                cout<<"#     # #     # #     # # # # # ### ### ### "<<endl;
-                cout<<"######  #     # #     # #  #  #  #   #   #  "<<endl;
-                cout<<"#     # #     # #     # #     #             "<<endl;
-                cout<<"#     # #     # #     # #     # ### ### ### "<<endl;
-                cout<<"######  ####### ####### #     # ### ### ### "<<endl;
+                cout<<"\t \t \t \t\t######  ####### ####### #     # ### ### ###"<<endl;
+                cout<<"\t \t \t \t\t#     # #     # #     # ##   ## ### ### ### "<<endl;
+                cout<<"\t \t \t \t\t#     # #     # #     # # # # # ### ### ### "<<endl;
+                cout<<"\t \t \t \t\t######  #     # #     # #  #  #  #   #   #  "<<endl;
+                cout<<"\t \t \t \t\t#     # #     # #     # #     #             "<<endl;
+                cout<<"\t \t \t \t\t#     # #     # #     # #     # ### ### ### "<<endl;
+                cout<<"\t \t \t \t\t######  ####### ####### #     # ### ### ### "<<endl;
 
             }
             cout<<"SONIDO: "<<alienfu<<endl;
 
         }
+        // si el jugador esta en la misma posicion de la galleta aparece esta opcion la cual le da al jugador que recoja la galleta
         if (numeros[pojf][pojc]==numeros[galletf][galletc] )
         {
             cout<<"RECOGER GALLETA = R"<<endl;
-
         }
+        if (galletacu == true )
+        {
+            cout<<galletano<<endl;
+            galletacu= false;
+        }
+        // si tiene la galleta en sus manos este mensaje le va a aparecer al jugador
         if(galleta == true)
         {
+            // si el jugador esta en la posicion de inicio le va a aparecer este mensaje el cual es comer galleta con este mensaje se termina e l juego.
             if (numeros[pojf][pojc]==numeros[0][0] )
             {
                 cout<<"COMER GALLETA = C"<<endl;
             }
 
         }
+        //aca se comprueba el valor que retorna la funcion sensacion y es evaluado para luego ser escrito en el menu de aromas.
         olor =  sensacion (    numeros,  nfilas, ncol,pojf,pojc);
         if (olor == 0)
         {
@@ -592,36 +632,43 @@ void jugador ( char player [maxf][maxc],int numeros[maxf][maxc], int nfilas, int
         }
         if (olor == 7)
         {
+
             aroma = "Frio polar + Brisa + La deliciosa galleta";
         }
         cout<<"AROMA = "<<aroma<<endl;
+        // aca se imprime cuando el jugador esta en un muro
         if (pared == true)
         {
             cout<<muro<<endl;
             pared = false;
         }
         cin>>opcion;
+        // giro de la derecha
         if (opcion == 'd')
         {
             contad++;
+            // si el jugador presiono una vez la d significa que va a la derecha
             if (contad == 1)
             {
                 player [pojf][pojc]='D';
                 olor =  sensacion (    numeros,  nfilas, ncol,pojf,pojc);
 
             }
+            // si el jugador presiono dos veces la D significa que va para abajo
             if (contad == 2)
             {
                 player [pojf][pojc]='B';
                 olor =  sensacion (    numeros,  nfilas, ncol,pojf,pojc);
 
             }
+            // si el jugador le dio 3 veces a la D significa que va para la izquierda
             if (contad == 3)
             {
                 player [pojf][pojc]='I';
                 olor =  sensacion (    numeros,  nfilas, ncol,pojf,pojc);
 
             }
+            // si el jugador le deio 4 veces a la D significa que va para arriba
             if (contad == 4)
             {
                 player [pojf][pojc]='A';
@@ -630,27 +677,32 @@ void jugador ( char player [maxf][maxc],int numeros[maxf][maxc], int nfilas, int
             }
             system("cls");
         }
+        // giro de la izquierda
         if (opcion == 'i')
         {
             contai++;
+            // si el jugado le dio 1 vez a la I significa que va para la izquierda
             if (contai == 1)
             {
                 player [pojf][pojc]='I';
                 olor =  sensacion (    numeros,  nfilas, ncol,pojf,pojc);
 
             }
+            // si el jugador le dio 2 veces a la I significa que va para abajo
             if (contai == 2)
             {
                 player [pojf][pojc]='B';
                 olor =  sensacion (    numeros,  nfilas, ncol,pojf,pojc);
 
             }
+            // si el jugador le dio 3 veces a la I significa que va a la derecha
             if (contai == 3)
             {
                 player [pojf][pojc]='D';
                 olor =  sensacion (    numeros,  nfilas, ncol,pojf,pojc);
 
             }
+            // si el jugador le dio 4 veces a la I significa que va para arriba
             if (contai == 4)
             {
                 player [pojf][pojc]='A';
@@ -658,6 +710,7 @@ void jugador ( char player [maxf][maxc],int numeros[maxf][maxc], int nfilas, int
             }
             system("cls");
         }
+        // si la opcion es a significa que va a avanzar las posiciones del contador si es D o I.
         if (opcion == 'a')
         {
             if (contad == 1)
@@ -665,6 +718,7 @@ void jugador ( char player [maxf][maxc],int numeros[maxf][maxc], int nfilas, int
                 player [pojf][pojc]='-';
                 numeros[pojf][pojc] = 0;
                 pojc = pojc +1;
+                // se comprueba que no este en un muro o este en la misma posicionde un alien o un abismo.
                 if ( numeros [pojf][pojc]== 2)
                 {
                     gameover ( player, numeros, nfilas, ncol);
@@ -695,6 +749,8 @@ void jugador ( char player [maxf][maxc],int numeros[maxf][maxc], int nfilas, int
                 player [pojf][pojc]='-';
                 numeros[pojf][pojc] = 0;
                 pojf = pojf +1;
+                // se comprueba que no este en un muro o este en la misma posicionde un alien o un abismo.
+
                 if ( numeros [pojf][pojc]== 2)
                 {
                     gameover ( player, numeros, nfilas, ncol);
@@ -726,6 +782,8 @@ void jugador ( char player [maxf][maxc],int numeros[maxf][maxc], int nfilas, int
                 player [pojf][pojc]='-';
                 numeros[pojf][pojc] = 0;
                 pojc = pojc -1;
+                // se comprueba que no este en un muro o este en la misma posicionde un alien o un abismo.
+
                 if ( pojc == -1)
                 {
                     muro = "Te chocaste con el muro";
@@ -757,6 +815,8 @@ void jugador ( char player [maxf][maxc],int numeros[maxf][maxc], int nfilas, int
                 player [pojf][pojc]='-';
                 numeros[pojf][pojc] = 0;
                 pojf = pojf -1;
+                // se comprueba que no este en un muro o este en la misma posicionde un alien o un abismo.
+
                 if ( numeros [pojf][pojc]== 2)
                 {
                     gameover ( player, numeros, nfilas, ncol);
@@ -786,6 +846,8 @@ void jugador ( char player [maxf][maxc],int numeros[maxf][maxc], int nfilas, int
                 player [pojf][pojc]='-';
                 numeros[pojf][pojc] = 0;
                 pojc = pojc -1;
+                // se comprueba que no este en un muro o este en la misma posicionde un alien o un abismo.
+
                 if ( pojc == -1)
                 {
                     muro = "Te chocaste con el muro";
@@ -817,6 +879,8 @@ void jugador ( char player [maxf][maxc],int numeros[maxf][maxc], int nfilas, int
                 player [pojf][pojc]='-';
                 numeros[pojf][pojc] = 0;
                 pojf = pojf +1;
+                // se comprueba que no este en un muro o este en la misma posicionde un alien o un abismo.
+
                 if ( pojf == nfilas)
                 {
                     muro = "Te chocaste con el muro";
@@ -849,6 +913,8 @@ void jugador ( char player [maxf][maxc],int numeros[maxf][maxc], int nfilas, int
                 player [pojf][pojc]='-';
                 numeros[pojf][pojc] = 0;
                 pojc = pojc +1;
+                // se comprueba que no este en un muro o este en la misma posicionde un alien o un abismo.
+
                 if ( pojc == ncol)
                 {
                     player [pojf][pojc]='D';
@@ -878,6 +944,7 @@ void jugador ( char player [maxf][maxc],int numeros[maxf][maxc], int nfilas, int
                 player [pojf][pojc]='-';
                 numeros[pojf][pojc] = 0;
                 pojf = pojf -1;
+                // se comprueba que no este en un muro o este en la misma posicionde un alien o un abismo.
 
                 if ( pojf == -1)
                 {
@@ -911,7 +978,7 @@ void jugador ( char player [maxf][maxc],int numeros[maxf][maxc], int nfilas, int
 
 
 
-
+// si la opcion es f significa que dispara el rayo laser en la posicion en la que este mirando.
         if (opcion =='f')
         {
             if (laser == true)
@@ -919,8 +986,10 @@ void jugador ( char player [maxf][maxc],int numeros[maxf][maxc], int nfilas, int
 
                 balf = pojf;
                 balc = pojc;
+                // la funcion disparar retorna un numero el cula determina si mato o no al alien y se le notifica al jugador con un mensaje.
                 alienm = disparar (numeros,nfilas,ncol,balf,balc,contad,contai,alienf,alienc);
                 laser = false;
+
                 if (alienm == 1)
                 {
                     alienfu = "*Sonidos de agonia en algun punto del mapa*";
@@ -933,14 +1002,19 @@ void jugador ( char player [maxf][maxc],int numeros[maxf][maxc], int nfilas, int
             }
 
         }
-
+// si la opcion es r significa que el jugador puede estar en la posicion de la galleta
         if (opcion == 'r')
         {
             system("cls");
-
+// si esta en la posicion de la galleta
             if (numeros [pojf][pojc]== numeros[galletf][galletc])
             {
                 galleta =true;
+            }
+            if (numeros [pojf][pojc] != numeros[galletf][galletc])
+            {
+                galletano = "Todavia no has encontrado la galleta";
+                galletacu =true;
             }
         }
         if (opcion == 'p')
@@ -961,13 +1035,13 @@ void jugador ( char player [maxf][maxc],int numeros[maxf][maxc], int nfilas, int
             if(galleta == true)
             {
                 system("cls");
-                cout<<"     _____                       _ "<<endl;
-                cout<<"    / ____|                     | |     "<<endl;
-                cout<<"   | |  __  __ _ _ __   __ _ ___| |_ ___ "<<endl;
-                cout<<"   | | |_ |/ _` | '_ \\ / _` / __| __/ _ \\ "<<endl;
-                cout<<"   | |__| | (_| | | | | (_| \\__ \ ||  ___/ "<<endl;
-                cout<<"    \\_____|\\__,_|_| |_|\\__,_|___/\\__\\___| "<<endl;
-                cout<<"                                         "<<endl;
+                cout<<"\t \t \t \t\t     _____                       _ "<<endl;
+                cout<<"\t \t \t \t\t    / ____|                     | |     "<<endl;
+                cout<<"\t \t \t \t\t   | |  __  __ _ _ __   __ _ ___| |_ ___ "<<endl;
+                cout<<"\t \t \t \t\t   | | |_ |/ _` | '_ \\ / _` / __| __/ _ \\ "<<endl;
+                cout<<"\t \t \t \t\t   | |__| | (_| | | | | (_| \\__ \ ||  ___/ "<<endl;
+                cout<<"\t \t \t \t\t    \\_____|\\__,_|_| |_|\\__,_|___/\\__\\___| "<<endl;
+                cout<<"\t \t \t \t\t                                         "<<endl;
                 cout<<endl;
                 system("pause");
                 exit(0);
@@ -2156,18 +2230,18 @@ int gameover ( char player [maxf][maxc],int numeros[maxf][maxc], int nfilas, int
 
 
     system("cls");
-    cout << "  _____      ___       ___  ___   _____"    << endl;
-    cout << " / ___ |    /   |     /   |/   | |  ___|"  << endl;
-    cout << "| |        / /| |    / /|   /| | | |__"    << endl;
-    cout << "| |  _    / ___ |   / / |__/ | | |  __|"   << endl;
-    cout << "| |_| |  / /  | |  / /       | | | |___"   << endl;
-    cout << "\\_____/ /_/   |_| /_/        |_| |_____|"  << endl;
-    cout << " _____   _     _   _____   _____"          << endl;
-    cout << "/  _  \\ | |   / / |  ___| |  _   \\ "        << endl;
-    cout << "| | | | | |  / /  | |__   | |_|  |"         << endl;
-    cout << "| | | | | | / /   |  __|  |  _   /"         << endl;
-    cout << "| |_| | | |/ /    | |___  | | \\  \\  "        << endl;
-    cout << "\\_____/ |___/     |_____| |_|  \\ _\\ "       << endl;
+    cout << "\t \t \t \t\t  _____      ___       ___  ___   _____"    << endl;
+    cout << "\t \t \t \t\t / ___ |    /   |     /   |/   | |  ___|"  << endl;
+    cout << "\t \t \t \t\t| |        / /| |    / /|   /| | | |__"    << endl;
+    cout << "\t \t \t \t\t| |  _    / ___ |   / / |__/ | | |  __|"   << endl;
+    cout << "\t \t \t \t\t| |_| |  / /  | |  / /       | | | |___"   << endl;
+    cout << "\t \t \t \t\t\\_____/ /_/   |_| /_/        |_| |_____|"  << endl;
+    cout << "\t \t \t \t\t _____   _     _   _____   _____"          << endl;
+    cout << "\t \t \t \t\t/  _  \\ | |   / / |  ___| |  _   \\ "        << endl;
+    cout << "\t \t \t \t\t| | | | | |  / /  | |__   | |_|  |"         << endl;
+    cout << "\t \t \t \t\t| | | | | | / /   |  __|  |  _   /"         << endl;
+    cout << "\t \t \t \t\t| |_| | | |/ /    | |___  | | \\  \\  "        << endl;
+    cout << "\t \t \t \t\t\\_____/ |___/     |_____| |_|  \\ _\\ "       << endl;
     cout << endl << endl;
     cout << endl << endl;
     exit(0);
@@ -2310,4 +2384,3 @@ int disparar (  int numeros [maxf][maxc], int nfilas, int ncol,int balf,int balc
 
     }
 }
-
