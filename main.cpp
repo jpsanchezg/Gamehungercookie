@@ -24,6 +24,7 @@ int main ()
 {
     //se definen todas las variables de esta funcion
     int contu =0;
+    int filas =0,col=0;
     int numeros[maxf][maxf], nfilas =0, ncol=0, opcion=0, respu=0;
     int jugf=0, jugc=0,alienf=0,alienc=0,galletc=0,galletf=0,abisf=0,abisc=0;
     srand(time(NULL));
@@ -135,6 +136,8 @@ int main ()
 
     do
     {
+        system("cls");
+
 // este es el menu de inicio del juego
         cout<<"\t \t \t \t\t\t Bienvenido a EN BUSCA DE LA GALLETA PERDIDA"<<endl;
         cout<<endl;
@@ -179,10 +182,14 @@ int main ()
 
             break;
         case 1:
-            nfilas = 1 + rand ()% (maxf);
-            ncol=1 + rand ()% (maxc);
-            if (nfilas >4 && ncol >4)
+            system("cls");
+
+            filas = 1 + rand ()% (maxf);
+            col=1 + rand ()% (maxc);
+            if (filas >4 && col >4)
             {
+                nfilas = filas;
+                ncol=col;
                 for(int i = 0; i<nfilas; i++)
                 {
                     for(int j = 0; j<ncol; j++)
@@ -204,29 +211,77 @@ int main ()
             break;
 
         case 2:
+            system("cls");
+
             cout<<"Las instrucciones del juego son las siguientes:"<<endl;
+            cout<<endl;
+
             cout<<" El jugador debe encontrar la galleta por un mapa que el jugador puede crear o elejir la creacion alatoria"<<endl;
+            cout<<endl;
+
             cout<<" Los abismos, el alien y la galleta tienen su olor y sonido respectivo."<<endl;
+            cout<<endl;
+
             cout<<"El abismo persibe una brisa la cual le va a indicar a el jugador que esta cerca a un abismo"<<endl;
+            cout<<endl;
+
             cout<<"Cuando estas cerca al alien vas a percibir una sensacion de frio polar la cual te inidica que estas cerca de el."<<endl;
+            cout<<endl;
+
             cout<<"cuando estas cerca a la galleta vas a percibir un aroma de la galleta la cual te indica que estas cerca a esta misma"<<endl;
+            cout<<endl;
+
+            Sleep(1500);
+            system("cls");
             break;
         case 3:
+            system("cls");
+
             cout<<"CONTROLES DEL JUEGO"<<endl;
             cout<<"Los controles del juego son:"<<endl;
+            cout<<endl;
             cout<<"D = Derecha(puedes girar en 4 sentidos)"<<endl;
+            cout<<endl;
+
             cout<<"I = Izquierda(puedes girar en 4 sentidos)"<<endl;
+            cout<<endl;
+
             cout<<"F = Disparo(solo tienes un disparo asi que cuidalo mucho)"<<endl;
+            cout<<endl;
+
             cout<<"R = Recoger galleta ( esta solo se encuentra cuando estas en la misma pocision del la galleta)."<<endl;
+            cout<<endl;
+
             cout<<"C = Comer galleta(esta opcion solo la puedes dar cuando estes en el punto de origen y tengas la galleta puesta"<<endl;
+            cout<<endl;
+
             cout<<"AROMAS = Cada paso que das esta lleno de muchos aromas ten cuidado con lo que te indican los aromas te pueden ayudar:"<<endl;
+            Sleep(1500);
+            system("cls");
             break;
         case 4:
-            cout<<"PROXIMAMENTE SE INCLUIRA UN DLC LLENO DE COSAS LAS CUALES TIENES QUE COMPRAR PARA PODER PASAR DE NIVEL"<<endl;
-            cout<<"PATROCINADOR OFICIAL EA (ELECTRONIC ARTS)"<<endl;
-            cout<<"PARA QUITAR LOS ANUNCIOS EN EL JUEGO PAGA $9.99 AL MES ES UN GRAN OFERTON"<<endl;
+            system("cls");
+            cout<<"ANUNCIOS"<<endl;
+
+            cout<<endl;
+
+            cout<<"- PROXIMAMENTE SE INCLUIRA UN DLC LLENO DE COSAS LAS CUALES TIENES QUE COMPRAR PARA PODER PASAR DE NIVEL"<<endl;
+            cout<<endl;
+
+            cout<<"- PATROCINADOR OFICIAL EA (ELECTRONIC ARTS)"<<endl;
+            cout<<endl;
+
+            cout<<"- PARA QUITAR LOS ANUNCIOS EN EL JUEGO PAGA $9.99 AL MES ES UN GRAN OFERTON"<<endl;
+            cout<<endl;
+
+            Sleep(1500);
+            system("cls");
+
+
             break;
         case 66:
+            system("cls");
+
             nfilas = 30;
             ncol=20;
             for(int i = 0; i<nfilas; i++)
@@ -249,7 +304,7 @@ int main ()
         }
 
     }
-    while (opcion != 4);
+    while (opcion != 5);
 }
 void tablerocreado (char player [maxf][maxc],int numeros[maxf][maxf], int nfilas, int ncol)
 {
@@ -326,9 +381,33 @@ void tablerocreado (char player [maxf][maxc],int numeros[maxf][maxf], int nfilas
     Sleep (1500);
     cout<<"Poniendo el alien, la galleta y los avismos en sus posiciones"<<endl;
     Sleep (1500);
-    cout<<"Todo cargo a la perfeccion es hora de jugar"<<endl;
+    system("cls");
+
+    cout<<"\t \t \t \t\t ######  #######    #    ######  #     # "<<endl;
+    cout<<"\t \t \t \t\t #     # #         # #   #     #  #   #  "<<endl;
+    cout<<"\t \t \t \t\t #     # #        #   #  #     #   # #   "<<endl;
+    cout<<"\t \t \t \t\t ######  #####   #     # #     #    #    "<<endl;
+    cout<<"\t \t \t \t\t #   #   #       ####### #     #    #    "<<endl;
+    cout<<"\t \t \t \t\t #    #  #       #     # #     #    #    "<<endl;
+    cout<<"\t \t \t \t\t #     # ####### #     # ######     # "<<endl;
+    cout<<endl;
     Sleep (1500);
     system("cls");
+
+    cout<<"\t \t \t \t\t ######  #          #    #     #    "<<endl;
+    cout<<"\t \t \t \t\t #     # #         # #    #   #  "<<endl;
+    cout<<"\t \t \t \t\t #     # #        #   #    # #        "<<endl;
+    cout<<"\t \t \t \t\t ######  #       #     #    #         "<<endl;
+    cout<<"\t \t \t \t\t #       #       #######    #           "<<endl;
+    cout<<"\t \t \t \t\t #       #       #     #    #           "<<endl;
+    cout<<"\t \t \t \t\t #       ####### #     #    #  "<<endl;
+    cout<<endl;
+    Sleep (1500);
+    system("cls");
+    cout<<"NIVEL CREADO"<<endl;
+    cout<<endl;
+
+
     jugador (player,numeros,nfilas,ncol,alienf,alienc,galletf,galletc,abisf,abisc,contu);
 
 }
@@ -415,11 +494,32 @@ void tablerdiabolico (char player [maxf][maxc],int numeros[maxf][maxf], int nfil
     Sleep (1500);
     cout<<"Poniendo el alien, la galleta y los avismos en sus posiciones"<<endl;
     Sleep (1500);
-    cout<<"Todo cargo a la perfeccion es hora de jugar"<<endl;
+    system("cls");
+
+    cout<<"\t \t \t \t\t ######  #######    #    ######  #     # "<<endl;
+    cout<<"\t \t \t \t\t #     # #         # #   #     #  #   #  "<<endl;
+    cout<<"\t \t \t \t\t #     # #        #   #  #     #   # #   "<<endl;
+    cout<<"\t \t \t \t\t ######  #####   #     # #     #    #    "<<endl;
+    cout<<"\t \t \t \t\t #   #   #       ####### #     #    #    "<<endl;
+    cout<<"\t \t \t \t\t #    #  #       #     # #     #    #    "<<endl;
+    cout<<"\t \t \t \t\t #     # ####### #     # ######     # "<<endl;
+    cout<<endl;
+    Sleep (1500);
+    system("cls");
+
+    cout<<"\t \t \t \t\t ######  #          #    #     #    "<<endl;
+    cout<<"\t \t \t \t\t #     # #         # #    #   #  "<<endl;
+    cout<<"\t \t \t \t\t #     # #        #   #    # #        "<<endl;
+    cout<<"\t \t \t \t\t ######  #       #     #    #         "<<endl;
+    cout<<"\t \t \t \t\t #       #       #######    #           "<<endl;
+    cout<<"\t \t \t \t\t #       #       #     #    #           "<<endl;
+    cout<<"\t \t \t \t\t #       ####### #     #    #  "<<endl;
+    cout<<endl;
     Sleep (1500);
     system("cls");
 
     cout<<"ENTRASTE AL NIVEL !SOY LA MUERTE ENCARNADA!"<<endl;
+    cout<<endl;
 
     jugador (player,numeros,nfilas,ncol,alienf,alienc,galletf,galletc,abisf,abisc,contu);
 
@@ -505,10 +605,34 @@ void tableroaleatorio (char player [maxf][maxc],int numeros[maxf][maxf], int nfi
     cout<<"\t \t \t \t\t     Galleta= Galleta "<<endl;
     Sleep (1500);
     cout<<"Poniendo el alien, la galleta y los avismos en sus posiciones"<<endl;
-    Sleep (1500);
-    cout<<"Todo cargo a la perfeccion es hora de jugar"<<endl;
+
     Sleep (1500);
     system("cls");
+
+    cout<<"\t \t \t \t\t ######  #######    #    ######  #     # "<<endl;
+    cout<<"\t \t \t \t\t #     # #         # #   #     #  #   #  "<<endl;
+    cout<<"\t \t \t \t\t #     # #        #   #  #     #   # #   "<<endl;
+    cout<<"\t \t \t \t\t ######  #####   #     # #     #    #    "<<endl;
+    cout<<"\t \t \t \t\t #   #   #       ####### #     #    #    "<<endl;
+    cout<<"\t \t \t \t\t #    #  #       #     # #     #    #    "<<endl;
+    cout<<"\t \t \t \t\t #     # ####### #     # ######     # "<<endl;
+    cout<<endl;
+    Sleep (1500);
+    system("cls");
+
+    cout<<"\t \t \t \t\t ######  #          #    #     #    "<<endl;
+    cout<<"\t \t \t \t\t #     # #         # #    #   #  "<<endl;
+    cout<<"\t \t \t \t\t #     # #        #   #    # #        "<<endl;
+    cout<<"\t \t \t \t\t ######  #       #     #    #         "<<endl;
+    cout<<"\t \t \t \t\t #       #       #######    #           "<<endl;
+    cout<<"\t \t \t \t\t #       #       #     #    #           "<<endl;
+    cout<<"\t \t \t \t\t #       ####### #     #    #  "<<endl;
+    cout<<endl;
+    Sleep (1500);
+    system("cls");
+    cout<<"NIVEL ALEATORIO TODO PUEDE PASAR"<<endl;
+    cout<<endl;
+
 // aca se llama a la funcion de jugar
     jugador (player,numeros,nfilas,ncol,alienf,alienc,galletf,galletc,abisf,abisc,contu);
 
@@ -521,7 +645,7 @@ void vistamundo (char player [maxf][maxc],int numeros[maxf][maxc], int nfilas, i
     for(int i=0; i<nfilas; i++)
 
     {
-        // cout<<"|"<<setw(8);
+        // cout<<""<<setw(8);
         for (int j=0; j<ncol; j++)
         {
 
@@ -552,15 +676,15 @@ void jugador ( char player [maxf][maxc],int numeros[maxf][maxc], int nfilas, int
     {
         vistamundo (player,numeros,nfilas,ncol);
 // menu de juego
-cout<<endl;
-        cout<<"Ingrese un movimiento o accion"<<endl;
-        cout<<"GIRAR A LA DERECHA = D"<<endl;
-        cout<<"GIRAR IZQUIERDA = I"<<endl;
-        cout<<"AVANZAR = A"<<endl;
+        cout<<endl;
+        cout<<"\t \t \t Ingrese un movimiento o accion"<<endl;
+        cout<<"\t \t \t GIRAR A LA DERECHA = D"<<endl;
+        cout<<"\t \t \t GIRAR IZQUIERDA = I"<<endl;
+        cout<<"\t \t \t AVANZAR = A"<<endl;
         // si tiene el laser aparece disparar si no lo tiene desaparece esta opcion y se pone en falso.
         if (laser == true)
         {
-            cout<<"DISPARAR = F"<<endl;
+            cout<<"\t \t \t DISPARAR = F"<<endl;
         }
         // aca se muesnta que se utilizo el laser.
         if (laser == false)
@@ -577,13 +701,13 @@ cout<<endl;
                 cout<<"\t \t \t \t\t######  ####### ####### #     # ### ### ### "<<endl;
 
             }
-            cout<<"SONIDO: "<<alienfu<<endl;
+            cout<<"\t \t \t SONIDO: "<<alienfu<<endl;
 
         }
         // si el jugador esta en la misma posicion de la galleta aparece esta opcion la cual le da al jugador que recoja la galleta
         if (numeros[pojf][pojc]==numeros[galletf][galletc] )
         {
-            cout<<"RECOGER GALLETA = R"<<endl;
+            cout<<"\t \t \t RECOGER GALLETA = R"<<endl;
         }
         if (galletacu == true )
         {
@@ -596,7 +720,7 @@ cout<<endl;
             // si el jugador esta en la posicion de inicio le va a aparecer este mensaje el cual es comer galleta con este mensaje se termina e l juego.
             if (numeros[pojf][pojc]==numeros[0][0] )
             {
-                cout<<"COMER GALLETA = C"<<endl;
+                cout<<"\t \t \t COMER GALLETA = C"<<endl;
             }
 
         }
@@ -635,7 +759,7 @@ cout<<endl;
 
             aroma = "Frio polar + Brisa + La deliciosa galleta";
         }
-        cout<<"AROMA = "<<aroma<<endl;
+        cout<<"\t \t \t AROMA = "<<aroma<<endl;
         // aca se imprime cuando el jugador esta en un muro
         if (pared == true)
         {
@@ -992,7 +1116,7 @@ cout<<endl;
 
                 if (alienm == 1)
                 {
-                    alienfu = "*Sonidos de agonia en algun punto del mapa*";
+                    alienfu = "HEADSHOOT *Sonidos de agonia en algun punto del mapa*";
                 }
                 if(alienm == 0)
                 {
@@ -1035,6 +1159,46 @@ cout<<endl;
             if(galleta == true)
             {
                 system("cls");
+                cout<<endl;
+                cout<<"\t \t \t \t\t@@@@@@@@@@@@@@@@@        #@@@/  @@@@/ ,@@@@@@@@@@@@@@@@@@@@"<<endl;
+                cout<<"\t \t \t \t\t@@@@@@@@@@@@@@@(           @   ,@@@@&   @@@@@@@@@@@@@@@@@@@"<<endl;
+                cout<<"\t \t \t \t\t@@@@@@@@@@@@@@@             ,     .     .@@@@@@@@@@@@@@@@@@"<<endl;
+                cout<<"\t \t \t \t\t@@@@@@@@@@@@@@@     .       /           ,@@@@@@@@@@@@@@@@@@"<<endl;
+                cout<<"\t \t \t \t\t@@@@@@@@@@@%&@@   @@@@@    #            %######@@@@@@@@@@@@"<<endl;
+                cout<<"\t \t \t \t\t@@@@@@@@@@######@ @@@@@   @##@        @###########@@@@@@@@@"<<endl;
+                cout<<"\t \t \t \t\t@@@@@@@@&%#########@&%@########%%###############&@@@@@@@@@@"<<endl;
+                cout<<"\t \t \t \t\t@@@@################################################&@@@@@@"<<endl;
+                cout<<"\t \t \t \t\t@@@@@@#########################@##############@#@@@@@@@@@@@"<<endl;
+                cout<<"\t \t \t \t\t@@@@##&@########@#####@@#@@@@@@@@@@@##@@@@@@@#######@@@@@@@"<<endl;
+                cout<<"\t \t \t \t\t@@@@#####&@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@#########@@@@@@"<<endl;
+                cout<<"\t \t \t \t\t@@@@%#######@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@##########%@@@@"<<endl;
+                cout<<"\t \t \t \t\t@@@@@########@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@#########@@@@@@@"<<endl;
+                cout<<"\t \t \t \t\t@@@@@@########@@@@@@@@@@@@@@@@@@@@@@@@@@@@%#########@@@@@@@"<<endl;
+                cout<<"\t \t \t \t\t@@@@@########@@@@@@@@@@@@@@@@@@@@@@@@@@@#########@@@@@@@@@@"<<endl;
+                cout<<"\t \t \t \t\t@@@@@#@@########@@@@@@@@@@@@@@@@@@@@@@@@@########@@@@@@@@@@"<<endl;
+                cout<<"\t \t \t \t\t@@@@@@@@##########@%%&@@@@@%*%@@@@@@&@@#########%@@@@@@@@@@"<<endl;
+                cout<<"\t \t \t \t\t@@@@@@@@@%####%***************/****%##########%###@@@@@@@@@"<<endl;
+                cout<<"\t \t \t \t\t@@@@@###%%##%*********%#(*******##****(%%#*%@#######@@@@@@@"<<endl;
+                cout<<"\t \t \t \t\t@@@#########%***#(******%%#********************#######@@@@@"<<endl;
+                cout<<"\t \t \t \t\t@@@########%***%##******************************@@#####@@@@"<<endl;
+                cout<<"\t \t \t \t\t@%#####@#%%******************************%###***###%@####@@"<<endl;
+                cout<<"\t \t \t \t\t@####@####&******************************%%###**@#####%###@"<<endl;
+                cout<<"\t \t \t \t\t####@#######@/***************%#/*************%%#######@###&"<<endl;
+                cout<<"\t \t \t \t\t@############@##*************************/%#######@@###@@@@"<<endl;
+                cout<<"\t \t \t \t\t@@@###%@%######@****************************#@@&@@%#####@@@"<<endl;
+                cout<<"\t \t \t \t\t@@@@########&@(******************************%@#######%##@@"<<endl;
+                cout<<"\t \t \t \t\t@@@@@@##########/********%##*********####***&%#####&##@@@@@"<<endl;
+                cout<<"\t \t \t \t\t@@@@####@@@&@&***********%%/*********%###****@@&%######@@@@"<<endl;
+                cout<<"\t \t \t \t\t@@@@@%#########@(/*******************%%*****//@#####%@@@@@@"<<endl;
+                cout<<"\t \t \t \t\t@@@@@@@####@@@###***********************/////&@@####@@@@@@@"<<endl;
+                cout<<"\t \t \t \t\t@@@@@@######%@/%%%/*********************//////@#####@@@@@@@"<<endl;
+                cout<<"\t \t \t \t\t@@@@@@@@&%&@@@%///////*********###****//////#&&@@@@@@@@@@@@"<<endl;
+                cout<<"\t \t \t \t\t@@@@@@@@@@@@@@&&%/////////////%##%/////////%&&&@@@@@@@@@@@@"<<endl;
+                cout<<"\t \t \t \t\t@@@@@@@@@@@@@@&&&&&%/////////////////////%&&&&&@@@@@@@@@@@@"<<endl;
+                cout<<endl;
+
+                cout<<endl;
+
                 cout<<"\t \t \t \t\t     _____                       _ "<<endl;
                 cout<<"\t \t \t \t\t    / ____|                     | |     "<<endl;
                 cout<<"\t \t \t \t\t   | |  __  __ _ _ __   __ _ ___| |_ ___ "<<endl;
@@ -2230,6 +2394,39 @@ int gameover ( char player [maxf][maxc],int numeros[maxf][maxc], int nfilas, int
 
 
     system("cls");
+    cout<<endl;
+    cout<<endl;
+
+    cout << "\t \t \t \t\t@@@@@@@@@@@@@@@@((((((((((@@@@@@@((((((((((@@@@@@@@@@@@%@%@"    << endl;
+    cout << "\t \t \t \t\t@@@@@@@@@@@@@((((((@@@@@@@@@@@@@@@&@@@@@((((((@@@@@@@%@@@@@"    << endl;
+    cout << "\t \t \t \t\t&@@@@@@@@@(((((@@@@@@@@@@@@@@@@@&@@@@@@@@@@@(((((@@%@@@@@@@"    << endl;
+    cout << "\t \t \t \t\t@@@@@@@@((((@@@@@@@@@@@@@@@@@@&@@@@@@@@@@@@@@@@((((@@@@@@@@"    << endl;
+    cout << "\t \t \t \t\t@@@@@@((((@@@@@@@@@@@@@@@@@@&@@@@@@@@@@@@@@@@@@%@((((@@@@@&"    << endl;
+    cout << "\t \t \t \t\t@@@@@(((@@@@@@@@@@@@@@@@@@&@@@@@@@@@@@@@@@@@@%@@@@@(((@@@@@"    << endl;
+    cout << "\t \t \t \t\t@@@/(((@@@@@@@@@@@@@@@@@&@@@@@@@@@@@@@@@@@@%@@@@@@@@(((/@@@"    << endl;
+    cout << "\t \t \t \t\t&@(((@@@@@@@@/(((@@@@@((((@@@@@@@%(((@@@@@(((*@@@@@@@((((@@"    << endl;
+    cout << "\t \t \t \t\t@#(((@@@@@@@@@@((((@((((@@@@@@@@@@@((((@((((@@@@@@@@@@(((#@"    << endl;
+    cout << "\t \t \t \t\t@(((@@@@@@@@@@@@@(((((@@@@@@@@@@@@@@@(((((@@@@@@@@@@@@@(((%"    << endl;
+    cout << "\t \t \t \t\t(((@@@@@@@@@@@@@(((((((@@@@@@@@@@@@@(((((((@@@@@@@@@@@@@((("    << endl;
+    cout << "\t \t \t \t\t(((@@@@@@@@@@@((((@@@((((@@@@@@@@@((((@@@((((@@@@@@@@@%@((("    << endl;
+    cout << "\t \t \t \t\t((@@@@@@@@@@&@@(@@@@@@@(@@@@@@@@@&@(@@@@@@@(@@@@@@@@%@@@@(("    << endl;
+    cout << "\t \t \t \t\t((@@@@@@@@&@@@@@@@@@@@@@@@@@@%@&@@@@@@@@@@@@@@@@@@%@@@@@@(("    << endl;
+    cout << "\t \t \t \t\t((@@@@@@&@@@@@@@@@@@@@@@@@@%@@@@@@@@@@@@@@@@@@@@%@@@@@@@@(("    << endl;
+    cout << "\t \t \t \t\t((@@@@&@@@@@@@@@@@@@@@@@@%@@@@@@@@@@@@@@@@@@@@%@@@@@@@@@@(("    << endl;
+    cout << "\t \t \t \t\t(((@&@@@@@@@@@@@@@@@@@@%@@@@@@@@@@@@@@@@@@@@%@@@@@@@@@@@((("    << endl;
+    cout << "\t \t \t \t\t(((@@@@@@@@@@@@@@(((((((((((((((((((((((((((@@@@@@@@@@@@((("    << endl;
+    cout << "\t \t \t \t\t@(((@@@@@@@@@@@@@@@%@@@@@@@@@@((@@@@@@@@@(((@@@@@@@@@@@(((@"    << endl;
+    cout << "\t \t \t \t\t@@(((@@@@@@@@@@@@%@@@@@@@@@@@@((@@@@@@@@@(((@@@@@@@@@@(((@@"    << endl;
+    cout << "\t \t \t \t\t@@/(((@@@@@@@@@%@@@@@@@@@@@@@@((@@@@@@@@@(((@@@@@@@@@(((/@&"    << endl;
+    cout << "\t \t \t \t\t@@@@(((@@@@@@@@&@@@@@@@@@@@@@@(((@%@@@@@(((@@@@@@@@@(((@@@@"    << endl;
+    cout << "\t \t \t \t\t@@@@@(((*@@@@&@@@@@@@@@@@@@@@@@(((((@(((((@@@@@@@@*(((@@@@@"    << endl;
+    cout << "\t \t \t \t\t&@@@@@*(((@&@@@@@@@@@@@@@@@@@@%@@(((((((@@@@@@@@@(((@@@@@@@"    << endl;
+    cout << "\t \t \t \t\t@@@@@@@@((((%@@@@@@@@@@@@@@@%@@@@@@@@@@@@@@@@@%((((@@@@@@@@"    << endl;
+    cout << "\t \t \t \t\t@@@@@@@&@@%((((@@@@@@@@@@@%@@@@@@@@@@@@@@@@@((((&@@@@@@@@@&"    << endl;
+    cout << "\t \t \t \t\t@@@@@&@@@@@@@((((((@@@@@%@@@@@@@@@@@@@@@((((((@@@@@@@@@@@@@"    << endl;
+    cout << "\t \t \t \t\t@%@&@@@@@@@@@@@@@((((((((((((%((((((((((((@@@@@@@@@@@@@@@@@"    << endl;
+    cout<<endl;
+    cout<<endl;
     cout << "\t \t \t \t\t  _____      ___       ___  ___   _____"    << endl;
     cout << "\t \t \t \t\t / ___ |    /   |     /   |/   | |  ___|"  << endl;
     cout << "\t \t \t \t\t| |        / /| |    / /|   /| | | |__"    << endl;
