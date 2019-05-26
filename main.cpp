@@ -275,7 +275,7 @@ void tablerocreado (char player [maxf][maxc],int numeros[maxf][maxf], int nfilas
     while(k<abis);
 
     system("cls");
-     cout<<"\t \t \t \t    Recuerda que para moverte tienes que oprimir la letra d o i, "<<endl;
+    cout<<"\t \t \t \t    Recuerda que para moverte tienes que oprimir la letra d o i, "<<endl;
     cout<<"\t \t \t \t    para  a para poder avanzar pulsa a "<<endl;
     cout<<"\t \t \t \t    aca te camos los movimientos de cada letra: "<<endl;
     cout<<"\t \t \t \t\t    d = Derecha "<<endl;
@@ -453,7 +453,7 @@ void tableroaleatorio (char player [maxf][maxc],int numeros[maxf][maxf], int nfi
 
     }
     while(k<abis);
-cout<<"\t \t \t \t    Recuerda que para moverte tienes que oprimir la letra d o i, "<<endl;
+    cout<<"\t \t \t \t    Recuerda que para moverte tienes que oprimir la letra d o i, "<<endl;
     cout<<"\t \t \t \t    para  a para poder avanzar pulsa a "<<endl;
     cout<<"\t \t \t \t    aca te camos los movimientos de cada letra: "<<endl;
     cout<<"\t \t \t \t\t    d = Derecha "<<endl;
@@ -534,7 +534,19 @@ void jugador ( char player [maxf][maxc],int numeros[maxf][maxc], int nfilas, int
         }
         if (laser == false)
         {
+            if (alienm == 1)
+            {
+                cout<<"######  ####### ####### #     # ### ### ###"<<endl;
+                cout<<"#     # #     # #     # ##   ## ### ### ### "<<endl;
+                cout<<"#     # #     # #     # # # # # ### ### ### "<<endl;
+                cout<<"######  #     # #     # #  #  #  #   #   #  "<<endl;
+                cout<<"#     # #     # #     # #     #             "<<endl;
+                cout<<"#     # #     # #     # #     # ### ### ### "<<endl;
+                cout<<"######  ####### ####### #     # ### ### ### "<<endl;
+
+            }
             cout<<"SONIDO: "<<alienfu<<endl;
+
         }
         if (numeros[pojf][pojc]==numeros[galletf][galletc] )
         {
@@ -924,7 +936,7 @@ void jugador ( char player [maxf][maxc],int numeros[maxf][maxc], int nfilas, int
 
         if (opcion == 'r')
         {
-                        system("cls");
+            system("cls");
 
             if (numeros [pojf][pojc]== numeros[galletf][galletc])
             {
@@ -2298,3 +2310,4 @@ int disparar (  int numeros [maxf][maxc], int nfilas, int ncol,int balf,int balc
 
     }
 }
+
