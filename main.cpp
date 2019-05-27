@@ -31,7 +31,7 @@ void vistamundo ( char player [maxf][maxc], int numeros [maxf][maxc], int nfilas
 int sensacion (  int numeros [maxf][maxc], int nfilas, int ncol,int pojf,int pojc);
 int disparar (  int numeros [maxf][maxc], int nfilas, int ncol,int balf,int balc,int contad,int contai,int alienf,int alienc);
 int gameover ( char player [maxf][maxc],int numeros[maxf][maxc], int nfilas, int ncol);
-
+void boom ( char player [maxf][maxc],int numeros[maxf][maxc], int nfilas, int ncol,int alienf,int alienc,int galletf,int galletc,int abisf,int abisc,int contu);
 int main ()
 {
     //se definen todas las variables de esta funcion
@@ -714,19 +714,13 @@ void jugador ( char player [maxf][maxc],int numeros[maxf][maxc], int nfilas, int
         if (laser == false)
         {
             // si el valor de alienm es igual a 1 es que mato al alien lo cual aparece este texto y un sonido.
-            /**  if (alienm == 1)
-              {
-                  system("cls");
-                  cout<<"\t \t \t \t\t######  ####### ####### #     # ### ### ###"<<endl;
-                  cout<<"\t \t \t \t\t#     # #     # #     # ##   ## ### ### ### "<<endl;
-                  cout<<"\t \t \t \t\t#     # #     # #     # # # # # ### ### ### "<<endl;
-                  cout<<"\t \t \t \t\t######  #     # #     # #  #  #  #   #   #  "<<endl;
-                  cout<<"\t \t \t \t\t#     # #     # #     # #     #             "<<endl;
-                  cout<<"\t \t \t \t\t#     # #     # #     # #     # ### ### ### "<<endl;
-                  cout<<"\t \t \t \t\t######  ####### ####### #     # ### ### ### "<<endl;
+            if (alienm == 1)
+            {
+                boom (player,numeros,nfilas,ncol,alienf,alienc,galletf,galletc,abisf,abisc,contu);
 
 
-              }**/
+
+            }
             cout<<"\t \t \t SONIDO: "<<alienfu<<endl;
 
         }
@@ -2569,7 +2563,7 @@ int disparar (  int numeros [maxf][maxc], int nfilas, int ncol,int balf,int balc
 
     if (contad == 4)
     {
-       do
+        do
         {
 
             posf = k - 1;
@@ -2582,7 +2576,8 @@ int disparar (  int numeros [maxf][maxc], int nfilas, int ncol,int balf,int balc
                 return alienm;
             }
             k++;
-        }while (pc > 0);
+        }
+        while (pc > 0);
     }
 
     if (contai == 1)
@@ -2606,7 +2601,7 @@ int disparar (  int numeros [maxf][maxc], int nfilas, int ncol,int balf,int balc
 
     if (contai == 2)
     {
-       do
+        do
         {
 
             pf = posf + k;
@@ -2643,7 +2638,7 @@ int disparar (  int numeros [maxf][maxc], int nfilas, int ncol,int balf,int balc
 
     if (contai == 4)
     {
-         do
+        do
         {
             posf = k - 1;
 
@@ -2655,7 +2650,8 @@ int disparar (  int numeros [maxf][maxc], int nfilas, int ncol,int balf,int balc
                 return alienm;
             }
             k++;
-        }while (pc > 0);
+        }
+        while (pc > 0);
 
     }
     else
@@ -2665,3 +2661,20 @@ int disparar (  int numeros [maxf][maxc], int nfilas, int ncol,int balf,int balc
 
     }
 }
+void boom ( char player [maxf][maxc],int numeros[maxf][maxc], int nfilas, int ncol,int alienf,int alienc,int galletf,int galletc,int abisf,int abisc,int contu)
+{
+    system("cls");
+    cout<<"\t \t \t \t\t######  ####### ####### #     # ### ### ###"<<endl;
+    cout<<"\t \t \t \t\t#     # #     # #     # ##   ## ### ### ### "<<endl;
+    cout<<"\t \t \t \t\t#     # #     # #     # # # # # ### ### ### "<<endl;
+    cout<<"\t \t \t \t\t######  #     # #     # #  #  #  #   #   #  "<<endl;
+    cout<<"\t \t \t \t\t#     # #     # #     # #     #             "<<endl;
+    cout<<"\t \t \t \t\t#     # #     # #     # #     # ### ### ### "<<endl;
+    cout<<"\t \t \t \t\t######  ####### ####### #     # ### ### ### "<<endl;
+    Sleep(1500);
+    system("cls");
+
+    jugador (player,numeros,nfilas,ncol,alienf,alienc,galletf,galletc,abisf,abisc,contu);
+}
+
+
